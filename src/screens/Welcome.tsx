@@ -1,17 +1,17 @@
-import Background from "../components/Background";
-import Logo from "../components/Logo";
-import Header from "../components/Header";
-import Paragraph from "../components/Paragraph";
-
 import { StyleSheet } from "react-native";
 import { Button } from "react-native-paper";
+
+import Background from "../components/Background";
+import Header from "../components/Header";
+import Logo from "../components/Logo";
+import Paragraph from "../components/Paragraph";
 
 export default function Welcome({ navigation }) {
   return (
     <Background>
       <Logo />
-      <Header>React Native - Expo - Login</Header>
-      <Paragraph>A simple React Native Expo Login template app.</Paragraph>
+      <Header>UniRent</Header>
+      <Paragraph>An online rental marketplace for Students</Paragraph>
       <Button
         style={styles.button}
         labelStyle={styles.text}
