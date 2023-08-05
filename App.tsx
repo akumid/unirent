@@ -8,7 +8,7 @@ export default function App() {
   return (
     <PaperProvider>
       <NavigationContainer>
-        <AuthStack />
+        <AuthStack /> {/* TODO: to be replace with AWS Cognito*/}
         <StatusBar style="auto" />
       </NavigationContainer>
     </PaperProvider>
