@@ -7,11 +7,14 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "lint": "eslint ./src"
+    "check:lint": "eslint ./src",
+    "check:ts": "tsc",
+    "fix:prettier": "prettier ./src --write"
   },
   "dependencies": {
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/stack": "^6.3.17",
+    "@types/react": "~18.2.14",
     "expo": "~49.0.5",
     "expo-status-bar": "~1.6.0",
     "react": "18.2.0",
@@ -28,6 +31,7 @@
     "eslint": "^8.46.0",
     "eslint-config-prettier": "^8.10.0",
     "eslint-config-universe": "^11.3.0",
+    "eslint-plugin-prettier": "^5.0.0",
     "prettier": "^3.0.1"
   },
   "private": true
