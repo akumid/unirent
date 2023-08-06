@@ -12,8 +12,8 @@ export default function Welcome({ props }) {
   const [search, setSearch] = useState('');
 
   return (
-    <View style={{flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-      <View>
+    <View style={{flex: 1, flexDirection: 'column', justifyContent: 'flex-start', top: '7%', marginHorizontal: 20}}>
+      <View style={{alignItems: 'center'}}>
         <Searchbar 
           placeholder="Search Location"
           onPressIn={() => {navigation.navigate("Search")}}
@@ -21,11 +21,11 @@ export default function Welcome({ props }) {
             setSearch(query); 
           }}
           value={search}
-          style={{top: 40, width: '90%', marginBottom: 50}}
+          style={{ width: '95%', marginBottom: 50, }}
         />
       </View>
 
-      {/* <View>
+      <View>
         <Card>
           <Card.Title title="Card Title" subtitle="Card Subtitle"  />
           <Card.Content>
@@ -38,7 +38,7 @@ export default function Welcome({ props }) {
             <Button>Ok</Button>
           </Card.Actions>
         </Card>
-      </View> */}
+      </View>
     </View>
   );
 }
