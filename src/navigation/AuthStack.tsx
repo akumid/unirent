@@ -1,5 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
+import HomeStack from "./HomeStack";
 import Login from "../screens/Login";
 import Welcome from "../screens/Welcome";
 
@@ -14,9 +15,9 @@ export default function AuthStack() {
       }}
     >
       <Stack.Screen name="Welcome" component={Welcome} />
-      <Stack.Screen name="Login" component={Login} />
+      {/* <Stack.Screen name="Login" component={Login} /> */}
       {/* <Stack.Screen name="RegisterScreen" component={Register} /> */}
-      {/* <Stack.Screen name="Dashboard" component={Dashboard} /> */}
+      <Stack.Screen name="HomeStack" component={HomeStack} />
       {/* <Stack.Screen
         name="ResetPasswordScreen"
         component={ResetPasswordScreen}

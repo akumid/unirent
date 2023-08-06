@@ -17,7 +17,7 @@ export default function Welcome({ navigation }) {
         labelStyle={styles.text}
         mode="contained"
         uppercase
-        onPress={() => navigation.navigate("Login")}
+        onPress={() => navigation.navigate("HomeStack")}
       >
         Login
       </Button>
