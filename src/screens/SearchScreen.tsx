@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import { Text, View, FlatList, ScrollView } from "react-native";
-import { Card, Divider, List, Searchbar } from "react-native-paper";
+import {View, FlatList, ScrollView } from "react-native";
+import { Appbar, Card, Divider, List, Searchbar, Text } from "react-native-paper";
 import { LocationSearch } from "../services/LocationSearch";
 import Feather from 'react-native-vector-icons/Feather'
+import { useNavigation } from "@react-navigation/native";
 
 
 const SearchScreen = (props: any) => {
 
+    const navigate = useNavigation();
+
+    const [query, setQuery] = useState('');
     const [search, setSearch] = useState('');
     const [searchResult, setSearchResult] = useState([]);
     const [recentSearch, setRecentSearch] = useState([]);
@@ -19,8 +23,11 @@ const SearchScreen = (props: any) => {
         return locations;
     }
 
-    const pickedLocation = () => {
-        console.warn("This should navigate to search result screen")
+    const pickedLocation = (location) => {
+        setQuery(location);
+        setSearch(location);
+        setSearchResult([]);
+        console.warn("This should navigate to search result screen");
     }
 
     const prefferLocation = () => {
@@ -40,14 +47,14 @@ const SearchScreen = (props: any) => {
                             title={result.structured_formatting.main_text}
                             description={result.description}
                             centered
-                            left={(props) => {
+                            left={() => {
                                 return (
                                     <View style={{justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderRadius: 10, width: 40, height: 40, backgroundColor: '#f2f2f2'}}>
                                         <Feather name='map-pin' size={20}/>
                                     </View>
                                 )
                             }}
-                            onPress={() => {pickedLocation()}}
+                            onPress={() => {pickedLocation(result.structured_formatting.main_text)}}
                         >
                         
                         </List.Item>
@@ -60,23 +67,39 @@ const SearchScreen = (props: any) => {
           return <></>;
         }
     }
+
+    const searchLocation = () => {
+        if (search !== '') {
+            return <Text variant="bodyMedium">Body Medium</Text>
+        }
+    }
     
 
     return (
         <>
-            <Card style={{flex:1, flexDirection: 'column', justifyContent: 'flex-start', width: '100%', height: '100%', top: '8%', borderRadius: 25}}>
-                <View style={{alignItems: 'center'}}>
+            <Card style={{flex:1, flexDirection: 'column', justifyContent: 'flex-start', width: '100%', height: '100%', borderRadius: 25, top: '8%'}}>
+                <View style={{alignItems: 'center', top: 30}}>
                     <Searchbar 
-                        style={{top: 30, width: '90%', marginBottom: 50, alignItems: 'center'}}
+                        style={{width: '90%', marginBottom: 50, alignItems: 'center'}}
                         placeholder="Search Location"
-                        onChangeText={(query) => { 
-                            setSearch(query); 
-                            getPrefferedLocations(query);
+                        onChangeText={(searchQuery) => { 
+                            setQuery(searchQuery); 
+                            setSearch('');
+                            getPrefferedLocations(searchQuery);
                         }}
-                        value={search}
+                        value={query}
+                        icon={()=> {
+                            if (search === '') {
+                                return <Feather name='arrow-left' size={20}/>
+                            } else {
+                                return <Feather name='search' size={20}/>
+                            }
+                        }}
+                        
+                        onIconPress={() => navigate.goBack()}
                     />
+                    {searchLocation()}
                 </View>
-
                     {prefferLocation()}
                     {/* <Text>Component</Text>
                     <Text>Component</Text>
