@@ -8,14 +8,17 @@ install Node.js LTS
 npm install -g @aws-amplify/cli
 ```
 
-## How to execute
+## Features implemented
 
-```bash
-npm install
-npm start
-```
+### Authentication
 
-### Tools/libraries documentation
+- Sign up, Sign in, Sign out
+
+### Account management
+
+- View account info
+
+## Tools/libraries documentation
 
 - [amplify](https://docs.amplify.aws/start/getting-started/installation/q/integration/react-native/)
 
