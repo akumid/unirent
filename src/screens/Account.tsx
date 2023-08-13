@@ -1,20 +1,29 @@
 import { useAuthenticator } from "@aws-amplify/ui-react-native";
 import { View } from "react-native";
-import { List } from "react-native-paper";
+import { Divider, List, Text } from "react-native-paper";
 
 export default function Account({ navigation }) {
-  const { user, signOut } = useAuthenticator((context) => [context.user]);
+  const { signOut } = useAuthenticator((context) => [context.user]);
 
   return (
-    <View
-      style={{
-        alignItems: "flex-start",
-      }}
-    >
+    <View>
       <List.Section>
-        <List.Subheader>Actions</List.Subheader>
+        <List.Subheader>
+          <Text variant="titleLarge">Settings</Text>
+        </List.Subheader>
         <List.Item
-          title="Sign out"
+          title={<Text> Account information </Text>}
+          left={() => <List.Icon icon="account-outline" />}
+          onPress={() => navigation.navigate("AccountInfo")}
+        />
+      </List.Section>
+      <Divider />
+      <List.Section>
+        <List.Subheader>
+          <Text variant="titleLarge">Actions</Text>
+        </List.Subheader>
+        <List.Item
+          title={<Text> Sign out </Text>}
           left={() => <List.Icon icon="logout" />}
           onPress={signOut}
         />

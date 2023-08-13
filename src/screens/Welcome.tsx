@@ -1,7 +1,5 @@
-import { StyleSheet } from "react-native";
-import { Button } from "react-native-paper";
-
 import Background from "../components/Background";
+import Button from "../components/Button";
 import Header from "../components/Header";
 import Logo from "../components/Logo";
 import Paragraph from "../components/Paragraph";
@@ -13,36 +11,21 @@ export default function Welcome({ navigation }) {
       <Header>UniRent</Header>
       <Paragraph>An online rental marketplace for Students</Paragraph>
       <Button
-        style={styles.button}
-        labelStyle={styles.text}
         mode="contained"
         uppercase
         onPress={() => navigation.navigate("HomeStack")}
+        style={undefined}
       >
         Login
       </Button>
       <Button
-        style={styles.button}
-        labelStyle={styles.text}
         mode="outlined"
         uppercase
         onPress={() => navigation.navigate("Register")}
+        style={undefined}
       >
         Create an account
       </Button>
     </Background>
   );
 }
-
-const styles = StyleSheet.create({
-  button: {
-    width: "100%",
-    marginVertical: 10,
-    paddingVertical: 2,
-  },
-  text: {
-    fontWeight: "bold",
-    fontSize: 15,
-    lineHeight: 26,
-  },
-});

@@ -2,6 +2,7 @@ import { createMaterialBottomTabNavigator } from "react-native-paper/react-navig
 
 import Account from "../screens/Account";
 import Home from "../screens/Home";
+import AccountStack from "./AccountStack";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -35,7 +36,7 @@ export default function HomeTab() {
       />
       <Tab.Screen
         name="Account"
-        component={Account}
+        component={AccountStack}
         options={{
           tabBarIcon: "account-outline",
         }}
