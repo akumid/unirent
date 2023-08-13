@@ -10,6 +10,11 @@
       "StackName": "amplify-unirent-dev-150111",
       "StackId": "arn:aws:cloudformation:ap-southeast-1:373571243304:stack/amplify-unirent-dev-150111/065234d0-38de-11ee-b454-061b687797ac",
       "AmplifyAppId": "dpow568uvx4bj"
+    },
+    "categories": {
+      "auth": {
+        "unirentbd2d2b01": {}
+      }
     }
   }
 }
