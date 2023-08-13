@@ -20,14 +20,21 @@ export default function Account({ navigation }) {
       <Divider />
       <List.Section>
         <List.Subheader>
-          <Text variant="titleLarge">Actions</Text>
+          <Text variant="titleLarge">Hosting</Text>
         </List.Subheader>
         <List.Item
-          title={<Text> Sign out </Text>}
-          left={() => <List.Icon icon="logout" />}
-          onPress={signOut}
+          title={<Text> Become a host </Text>}
+          left={() => <List.Icon icon="home-plus-outline" />}
+          onPress={() => navigation.navigate("Hosting")}
         />
       </List.Section>
+      <Divider />
+      <List.Item
+        title={<Text> Sign out </Text>}
+        left={() => <List.Icon icon="logout" />}
+        onPress={signOut}
+      />
+      <Divider />
     </View>
   );
 }

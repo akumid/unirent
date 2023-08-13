@@ -1,6 +1,5 @@
 import { useAuthenticator } from "@aws-amplify/ui-react-native";
 import { Auth } from "aws-amplify";
-import { View } from "react-native";
 import { Divider, List } from "react-native-paper";
 
 async function changePassword(oldPassword: string, newPassword: string) {
