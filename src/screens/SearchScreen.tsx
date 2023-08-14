@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import {View, FlatList, ScrollView } from "react-native";
-import { Appbar, Card, Divider, List, Searchbar, Text } from "react-native-paper";
+import {View, ScrollView } from "react-native";
+import { Appbar, Card, Divider, List, Searchbar, Text, Checkbox, TextInput, Button } from "react-native-paper";
 import { LocationSearch } from "../services/LocationSearch";
 import Feather from 'react-native-vector-icons/Feather'
 import { useNavigation } from "@react-navigation/native";
-
+import { DatePickerInput } from 'react-native-paper-dates';
 
 const SearchScreen = (props: any) => {
 
@@ -14,6 +14,13 @@ const SearchScreen = (props: any) => {
     const [search, setSearch] = useState('');
     const [searchResult, setSearchResult] = useState([]);
     const [recentSearch, setRecentSearch] = useState([]);
+    const [checkedCondo,  setCheckedCondo] = useState(true);
+    const [checkedLanded,  setCheckedLanded] = useState(true);
+    const [checkedHDB,  setCheckedHDB] = useState(true);
+    const [minPrice, setMinPrice] = useState('');
+    const [maxPrice, setMaxPrice] = useState('');
+    const [moveInDate, setMoveInDate] = useState(undefined)
+
 
     const getPrefferedLocations = async (search: String ) => {
         const locations = await LocationSearch(search);
@@ -27,7 +34,6 @@ const SearchScreen = (props: any) => {
         setQuery(location);
         setSearch(location);
         setSearchResult([]);
-        console.warn("This should navigate to search result screen");
     }
 
     const prefferLocation = () => {
@@ -70,17 +76,71 @@ const SearchScreen = (props: any) => {
 
     const searchLocation = () => {
         if (search !== '') {
-            return <Text variant="bodyMedium">Body Medium</Text>
+            return (
+                <>
+                <View style={{alignItems: 'center', marginVertical: '5%'}}>
+                    <Card style={{width: '90%', height: 475}}>
+                        <ScrollView contentContainerStyle={{width: '100%', justifyContent: 'center'}} automaticallyAdjustKeyboardInsets={true}>
+                            <View>
+                                <Card.Title title="Property Type" titleVariant='titleMedium'/>
+                                <Card.Content style={{justifyContent: 'flex-start'}}> 
+                                    <Checkbox.Item label="Condo" status={checkedCondo ? 'checked' : 'unchecked'} labelVariant="labelMedium" onPress={() => setCheckedCondo(!checkedCondo)}/>
+                                    <Checkbox.Item label="Landed" status={checkedLanded ? 'checked' : 'unchecked'} labelVariant="labelMedium" onPress={() => setCheckedLanded(!checkedLanded)}/>
+                                    <Checkbox.Item label="HDB" status={checkedHDB ? 'checked' : 'unchecked'} labelVariant="labelMedium" onPress={() => setCheckedHDB(!checkedHDB)}/>
+                                </Card.Content>
+                                <Divider />
+                            </View>
+                            <View>
+                                <Card.Title title="Price" titleVariant='titleMedium' />
+                                <View style={{flexDirection: 'row', justifyContent: 'space-between', marginHorizontal: '5%', marginBottom: '5%'}}>
+                                    <TextInput
+                                        label="Min"
+                                        value={minPrice}
+                                        onChangeText={text => setMinPrice(text)}
+                                        style={{width: 150}}
+                                    />
+                                    <TextInput
+                                        label="Max"
+                                        value={maxPrice}
+                                        onChangeText={text => setMaxPrice(text)}
+                                        style={{width: 150}}
+                                    />
+                                </View>
+                                <Divider />
+                            </View>
+                            <View>
+                                <Card.Title title="Move In Date" titleVariant='titleMedium' />
+                                <View style={{justifyContent: 'center', flex: 1, marginHorizontal: '5%'}}>
+                                    <DatePickerInput
+                                        locale="en-GB"
+                                        label="Move In Date"
+                                        value={moveInDate}
+                                        onChange={(d) => setMoveInDate(d)}
+                                        inputMode="start"
+                                    />
+                                </View>
+                            </View>
+                        </ScrollView>
+                    </Card>
+                </View>
+                <View style={{flexDirection: 'row-reverse', marginHorizontal: '5%'}}> 
+                    <Button mode="contained" onPress={() => console.warn('navigate to search result screen')}>
+                        Search
+                    </Button>
+                </View>
+
+                </>
+            )
         }
     }
     
 
     return (
         <>
-            <Card style={{flex:1, flexDirection: 'column', justifyContent: 'flex-start', width: '100%', height: '100%', borderRadius: 25, top: '8%'}}>
+            <Card style={{ flexDirection: 'column', justifyContent: 'flex-start', width: '100%', height: '100%', borderRadius: 25, top: '8%'}}>
                 <View style={{alignItems: 'center', top: 30}}>
                     <Searchbar 
-                        style={{width: '90%', marginBottom: 50, alignItems: 'center'}}
+                        style={{width: '90%', marginBottom: 35, alignItems: 'center'}}
                         placeholder="Search Location"
                         onChangeText={(searchQuery) => { 
                             setQuery(searchQuery); 
@@ -98,8 +158,9 @@ const SearchScreen = (props: any) => {
                         
                         onIconPress={() => navigate.goBack()}
                     />
-                    {searchLocation()}
+                    
                 </View>
+                    {searchLocation()}
                     {prefferLocation()}
                     {/* <Text>Component</Text>
                     <Text>Component</Text>
