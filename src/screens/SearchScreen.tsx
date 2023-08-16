@@ -8,7 +8,7 @@ import { DatePickerInput } from 'react-native-paper-dates';
 
 const SearchScreen = (props: any) => {
 
-    const navigate = useNavigation();
+    const navigation = useNavigation();
 
     const [query, setQuery] = useState('');
     const [search, setSearch] = useState('');
@@ -124,7 +124,7 @@ const SearchScreen = (props: any) => {
                     </Card>
                 </View>
                 <View style={{flexDirection: 'row-reverse', marginHorizontal: '5%'}}> 
-                    <Button mode="contained" onPress={() => console.warn('navigate to search result screen')}>
+                    <Button mode="contained" onPress={() => navigation.navigate("Search Result")}>
                         Search
                     </Button>
                 </View>
@@ -156,7 +156,7 @@ const SearchScreen = (props: any) => {
                             }
                         }}
                         
-                        onIconPress={() => navigate.goBack()}
+                        onIconPress={() => navigation.goBack()}
                     />
                     
                 </View>
