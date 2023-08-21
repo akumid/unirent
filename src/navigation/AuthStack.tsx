@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Welcome from "../screens/Welcome";
 import SearchScreen from "../screens/SearchScreen";
 import SearchResultScreen from "../screens/SearchResultScreen";
+import AccommodationDetailScreen from "../screens/AccommodationDetailScreen";
 
 const Stack = createStackNavigator();
 
@@ -17,6 +18,7 @@ export default function AuthStack() {
       <Stack.Screen name="Welcome" component={Welcome} />
       <Stack.Screen name="Search" component={SearchScreen} />
       <Stack.Screen name="Search Result" component={SearchResultScreen} />
+      <Stack.Screen name="Accommodation Detail" component={AccommodationDetailScreen} />
       {/* <Stack.Screen name="LoginScreen" component={LoginScreen} />
     <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
     <Stack.Screen name="Dashboard" component={Dashboard} />

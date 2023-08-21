@@ -3,8 +3,11 @@ import { View, StyleSheet, Dimensions, ScrollView, Image, TouchableWithoutFeedba
 import { Searchbar, Card, Button, Text, Divider, Avatar } from "react-native-paper";
 import { SliderBox } from "react-native-image-slider-box";
 import Feather from 'react-native-vector-icons/Feather';
+import { useNavigation } from "@react-navigation/native";
 
 const AccommodationCard = (props: any) => {
+
+    const navigation = useNavigation();
 
     const images = [
         'https://media.karousell.com/media/photos/products/2019/07/02/master_room_for_rent_at_clementi_1562052953_90c3c04e0_progressive',
@@ -21,7 +24,7 @@ const AccommodationCard = (props: any) => {
             borderWidth: 0.3, 
             marginVertical: 15
         }} 
-        onPress={() => console.warn("navigate to room detail screen")}
+        onPress={() => navigation.navigate("Accommodation Detail")}
         >
         <SliderBox style={{height: 250}}  images={images} />
 
@@ -33,7 +36,7 @@ const AccommodationCard = (props: any) => {
         </View>
         <Divider />
         <Card.Content style={{ marginVertical: 10}}>
-            <Text>$1000 / month • Available from 25 Aug  </Text>
+            <Text>$1000 / month • Available from 25 Aug </Text>
         </Card.Content>
         <Divider />
         <Card.Content style={{marginVertical: 10}}>
