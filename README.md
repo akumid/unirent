@@ -12,11 +12,15 @@ npm install -g @aws-amplify/cli
 
 ### Authentication
 
-- Sign up, Sign in, Sign out
+- Sign up, Sign in, Sign out, Forgot password
 
 ### Account management
 
 - View account info
+
+### Hosting (WIP)
+
+-
 
 ## Tools/libraries documentation
 
@@ -27,3 +31,7 @@ npm install -g @aws-amplify/cli
 - [react native paper](https://callstack.github.io/react-native-paper/)
 
 - [react navigation](https://reactnavigation.org/docs/getting-started)
+
+- [react hook form](https://www.react-hook-form.com/get-started#ReactNative)
+
+- [zustand](https://docs.pmnd.rs/zustand/getting-started/introduction)
