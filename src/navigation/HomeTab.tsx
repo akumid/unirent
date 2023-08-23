@@ -1,8 +1,8 @@
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 
+import AccountStack from "./AccountStack";
 import Account from "../screens/Account";
 import Home from "../screens/Home";
-import AccountStack from "./AccountStack";
 
 const Tab = createMaterialBottomTabNavigator();
 
