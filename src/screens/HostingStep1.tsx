@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { StyleSheet, View, ScrollView } from "react-native";
-import { Button as PaperButton, Text, TextInput } from "react-native-paper";
+import {
+  Button as PaperButton,
+  SegmentedButtons,
+  Text,
+  TextInput,
+} from "react-native-paper";
 
 import Counter from "../components/Counter";
 
@@ -18,6 +23,8 @@ export default function HostingStep1({ navigation, route }) {
   console.log(navigation);
   console.log(route);
 
+  const [place, setPlace] = useState("");
+
   const [address, setAddress] = useState<IAddress>();
   console.log(address);
 
@@ -31,7 +38,25 @@ export default function HostingStep1({ navigation, route }) {
         <Text variant="headlineMedium">
           Which of these best describes your place?
         </Text>
-        <PaperButton
+
+        <SegmentedButtons
+          value={place}
+          onValueChange={setPlace}
+          buttons={[
+            {
+              value: "house",
+              label: "House",
+              icon: "home-outline",
+            },
+            {
+              value: "flat",
+              label: "Flat/apartment",
+              icon: "home-city-outline",
+            },
+          ]}
+        />
+
+        {/* <PaperButton
           icon="home-outline"
           mode="contained"
           onPress={() => console.log("Pressed")}
@@ -44,7 +69,7 @@ export default function HostingStep1({ navigation, route }) {
           onPress={() => console.log("Pressed")}
         >
           Flat/apartment
-        </PaperButton>
+        </PaperButton> */}
 
         <Text variant="headlineMedium">Where is your place?</Text>
         <TextInput
@@ -92,7 +117,7 @@ export default function HostingStep1({ navigation, route }) {
       <View style={styles.next}>
         <PaperButton
           mode="contained"
-          onPress={() => console.log("navigate to upload pictures")}
+          onPress={() => navigation.navigate("HostingStep2")}
           style={undefined}
         >
           Next
