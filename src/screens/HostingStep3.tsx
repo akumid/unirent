@@ -2,7 +2,10 @@ import { useState } from "react";
 import { StyleSheet, View, ScrollView } from "react-native";
 import { Button as PaperButton, Text, TextInput } from "react-native-paper";
 
+import { useHostStore } from "../store/host";
+
 export default function HostingStep3({ navigation }) {
+  const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(undefined);
 
@@ -11,11 +14,31 @@ export default function HostingStep3({ navigation }) {
     setPrice(number);
   };
 
+  // initialize zustand store methods
+  const updateTitle = useHostStore((state) => state.updateTitle);
+  const updateDescription = useHostStore((state) => state.updateDescription);
+  const updatePrice = useHostStore((state) => state.updatePrice);
+
+  console.log(useHostStore());
+
+  const onNavigate = () => {
+    // update zustand store
+    updateTitle(title);
+    updateDescription(description);
+    updatePrice(price);
+    // navigation.navigate("HostingStep3");
+  };
+
   return (
     <View style={styles.view}>
       <ScrollView>
         <Text variant="headlineMedium">Add a title for your place</Text>
-        <TextInput label="Title" placeholder="Enter Title" />
+        <TextInput
+          label="Title"
+          placeholder="Enter Title"
+          onChangeText={(text) => setTitle(text)}
+          value={title}
+        />
 
         <Text variant="headlineMedium">Add a description</Text>
         <TextInput
@@ -25,6 +48,7 @@ export default function HostingStep3({ navigation }) {
           numberOfLines={5}
           maxLength={100}
           onChangeText={(text) => setDescription(text)}
+          value={description}
         />
 
         <Text variant="headlineMedium">Set price</Text>
@@ -41,7 +65,7 @@ export default function HostingStep3({ navigation }) {
       <View style={styles.next}>
         <PaperButton
           mode="contained"
-          onPress={() => navigation.navigate("HostingStep3")}
+          onPress={() => onNavigate()}
           style={undefined}
         >
           Publish

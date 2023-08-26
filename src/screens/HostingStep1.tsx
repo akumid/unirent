@@ -8,6 +8,7 @@ import {
 } from "react-native-paper";
 
 import Counter from "../components/Counter";
+import { useHostStore } from "../store/host";
 
 interface IAddress {
   country: string;
@@ -24,13 +25,28 @@ export default function HostingStep1({ navigation, route }) {
   console.log(route);
 
   const [place, setPlace] = useState("");
-
   const [address, setAddress] = useState<IAddress>();
   console.log(address);
-
   const [guest, setGuest] = useState(0);
   const [bed, setBed] = useState(0);
   const [bath, setBath] = useState(0);
+
+  // initialize zustand store methods
+  const updatePropertyType = useHostStore((state) => state.updatePropertyType);
+  const updateMaxGuest = useHostStore((state) => state.updateMaxGuest);
+  const updateMaxBed = useHostStore((state) => state.updateMaxBed);
+  const updateMaxBath = useHostStore((state) => state.updateMaxBath);
+  const updateAddress = useHostStore((state) => state.updateAddress);
+
+  const onNavigate = () => {
+    // update zustand store
+    updatePropertyType(place);
+    updateMaxGuest(guest);
+    updateMaxBed(bed);
+    updateMaxBath(bath);
+    updateAddress(address);
+    navigation.navigate("HostingStep2");
+  };
 
   return (
     <View style={styles.view}>
@@ -117,7 +133,7 @@ export default function HostingStep1({ navigation, route }) {
       <View style={styles.next}>
         <PaperButton
           mode="contained"
-          onPress={() => navigation.navigate("HostingStep2")}
+          onPress={() => onNavigate()}
           style={undefined}
         >
           Next

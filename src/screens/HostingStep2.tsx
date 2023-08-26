@@ -3,6 +3,7 @@ import { StyleSheet, View, ScrollView } from "react-native";
 import { Button as PaperButton, Text } from "react-native-paper";
 
 import ImageInputList from "../components/ImageInputList";
+import { useHostStore } from "../store/host";
 
 export default function HostingStep2({ navigation }) {
   const [imageUris, setImageUris] = useState([]);
@@ -13,6 +14,15 @@ export default function HostingStep2({ navigation }) {
 
   const handleRemove = (uri) => {
     setImageUris(imageUris.filter((imageUri) => imageUri !== uri));
+  };
+
+  // initialize zustand store methods
+  const updateImages = useHostStore((state) => state.updateImages);
+
+  const onNavigate = () => {
+    // update zustand store
+    updateImages(imageUris);
+    navigation.navigate("HostingStep3");
   };
 
   return (
@@ -32,7 +42,7 @@ export default function HostingStep2({ navigation }) {
       <View style={styles.next}>
         <PaperButton
           mode="contained"
-          onPress={() => navigation.navigate("HostingStep3")}
+          onPress={() => onNavigate()}
           style={undefined}
         >
           Next
