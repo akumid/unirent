@@ -4,13 +4,14 @@ import Welcome from "../screens/Welcome";
 import SearchScreen from "../screens/SearchScreen";
 import SearchResultScreen from "../screens/SearchResultScreen";
 import AccommodationDetailScreen from "../screens/AccommodationDetailScreen";
+import PostAccommodationScreen from "../screens/PostAccommodationScreen";
 
 const Stack = createStackNavigator();
 
 export default function AuthStack() {
   return (
     <Stack.Navigator
-      initialRouteName="Welcome"
+      initialRouteName="Post Accommodation"
       screenOptions={{
         headerShown: false,
       }}
@@ -19,6 +20,7 @@ export default function AuthStack() {
       <Stack.Screen name="Search" component={SearchScreen} />
       <Stack.Screen name="Search Result" component={SearchResultScreen} />
       <Stack.Screen name="Accommodation Detail" component={AccommodationDetailScreen} />
+      <Stack.Screen name="Post Accommodation" component={PostAccommodationScreen} />
       {/* <Stack.Screen name="LoginScreen" component={LoginScreen} />
     <Stack.Screen name="RegisterScreen" component={RegisterScreen} />
     <Stack.Screen name="Dashboard" component={Dashboard} />
