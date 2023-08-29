@@ -13,6 +13,8 @@ import { useHostStore } from "../store/host";
 interface IAddress {
   country: string;
   postalCode: string;
+  unitNo: string;
+  aptName: string;
 }
 
 export default function HostingStep1({ navigation, route }) {
@@ -21,12 +23,11 @@ export default function HostingStep1({ navigation, route }) {
       tabBarVisible: !(route.state.index > 0),
     });
   }
-  console.log(navigation);
-  console.log(route);
+  // console.log(navigation);
+  // console.log(route);
 
   const [place, setPlace] = useState("");
   const [address, setAddress] = useState<IAddress>();
-  console.log(address);
   const [guest, setGuest] = useState(0);
   const [bed, setBed] = useState(0);
   const [bath, setBath] = useState(0);
@@ -72,21 +73,6 @@ export default function HostingStep1({ navigation, route }) {
           ]}
         />
 
-        {/* <PaperButton
-          icon="home-outline"
-          mode="contained"
-          onPress={() => console.log("Pressed")}
-        >
-          House
-        </PaperButton>
-        <PaperButton
-          icon="home-city-outline"
-          mode="contained"
-          onPress={() => console.log("Pressed")}
-        >
-          Flat/apartment
-        </PaperButton> */}
-
         <Text variant="headlineMedium">Where is your place?</Text>
         <TextInput
           label="Country"
@@ -99,6 +85,18 @@ export default function HostingStep1({ navigation, route }) {
           placeholder="Enter your postal code"
           value={address?.postalCode}
           onChangeText={(text) => setAddress({ ...address, postalCode: text })}
+        />
+        <TextInput
+          label="Unit Number"
+          placeholder="Enter your unit number, not required for landed properties"
+          value={address?.unitNo}
+          onChangeText={(text) => setAddress({ ...address, unitNo: text })}
+        />
+        <TextInput
+          label="Apt, Suite, etc (optional)"
+          placeholder="Enter your apartment, suite name, etc, usually for condo properties"
+          value={address?.aptName}
+          onChangeText={(text) => setAddress({ ...address, aptName: text })}
         />
 
         <Text variant="headlineMedium">How many people can stay here?</Text>

@@ -19,14 +19,12 @@ export default function HostingStep3({ navigation }) {
   const updateDescription = useHostStore((state) => state.updateDescription);
   const updatePrice = useHostStore((state) => state.updatePrice);
 
-  console.log(useHostStore());
-
   const onNavigate = () => {
     // update zustand store
     updateTitle(title);
     updateDescription(description);
     updatePrice(price);
-    // navigation.navigate("HostingStep3");
+    navigation.navigate("HostingStep4");
   };
 
   return (
@@ -68,7 +66,7 @@ export default function HostingStep3({ navigation }) {
           onPress={() => onNavigate()}
           style={undefined}
         >
-          Publish
+          Next
         </PaperButton>
       </View>
     </View>
