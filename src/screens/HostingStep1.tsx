@@ -1,12 +1,20 @@
 import { useState } from "react";
 import { StyleSheet, View, ScrollView } from "react-native";
-import { Button as PaperButton, Text, TextInput } from "react-native-paper";
+import {
+  Button as PaperButton,
+  SegmentedButtons,
+  Text,
+  TextInput,
+} from "react-native-paper";
 
 import Counter from "../components/Counter";
+import { useHostStore } from "../store/host";
 
 interface IAddress {
   country: string;
   postalCode: string;
+  unitNo: string;
+  aptName: string;
 }
 
 export default function HostingStep1({ navigation, route }) {
@@ -15,15 +23,31 @@ export default function HostingStep1({ navigation, route }) {
       tabBarVisible: !(route.state.index > 0),
     });
   }
-  console.log(navigation);
-  console.log(route);
+  // console.log(navigation);
+  // console.log(route);
 
+  const [place, setPlace] = useState("");
   const [address, setAddress] = useState<IAddress>();
-  console.log(address);
-
   const [guest, setGuest] = useState(0);
   const [bed, setBed] = useState(0);
   const [bath, setBath] = useState(0);
+
+  // initialize zustand store methods
+  const updatePropertyType = useHostStore((state) => state.updatePropertyType);
+  const updateMaxGuest = useHostStore((state) => state.updateMaxGuest);
+  const updateMaxBed = useHostStore((state) => state.updateMaxBed);
+  const updateMaxBath = useHostStore((state) => state.updateMaxBath);
+  const updateAddress = useHostStore((state) => state.updateAddress);
+
+  const onNavigate = () => {
+    // update zustand store
+    updatePropertyType(place);
+    updateMaxGuest(guest);
+    updateMaxBed(bed);
+    updateMaxBath(bath);
+    updateAddress(address);
+    navigation.navigate("HostingStep2");
+  };
 
   return (
     <View style={styles.view}>
@@ -31,20 +55,23 @@ export default function HostingStep1({ navigation, route }) {
         <Text variant="headlineMedium">
           Which of these best describes your place?
         </Text>
-        <PaperButton
-          icon="home-outline"
-          mode="contained"
-          onPress={() => console.log("Pressed")}
-        >
-          House
-        </PaperButton>
-        <PaperButton
-          icon="home-city-outline"
-          mode="contained"
-          onPress={() => console.log("Pressed")}
-        >
-          Flat/apartment
-        </PaperButton>
+
+        <SegmentedButtons
+          value={place}
+          onValueChange={setPlace}
+          buttons={[
+            {
+              value: "house",
+              label: "House",
+              icon: "home-outline",
+            },
+            {
+              value: "flat",
+              label: "Flat/apartment",
+              icon: "home-city-outline",
+            },
+          ]}
+        />
 
         <Text variant="headlineMedium">Where is your place?</Text>
         <TextInput
@@ -58,6 +85,18 @@ export default function HostingStep1({ navigation, route }) {
           placeholder="Enter your postal code"
           value={address?.postalCode}
           onChangeText={(text) => setAddress({ ...address, postalCode: text })}
+        />
+        <TextInput
+          label="Unit Number"
+          placeholder="Enter your unit number, not required for landed properties"
+          value={address?.unitNo}
+          onChangeText={(text) => setAddress({ ...address, unitNo: text })}
+        />
+        <TextInput
+          label="Apt, Suite, etc (optional)"
+          placeholder="Enter your apartment, suite name, etc, usually for condo properties"
+          value={address?.aptName}
+          onChangeText={(text) => setAddress({ ...address, aptName: text })}
         />
 
         <Text variant="headlineMedium">How many people can stay here?</Text>
@@ -92,7 +131,7 @@ export default function HostingStep1({ navigation, route }) {
       <View style={styles.next}>
         <PaperButton
           mode="contained"
-          onPress={() => console.log("navigate to upload pictures")}
+          onPress={() => onNavigate()}
           style={undefined}
         >
           Next
