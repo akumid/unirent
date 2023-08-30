@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { StyleSheet, View, ScrollView, Image, Dimensions } from "react-native";
-import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
+import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps"; // TODO: to get web support for react-native-maps
 import {
   ActivityIndicator,
   Divider,
@@ -10,6 +10,7 @@ import {
 } from "react-native-paper";
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
 
+import alert from "../components/Alert";
 import { getGeocode } from "../services/GoogleMaps";
 import { useHostStore } from "../store/host";
 import { isWeb } from "../utils";
@@ -49,9 +50,12 @@ export default function HostingStep4({ navigation }) {
     invokeGoogleMaps(hostStore.address);
   }, []);
 
-  const onNavigate = () => {
+  const onPublish = () => {
     // TODO: trigger API to backend
-    // navigation.navigate("HostingStep3");
+
+    alert("New Listing", "Post successful", [
+      { text: "OK", onPress: () => navigation.navigate("Hosting") },
+    ]);
   };
 
   if (isLoading) return <ActivityIndicator animating />;
@@ -70,7 +74,6 @@ export default function HostingStep4({ navigation }) {
                 style={{ width: "100%" }}
                 data={hostStore.images}
                 pagingEnabled
-                // renderItem={({ index }) => <SBItem key={index} index={index} />}
                 renderItem={({ item }) => <CarouselImages images={item} />}
               />
               <View style={styles.webButtons}>
@@ -119,7 +122,7 @@ export default function HostingStep4({ navigation }) {
 
           <View style={{ marginTop: 10 }}>
             <Text variant="headlineMedium">Location</Text>
-            <MapView
+            {/* <MapView
               provider={PROVIDER_GOOGLE}
               style={styles.map}
               scrollEnabled={false}
@@ -136,7 +139,7 @@ export default function HostingStep4({ navigation }) {
                   longitude: geocode.lng,
                 }}
               />
-            </MapView>
+            </MapView> */}
           </View>
 
           <Divider />
@@ -149,10 +152,10 @@ export default function HostingStep4({ navigation }) {
         <View style={styles.next}>
           <PaperButton
             mode="contained"
-            onPress={() => onNavigate()}
+            onPress={() => onPublish()}
             style={undefined}
           >
-            Next
+            Publish
           </PaperButton>
         </View>
       </View>
