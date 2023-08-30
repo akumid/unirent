@@ -1,3 +1,4 @@
+import Feather from "@expo/vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 import { useRef } from "react";
 import { Dimensions, ScrollView, View, Image, StyleSheet } from "react-native";
@@ -12,7 +13,6 @@ import {
   IconButton,
 } from "react-native-paper";
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
-import Feather from "react-native-vector-icons/Feather";
 
 import { isWeb } from "../utils";
 

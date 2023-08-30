@@ -1,7 +1,7 @@
+import Feather from "@expo/vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 import { View } from "react-native";
 import { Card, Button, Text, Divider, Avatar } from "react-native-paper";
-import Feather from "react-native-vector-icons/Feather";
 
 const AccommodationCard = (props: any) => {
   const navigation = useNavigation();
