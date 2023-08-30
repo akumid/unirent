@@ -1,25 +1,32 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Dimensions, ScrollView, Image, TouchableWithoutFeedback } from "react-native";
-import { Searchbar, Card, Button, Text, Divider, Avatar } from "react-native-paper";
+import { useState } from "react";
+import { View, ScrollView } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
 import AccommodationCard from "../components/AccommodationCard";
 
-
 const SearchResultScreen = (props: any) => {
+  const [search, setSearch] = useState("");
 
-    const [search, setSearch] = useState('');
+  const insets = useSafeAreaInsets();
 
-    return (
-    <View style={{
-        flex: 1, 
-        flexDirection: 'column', 
-        justifyContent: 'flex-start', 
-        top: '7%', 
-        marginHorizontal: 20, 
-        shadowRadius: 3, 
-        shadowOpacity:  0.4, 
-        shadowOffset: {width: 1, height: 1}
-    }}>
-        <View style={{alignItems: 'center'}}>
+  return (
+    <View
+      style={{
+        flex: 1,
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        marginHorizontal: 20,
+        shadowRadius: 3,
+        shadowOpacity: 0.4,
+        shadowOffset: { width: 1, height: 1 },
+        // Paddings to handle safe area
+        paddingTop: insets.top,
+        paddingBottom: insets.bottom,
+        paddingLeft: insets.left,
+        paddingRight: insets.right,
+      }}
+    >
+      {/* <View style={{alignItems: 'center'}}>
           <Searchbar 
             placeholder="Search Location"
             onPressIn={() => {console.warn("search again")}}
@@ -30,19 +37,16 @@ const SearchResultScreen = (props: any) => {
             style={{ width: '95%', marginBottom: 30, }}
           />
           <Divider />
-        </View>
+        </View> */}
 
-  
-        <ScrollView>
-          <AccommodationCard />
-          <AccommodationCard />
-          <AccommodationCard />
-          <AccommodationCard />
-        </ScrollView>
+      <ScrollView>
+        <AccommodationCard />
+        <AccommodationCard />
+        <AccommodationCard />
+        <AccommodationCard />
+      </ScrollView>
     </View>
-    )
-}
-
-
+  );
+};
 
 export default SearchResultScreen;
