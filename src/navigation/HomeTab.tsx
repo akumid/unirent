@@ -3,6 +3,7 @@ import { createMaterialBottomTabNavigator } from "react-native-paper/react-navig
 import AccountStack from "./AccountStack";
 import Account from "../screens/Account";
 import Home from "../screens/Home";
+import ExploreStack from "./ExploreStack";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -15,7 +16,7 @@ export default function HomeTab() {
     >
       <Tab.Screen
         name="Explore"
-        component={Home}
+        component={ExploreStack}
         options={{
           tabBarIcon: "magnify",
         }}
