@@ -9,13 +9,14 @@ import {
 
 import Counter from "../components/Counter";
 import { useHostStore } from "../store/host";
+import Address from '../model/IAddress';
 
-interface IAddress {
-  country: string;
-  postalCode: string;
-  unitNo: string;
-  aptName: string;
-}
+// interface IAddress {
+//   country: string;
+//   postalCode: string;
+//   unitNo: string;
+//   aptName: string;
+// }
 
 export default function HostingStep1({ navigation, route }) {
   if (route.state) {
@@ -27,7 +28,7 @@ export default function HostingStep1({ navigation, route }) {
   // console.log(route);
 
   const [place, setPlace] = useState("");
-  const [address, setAddress] = useState<IAddress>();
+  const [address, setAddress] = useState<Address>();
   const [guest, setGuest] = useState(0);
   const [bed, setBed] = useState(0);
   const [bath, setBath] = useState(0);
