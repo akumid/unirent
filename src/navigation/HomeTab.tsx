@@ -22,10 +22,10 @@ export default function HomeTab() {
         }}
       />
       <Tab.Screen
-        name="Trip"
+        name="Saved"
         component={Home}
         options={{
-          tabBarIcon: "calendar",
+          tabBarIcon: "heart-outline",
         }}
       />
       <Tab.Screen

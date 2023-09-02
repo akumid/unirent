@@ -13,7 +13,7 @@ const Stack = createStackNavigator();
 export default function AuthStack() {
   return (
     <Stack.Navigator
-      initialRouteName="Post Accommodation"
+      initialRouteName="Welcome"
       screenOptions={{
         headerShown: false,
       }}

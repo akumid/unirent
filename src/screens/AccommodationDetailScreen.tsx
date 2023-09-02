@@ -1,6 +1,6 @@
 import Feather from "@expo/vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Dimensions, ScrollView, View, Image, StyleSheet } from "react-native";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import {
@@ -30,6 +30,7 @@ function CarouselImages({ images }) {
 
 const AccommodationDetailScreen = (props: any) => {
   const navigation = useNavigation();
+  const [saved, setSaved] = useState(false);
   const ref = useRef<ICarouselInstance>(null);
 
   const images = [
@@ -48,9 +49,11 @@ const AccommodationDetailScreen = (props: any) => {
         />
         <View style={{ flexDirection: "row-reverse", flex: 1 }}>
           <Appbar.Action
-            icon={() => <Feather name="heart" size={20} />}
+            icon={saved ? "heart" : "heart-outline"}
+            size={25}
             onPress={() => {
-              console.warn("Save accommodation");
+              console.warn("Save accommodation"); 
+              setSaved(!saved);
             }}
           />
         </View>

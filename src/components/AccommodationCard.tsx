@@ -1,10 +1,12 @@
 import Feather from "@expo/vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
 import { View } from "react-native";
-import { Card, Button, Text, Divider, Avatar } from "react-native-paper";
+import { Card, Button, Text, Divider, Avatar, IconButton } from "react-native-paper";
 
 const AccommodationCard = (props: any) => {
   const navigation = useNavigation();
+  const [saved, setSaved] = useState(false);
 
   const images = [
     "https://media.karousell.com/media/photos/products/2019/07/02/master_room_for_rent_at_clementi_1562052953_90c3c04e0_progressive",
@@ -27,7 +29,7 @@ const AccommodationCard = (props: any) => {
 
       <Card.Cover source={{ uri: images[0] }} />
 
-      <View style={{ flexDirection: "row" }}>
+      <View style={{flex: 1, flexDirection: "row" }}>
         <Card.Title
           title="Clementi Condominium"
           subtitle="441B Clementi Avenue"
@@ -36,21 +38,18 @@ const AccommodationCard = (props: any) => {
           subtitleStyle={{ color: "gray" }}
           style={{ flex: 1 }}
         />
-        <Button
-          mode="outlined"
+        <IconButton
+          icon={saved ? "heart" : "heart-outline"}
+          size={25}
           style={{
-            zIndex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            height: 50,
-            width: "auto",
             marginVertical: 20,
             marginHorizontal: 20,
           }}
-          onPress={() => console.warn("Save accommodation")}
-        >
-          <Feather name="heart" size={20} />
-        </Button>
+          onPress={() => {
+            console.warn("Save accommodation"); 
+            setSaved(!saved);
+          }}
+        />
       </View>
       <Divider />
       <Card.Content style={{ marginVertical: 10 }}>
