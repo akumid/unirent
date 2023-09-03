@@ -2,7 +2,6 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { View, Image } from "react-native";
 import { Appbar, Button, Text } from "react-native-paper";
-import { SliderBox } from "react-native-image-slider-box";
 import Feather from "@expo/vector-icons/Feather";
 import * as ImagePicker from "expo-image-picker";
 

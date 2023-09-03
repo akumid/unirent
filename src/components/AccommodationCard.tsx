@@ -1,16 +1,21 @@
 import Feather from "@expo/vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
 import { View } from "react-native";
-import { Card, Button, Text, Divider, Avatar } from "react-native-paper";
+import { Card, Button, Text, Divider, Avatar, IconButton } from "react-native-paper";
+import IAccommodation from "../model/IAccommodation";
 
-const AccommodationCard = (props: any) => {
+const AccommodationCard = (props: IAccommodation) => {
   const navigation = useNavigation();
+  const [saved, setSaved] = useState(false);
 
-  const images = [
-    "https://media.karousell.com/media/photos/products/2019/07/02/master_room_for_rent_at_clementi_1562052953_90c3c04e0_progressive",
-    "https://cdn-cms.pgimgs.com/static/2021/06/958-Hougang-Street-91-Hougang-Punggol-Sengkang-Singapore.jpg",
-    "https://media.karousell.com/media/photos/products/2020/7/28/shunfu_road_hdb_room_rental_1595903271_2f1e723b_progressive",
-  ];
+  console.log(props);
+
+  // const images = [
+  //   "https://media.karousell.com/media/photos/products/2019/07/02/master_room_for_rent_at_clementi_1562052953_90c3c04e0_progressive",
+  //   "https://cdn-cms.pgimgs.com/static/2021/06/958-Hougang-Street-91-Hougang-Punggol-Sengkang-Singapore.jpg",
+  //   "https://media.karousell.com/media/photos/products/2020/7/28/shunfu_road_hdb_room_rental_1595903271_2f1e723b_progressive",
+  // ];
 
   return (
     <Card
@@ -25,36 +30,33 @@ const AccommodationCard = (props: any) => {
     >
       {/* <SliderBox style={{ height: 250 }} images={images} /> */}
 
-      <Card.Cover source={{ uri: images[0] }} />
+      <Card.Cover source={{ uri: props.images[0] }} />
 
-      <View style={{ flexDirection: "row" }}>
+      <View style={{flex: 1, flexDirection: "row" }}>
         <Card.Title
-          title="Clementi Condominium"
-          subtitle="441B Clementi Avenue"
+          title={props.title}
+          subtitle={props.address.aptName}
           subtitleNumberOfLines={3}
           subtitleVariant="labelMedium"
           subtitleStyle={{ color: "gray" }}
           style={{ flex: 1 }}
         />
-        <Button
-          mode="outlined"
+        <IconButton
+          icon={saved ? "heart" : "heart-outline"}
+          size={25}
           style={{
-            zIndex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-            height: 50,
-            width: "auto",
             marginVertical: 20,
             marginHorizontal: 20,
           }}
-          onPress={() => console.warn("Save accommodation")}
-        >
-          <Feather name="heart" size={20} />
-        </Button>
+          onPress={() => {
+            console.warn("Save accommodation"); 
+            setSaved(!saved);
+          }}
+        />
       </View>
       <Divider />
       <Card.Content style={{ marginVertical: 10 }}>
-        <Text>$1000 / month • Available from 25 Aug </Text>
+        <Text>{props.price} / month • Available from 25 Aug </Text>
       </Card.Content>
       <Divider />
       <Card.Content style={{ marginVertical: 10 }}>
@@ -70,7 +72,7 @@ const AccommodationCard = (props: any) => {
             <Text style={{ fontSize: 12, fontWeight: "bold" }}>
               Listed By User 1
             </Text>
-            <Text style={{ fontSize: 14 }}>short description of the room</Text>
+            <Text style={{ fontSize: 14 }}> {props.shortDescription} </Text>
           </View>
         </View>
         <Button
