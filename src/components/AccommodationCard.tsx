@@ -1,8 +1,15 @@
-import Feather from "@expo/vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { View } from "react-native";
-import { Card, Button, Text, Divider, Avatar, IconButton } from "react-native-paper";
+import {
+  Card,
+  Button,
+  Text,
+  Divider,
+  Avatar,
+  IconButton,
+} from "react-native-paper";
+
 import IAccommodation from "../model/IAccommodation";
 
 const AccommodationCard = (props: IAccommodation) => {
@@ -28,11 +35,9 @@ const AccommodationCard = (props: IAccommodation) => {
       }}
       onPress={() => navigation.navigate("Accommodation Detail")}
     >
-      {/* <SliderBox style={{ height: 250 }} images={images} /> */}
-
       <Card.Cover source={{ uri: props.images[0] }} />
 
-      <View style={{flex: 1, flexDirection: "row" }}>
+      <View style={{ flex: 1, flexDirection: "row" }}>
         <Card.Title
           title={props.title}
           subtitle={props.address.aptName}
@@ -49,7 +54,7 @@ const AccommodationCard = (props: IAccommodation) => {
             marginHorizontal: 20,
           }}
           onPress={() => {
-            console.warn("Save accommodation"); 
+            console.warn("Save accommodation");
             setSaved(!saved);
           }}
         />

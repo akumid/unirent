@@ -1,4 +1,3 @@
-import Feather from "@expo/vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 import { useRef, useState } from "react";
 import { Dimensions, ScrollView, View, Image, StyleSheet } from "react-native";
@@ -56,7 +55,7 @@ const AccommodationDetailScreen = (props: any) => {
             icon={saved ? "heart" : "heart-outline"}
             size={25}
             onPress={() => {
-              console.warn("Save accommodation"); 
+              console.warn("Save accommodation");
               setSaved(!saved);
             }}
           />
