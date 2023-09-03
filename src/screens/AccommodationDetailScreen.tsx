@@ -2,7 +2,6 @@ import Feather from "@expo/vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 import { useRef } from "react";
 import { Dimensions, ScrollView, View, Image, StyleSheet } from "react-native";
-import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import {
   Appbar,
   Text,
@@ -14,6 +13,7 @@ import {
 } from "react-native-paper";
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
 
+import Map from "../components/Map";
 import { isWeb } from "../utils";
 
 const { width, height } = Dimensions.get("window");
@@ -31,6 +31,10 @@ function CarouselImages({ images }) {
 const AccommodationDetailScreen = (props: any) => {
   const navigation = useNavigation();
   const ref = useRef<ICarouselInstance>(null);
+  const geocode = {
+    lat: 1.3154961,
+    lng: 103.7650556,
+  };
 
   const images = [
     "https://media.karousell.com/media/photos/products/2019/07/02/master_room_for_rent_at_clementi_1562052953_90c3c04e0_progressive",
@@ -62,8 +66,6 @@ const AccommodationDetailScreen = (props: any) => {
           </Text>
           {/* <Text variant='titleMedium'> 441B Clementi Avenue </Text> */}
         </View>
-
-        {/* <SliderBox images={images} style={{ height: 310 }} /> */}
 
         {isWeb ? (
           <View style={styles.webContainer}>
@@ -181,20 +183,9 @@ const AccommodationDetailScreen = (props: any) => {
           >
             Location
           </Text>
-          <MapView
-            provider={PROVIDER_GOOGLE}
-            style={styles.map}
-            initialRegion={{
-              latitude: 1.3154961,
-              longitude: 103.7650556,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
-          >
-            <Marker
-              coordinate={{ latitude: 1.3154961, longitude: 103.7650556 }}
-            />
-          </MapView>
+
+          <Map latitude={geocode.lat} longitude={geocode.lng} />
+
           <Text variant="titleMedium" style={{ fontWeight: "bold" }}>
             441B Clementi Avenue
           </Text>
@@ -249,9 +240,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-  },
-  map: {
-    height: 250,
-    marginVertical: 10,
   },
 });
