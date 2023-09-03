@@ -5,6 +5,7 @@ import Account from "../screens/Account";
 import Home from "../screens/Home";
 import ExploreStack from "./ExploreStack";
 import InboxScreen from "../screens/InboxScreen";
+import ChatStack from "./ChatStack";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -31,7 +32,7 @@ export default function HomeTab() {
       />
       <Tab.Screen
         name="Inbox"
-        component={InboxScreen}
+        component={ChatStack}
         options={{
           tabBarIcon: "message-text-outline",
         }}
