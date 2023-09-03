@@ -78,7 +78,7 @@ export default function Welcome({ props }) {
         
       </View>
       <Divider />
-      <ScrollView>
+      <ScrollView style={{marginBottom: 25}}>
       <View>
         <Card style={{marginVertical: 20}} >
           <Card.Content style={{marginVertical: 10}}>

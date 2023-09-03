@@ -14,7 +14,7 @@ const InboxScreen = (props: any) => {
                 <Text variant="titleMedium" style={{}}> You have no unread messages </Text>
                 <Text variant="bodyMedium" style={{ color: "gray"}}> When you contact a host, you will see your messages here</Text>
             </View> */}
-            <ScrollView style={{flex: 1, flexDirection: "column", }}>
+            <ScrollView style={{flex: 1, flexDirection: "column", marginBottom: 25}}>
                 <ChatChannel />
                 <ChatChannel />
                 <ChatChannel />
