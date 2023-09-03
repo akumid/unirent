@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import { StyleSheet, View, ScrollView, Image, Dimensions } from "react-native";
-import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps"; // TODO: to get web support for react-native-maps
 import {
   ActivityIndicator,
   Divider,
@@ -11,6 +10,7 @@ import {
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
 
 import alert from "../components/Alert";
+import Map from "../components/Map";
 import { getGeocode } from "../services/GoogleMaps";
 import { useHostStore } from "../store/host";
 import { isWeb } from "../utils";
@@ -122,24 +122,8 @@ export default function HostingStep4({ navigation }) {
 
           <View style={{ marginTop: 10 }}>
             <Text variant="headlineMedium">Location</Text>
-            {/* <MapView
-              provider={PROVIDER_GOOGLE}
-              style={styles.map}
-              scrollEnabled={false}
-              initialRegion={{
-                latitude: geocode.lat,
-                longitude: geocode.lng,
-                latitudeDelta: 0.01,
-                longitudeDelta: 0.01,
-              }}
-            >
-              <Marker
-                coordinate={{
-                  latitude: geocode.lat,
-                  longitude: geocode.lng,
-                }}
-              />
-            </MapView> */}
+
+            <Map latitude={geocode.lat} longitude={geocode.lng} />
           </View>
 
           <Divider />
@@ -186,9 +170,5 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-  },
-  map: {
-    height: 250,
-    marginVertical: 10,
   },
 });

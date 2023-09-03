@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // TODO: to implement api key storage in github, currently used in .env.local
-const key = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY;
+const key = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY!;
 
 export async function getGeocode(address) {
   console.log("getGeocode start..");
