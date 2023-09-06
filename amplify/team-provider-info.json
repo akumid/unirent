@@ -18,7 +18,7 @@
       "function": {
         "accommodationFunction": {
           "deploymentBucketName": "amplify-unirent-dev-150111-deployment",
-          "s3Key": "amplify-builds/accommodationFunction-65585a744b755953396b-build.zip"
+          "s3Key": "amplify-builds/accommodationFunction-6e476b62397548547872-build.zip"
         }
       },
       "api": {
