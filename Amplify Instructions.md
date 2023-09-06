@@ -1,4 +1,15 @@
-# Instructions on updating a function
+# General
+
+Root folder is located @ amplify/backend
+
+Categories:
+
+- api
+- auth
+- function
+- storage
+
+## Updating a function
 
 1. Navigate to the selected function's folder /src path
 2. Make changes to the codes
