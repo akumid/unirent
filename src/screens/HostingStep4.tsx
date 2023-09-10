@@ -9,8 +9,11 @@ import {
 } from "react-native-paper";
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
 
+import { publish } from "../api/AccommodationAPI";
 import alert from "../components/Alert";
 import Map from "../components/Map";
+import EPropertyType from "../model/EPropertyType";
+import IAccommodation from "../model/IAccommodation";
 import { getGeocode } from "../services/GoogleMaps";
 import { useHostStore } from "../store/host";
 import { isWeb } from "../utils";
@@ -50,12 +53,37 @@ export default function HostingStep4({ navigation }) {
     invokeGoogleMaps(hostStore.address);
   }, []);
 
-  const onPublish = () => {
+  const onPublish = async () => {
     // TODO: trigger API to backend
+    console.log(hostStore);
 
-    alert("New Listing", "Post successful", [
-      { text: "OK", onPress: () => navigation.navigate("Hosting") },
-    ]);
+    const request: IAccommodation = {
+      id: null,
+      title: hostStore.title,
+      address: hostStore.address,
+      propertyType: EPropertyType[hostStore.propertyType],
+      images: hostStore.images,
+      fullDescription: hostStore.description,
+      price: hostStore.price,
+      shortDescription: hostStore.description,
+      rented: false,
+      availableDate: "2024-01-01",
+      listedBy: "test",
+    };
+
+    const resp = await publish(request);
+    if (resp.success) {
+      alert("New Listing", "Publish successful!", [
+        { text: "OK", onPress: () => navigation.navigate("Hosting") },
+      ]);
+    } else {
+      alert("New Listing", "Publish unsuccessful!", [
+        {
+          text: "Please try again later",
+          onPress: () => navigation.navigate("Hosting"),
+        },
+      ]);
+    }
   };
 
   if (isLoading) return <ActivityIndicator animating />;

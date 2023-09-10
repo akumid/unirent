@@ -17,6 +17,7 @@ const AccommodationCard = (props: IAccommodation) => {
   const [saved, setSaved] = useState(false);
 
   console.log(props);
+  console.log(props.images[0]);
 
   // const images = [
   //   "https://media.karousell.com/media/photos/products/2019/07/02/master_room_for_rent_at_clementi_1562052953_90c3c04e0_progressive",
