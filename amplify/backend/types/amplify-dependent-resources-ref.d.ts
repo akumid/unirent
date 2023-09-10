@@ -27,6 +27,10 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "storage": {
+    "accommodationMediaStorage": {
+      "BucketName": "string",
+      "Region": "string"
+    },
     "accommodationTable": {
       "Arn": "string",
       "Name": "string",

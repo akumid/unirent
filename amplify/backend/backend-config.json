@@ -81,6 +81,11 @@
     }
   },
   "storage": {
+    "accommodationMediaStorage": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
+    },
     "accommodationTable": {
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB"

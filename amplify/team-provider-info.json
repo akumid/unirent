@@ -25,7 +25,8 @@
         "accommodationApi": {}
       },
       "storage": {
-        "accommodationTable": {}
+        "accommodationTable": {},
+        "accommodationMediaStorage": {}
       }
     }
   }
