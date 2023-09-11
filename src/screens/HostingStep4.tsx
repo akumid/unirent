@@ -81,7 +81,7 @@ export default function HostingStep4({ navigation }) {
       shortDescription: hostStore.description,
       rented: false,
       availableDate: "2024-01-01",
-      listedBy: user,
+      listedBy: user.username,
     };
 
     const resp = await publish(request);

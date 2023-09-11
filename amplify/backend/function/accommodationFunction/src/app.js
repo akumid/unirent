@@ -18,7 +18,6 @@ const {
 const awsServerlessExpressMiddleware = require("aws-serverless-express/middleware");
 const bodyParser = require("body-parser");
 const express = require("express");
-const { nanoid } = require("nanoid/non-secure");
 
 const ddbClient = new DynamoDBClient({ region: process.env.TABLE_REGION });
 const ddbDocClient = DynamoDBDocumentClient.from(ddbClient);
@@ -184,7 +183,9 @@ app.put(path, async function (req, res) {
       req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
   }
 
-  req.body.id = nanoid();
+  const date = new Date().toISOString();
+  req.body.dateTimeCreated = date;
+  req.body.dateTimeUpdated = date;
 
   const putItemParams = {
     TableName: tableName,
