@@ -17,3 +17,5 @@
   // } catch (err) {
   //   console.error(err);
   // }
+
+Cannot do serverless image upload with api gateway and lambda function because base64 image payload is too big

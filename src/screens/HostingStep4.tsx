@@ -1,5 +1,7 @@
+import { Auth, Storage } from "aws-amplify";
+import { nanoid } from "nanoid";
 import { useEffect, useRef, useState } from "react";
-import { StyleSheet, View, ScrollView, Image, Dimensions } from "react-native";
+import { StyleSheet, View, ScrollView, Dimensions } from "react-native";
 import {
   ActivityIndicator,
   Divider,
@@ -11,6 +13,7 @@ import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
 
 import { publish } from "../api/AccommodationAPI";
 import alert from "../components/Alert";
+import { CarouselImages } from "../components/CarouselImages";
 import Map from "../components/Map";
 import EPropertyType from "../model/EPropertyType";
 import IAccommodation from "../model/IAccommodation";
@@ -20,19 +23,27 @@ import { isWeb } from "../utils";
 
 const { width, height } = Dimensions.get("window");
 
-function CarouselImages({ images }) {
-  return (
-    <Image
-      resizeMode="contain"
-      style={{ height: "100%", width }}
-      source={{ uri: images }}
-    />
-  );
-}
-
 interface IGeo {
   lat: number;
   lng: number;
+}
+
+async function uploadToStorage(imageUris: any[], uuid: string) {
+  const stored = [];
+  for (let index = 0; index < imageUris.length; index++) {
+    const imageUri = imageUris[index];
+    try {
+      const response = await fetch(imageUri);
+      const blob = await response.blob();
+      const resp = await Storage.put(uuid + "/image_" + index, blob, {
+        contentType: "image/jpeg",
+      });
+      stored.push(resp.key);
+    } catch (err) {
+      console.log("Error uploading file: ", err);
+    }
+  }
+  return stored;
 }
 
 export default function HostingStep4({ navigation }) {
@@ -44,7 +55,6 @@ export default function HostingStep4({ navigation }) {
 
   async function invokeGoogleMaps(address: object) {
     const resp = await getGeocode(address);
-    console.log(resp);
     setGeocode(resp);
     setIsLoading(false);
   }
@@ -54,21 +64,24 @@ export default function HostingStep4({ navigation }) {
   }, []);
 
   const onPublish = async () => {
-    // TODO: trigger API to backend
     console.log(hostStore);
 
+    const uuid = nanoid();
+    const s3ObjectKeys = await uploadToStorage(hostStore.images, uuid);
+    const user = await Auth.currentAuthenticatedUser();
+
     const request: IAccommodation = {
-      id: null,
+      id: uuid,
       title: hostStore.title,
       address: hostStore.address,
       propertyType: EPropertyType[hostStore.propertyType],
-      images: hostStore.images,
+      images: s3ObjectKeys,
       fullDescription: hostStore.description,
       price: hostStore.price,
       shortDescription: hostStore.description,
       rented: false,
       availableDate: "2024-01-01",
-      listedBy: "test",
+      listedBy: user,
     };
 
     const resp = await publish(request);
@@ -77,7 +90,7 @@ export default function HostingStep4({ navigation }) {
         { text: "OK", onPress: () => navigation.navigate("Hosting") },
       ]);
     } else {
-      alert("New Listing", "Publish unsuccessful!", [
+      alert("Error", "Publish unsuccessful!", [
         {
           text: "Please try again later",
           onPress: () => navigation.navigate("Hosting"),
