@@ -16,15 +16,6 @@ const AccommodationCard = (props: IAccommodation) => {
   const navigation = useNavigation();
   const [saved, setSaved] = useState(false);
 
-  console.log(props);
-  console.log(props.images[0]);
-
-  // const images = [
-  //   "https://media.karousell.com/media/photos/products/2019/07/02/master_room_for_rent_at_clementi_1562052953_90c3c04e0_progressive",
-  //   "https://cdn-cms.pgimgs.com/static/2021/06/958-Hougang-Street-91-Hougang-Punggol-Sengkang-Singapore.jpg",
-  //   "https://media.karousell.com/media/photos/products/2020/7/28/shunfu_road_hdb_room_rental_1595903271_2f1e723b_progressive",
-  // ];
-
   return (
     <Card
       style={{
@@ -62,7 +53,7 @@ const AccommodationCard = (props: IAccommodation) => {
       </View>
       <Divider />
       <Card.Content style={{ marginVertical: 10 }}>
-        <Text>{props.price} / month • Available from 25 Aug </Text>
+        <Text>S$ {props.price} / month • Available from 25 Aug </Text>
       </Card.Content>
       <Divider />
       <Card.Content style={{ marginVertical: 10 }}>
@@ -76,7 +67,7 @@ const AccommodationCard = (props: IAccommodation) => {
             }}
           >
             <Text style={{ fontSize: 12, fontWeight: "bold" }}>
-              Listed By User 1
+              Listed By {props.listedBy}
             </Text>
             <Text style={{ fontSize: 14 }}> {props.shortDescription} </Text>
           </View>
