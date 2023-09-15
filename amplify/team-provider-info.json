@@ -14,6 +14,19 @@
     "categories": {
       "auth": {
         "unirentbd2d2b01": {}
+      },
+      "function": {
+        "accommodationFunction": {
+          "deploymentBucketName": "amplify-unirent-dev-150111-deployment",
+          "s3Key": "amplify-builds/accommodationFunction-55784532304e32344254-build.zip"
+        }
+      },
+      "api": {
+        "accommodationApi": {}
+      },
+      "storage": {
+        "accommodationTable": {},
+        "accommodationMediaStorage": {}
       }
     }
   }

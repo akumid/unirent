@@ -10,7 +10,7 @@ const Stack = createStackNavigator();
 export default function ExploreStack() {
   return (
     <Stack.Navigator
-      initialRouteName="Search"
+      initialRouteName="Welcome"
       screenOptions={{
         headerShown: false,
       }}

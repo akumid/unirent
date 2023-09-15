@@ -1,5 +1,7 @@
+import { Auth, Storage } from "aws-amplify";
+import { nanoid } from "nanoid";
 import { useEffect, useRef, useState } from "react";
-import { StyleSheet, View, ScrollView, Image, Dimensions } from "react-native";
+import { StyleSheet, View, ScrollView, Dimensions } from "react-native";
 import {
   ActivityIndicator,
   Divider,
@@ -9,27 +11,39 @@ import {
 } from "react-native-paper";
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
 
+import { publish } from "../api/AccommodationAPI";
 import alert from "../components/Alert";
+import { CarouselImages } from "../components/CarouselImages";
 import Map from "../components/Map";
+import EPropertyType from "../model/EPropertyType";
+import IAccommodation from "../model/IAccommodation";
 import { getGeocode } from "../services/GoogleMaps";
 import { useHostStore } from "../store/host";
 import { isWeb } from "../utils";
 
 const { width, height } = Dimensions.get("window");
 
-function CarouselImages({ images }) {
-  return (
-    <Image
-      resizeMode="contain"
-      style={{ height: "100%", width }}
-      source={{ uri: images }}
-    />
-  );
-}
-
 interface IGeo {
   lat: number;
   lng: number;
+}
+
+async function uploadToStorage(imageUris: any[], uuid: string) {
+  const stored = [];
+  for (let index = 0; index < imageUris.length; index++) {
+    const imageUri = imageUris[index];
+    try {
+      const response = await fetch(imageUri);
+      const blob = await response.blob();
+      const resp = await Storage.put(uuid + "/image_" + index, blob, {
+        contentType: "image/jpeg",
+      });
+      stored.push(resp.key);
+    } catch (err) {
+      console.log("Error uploading file: ", err);
+    }
+  }
+  return stored;
 }
 
 export default function HostingStep4({ navigation }) {
@@ -41,7 +55,6 @@ export default function HostingStep4({ navigation }) {
 
   async function invokeGoogleMaps(address: object) {
     const resp = await getGeocode(address);
-    console.log(resp);
     setGeocode(resp);
     setIsLoading(false);
   }
@@ -50,12 +63,40 @@ export default function HostingStep4({ navigation }) {
     invokeGoogleMaps(hostStore.address);
   }, []);
 
-  const onPublish = () => {
-    // TODO: trigger API to backend
+  const onPublish = async () => {
+    console.log(hostStore);
 
-    alert("New Listing", "Post successful", [
-      { text: "OK", onPress: () => navigation.navigate("Hosting") },
-    ]);
+    const uuid = nanoid();
+    const s3ObjectKeys = await uploadToStorage(hostStore.images, uuid);
+    const user = await Auth.currentAuthenticatedUser();
+
+    const request: IAccommodation = {
+      id: uuid,
+      title: hostStore.title,
+      address: hostStore.address,
+      propertyType: EPropertyType[hostStore.propertyType],
+      images: s3ObjectKeys,
+      fullDescription: hostStore.description,
+      price: hostStore.price,
+      shortDescription: hostStore.description,
+      rented: false,
+      availableDate: "2024-01-01",
+      listedBy: user.username,
+    };
+
+    const resp = await publish(request);
+    if (resp.success) {
+      alert("New Listing", "Publish successful!", [
+        { text: "OK", onPress: () => navigation.navigate("Hosting") },
+      ]);
+    } else {
+      alert("Error", "Publish unsuccessful!", [
+        {
+          text: "Please try again later",
+          onPress: () => navigation.navigate("Hosting"),
+        },
+      ]);
+    }
   };
 
   if (isLoading) return <ActivityIndicator animating />;

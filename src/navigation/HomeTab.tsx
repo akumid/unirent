@@ -1,9 +1,9 @@
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 
 import AccountStack from "./AccountStack";
-import Account from "../screens/Account";
-import Home from "../screens/Home";
 import ExploreStack from "./ExploreStack";
+import Home from "../screens/Home";
+import InboxScreen from "../screens/InboxScreen";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -22,15 +22,15 @@ export default function HomeTab() {
         }}
       />
       <Tab.Screen
-        name="Trip"
+        name="Saved"
         component={Home}
         options={{
-          tabBarIcon: "calendar",
+          tabBarIcon: "heart-outline",
         }}
       />
       <Tab.Screen
         name="Inbox"
-        component={Home}
+        component={InboxScreen}
         options={{
           tabBarIcon: "message-text-outline",
         }}

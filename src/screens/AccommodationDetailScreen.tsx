@@ -1,7 +1,6 @@
-import Feather from "@expo/vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
-import { useRef } from "react";
-import { Dimensions, ScrollView, View, Image, StyleSheet } from "react-native";
+import { useRef, useState } from "react";
+import { Dimensions, ScrollView, View, StyleSheet } from "react-native";
 import {
   Appbar,
   Text,
@@ -13,23 +12,15 @@ import {
 } from "react-native-paper";
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
 
+import { CarouselImages } from "../components/CarouselImages";
 import Map from "../components/Map";
 import { isWeb } from "../utils";
 
 const { width, height } = Dimensions.get("window");
 
-function CarouselImages({ images }) {
-  return (
-    <Image
-      resizeMode="contain"
-      style={{ height: "100%", width }}
-      source={{ uri: images }}
-    />
-  );
-}
-
 const AccommodationDetailScreen = (props: any) => {
   const navigation = useNavigation();
+  const [saved, setSaved] = useState(false);
   const ref = useRef<ICarouselInstance>(null);
   const geocode = {
     lat: 1.3154961,
@@ -52,9 +43,11 @@ const AccommodationDetailScreen = (props: any) => {
         />
         <View style={{ flexDirection: "row-reverse", flex: 1 }}>
           <Appbar.Action
-            icon={() => <Feather name="heart" size={20} />}
+            icon={saved ? "heart" : "heart-outline"}
+            size={25}
             onPress={() => {
               console.warn("Save accommodation");
+              setSaved(!saved);
             }}
           />
         </View>

@@ -8,14 +8,9 @@ import {
 } from "react-native-paper";
 
 import Counter from "../components/Counter";
+import IAddress from "../model/IAddress";
 import { useHostStore } from "../store/host";
-
-interface IAddress {
-  country: string;
-  postalCode: string;
-  unitNo: string;
-  aptName: string;
-}
+import EPropertyType from "../model/EPropertyType";
 
 export default function HostingStep1({ navigation, route }) {
   if (route.state) {
@@ -26,25 +21,25 @@ export default function HostingStep1({ navigation, route }) {
   // console.log(navigation);
   // console.log(route);
 
-  const [place, setPlace] = useState("");
+  const [propertyType, setPropertyType] = useState("");
   const [address, setAddress] = useState<IAddress>();
-  const [guest, setGuest] = useState(0);
-  const [bed, setBed] = useState(0);
-  const [bath, setBath] = useState(0);
+  // const [guest, setGuest] = useState(0);
+  // const [bed, setBed] = useState(0);
+  // const [bath, setBath] = useState(0);
 
   // initialize zustand store methods
   const updatePropertyType = useHostStore((state) => state.updatePropertyType);
-  const updateMaxGuest = useHostStore((state) => state.updateMaxGuest);
-  const updateMaxBed = useHostStore((state) => state.updateMaxBed);
-  const updateMaxBath = useHostStore((state) => state.updateMaxBath);
+  // const updateMaxGuest = useHostStore((state) => state.updateMaxGuest);
+  // const updateMaxBed = useHostStore((state) => state.updateMaxBed);
+  // const updateMaxBath = useHostStore((state) => state.updateMaxBath);
   const updateAddress = useHostStore((state) => state.updateAddress);
 
   const onNavigate = () => {
     // update zustand store
-    updatePropertyType(place);
-    updateMaxGuest(guest);
-    updateMaxBed(bed);
-    updateMaxBath(bath);
+    updatePropertyType(propertyType);
+    // updateMaxGuest(guest);
+    // updateMaxBed(bed);
+    // updateMaxBath(bath);
     updateAddress(address);
     navigation.navigate("HostingStep2");
   };
@@ -57,18 +52,23 @@ export default function HostingStep1({ navigation, route }) {
         </Text>
 
         <SegmentedButtons
-          value={place}
-          onValueChange={setPlace}
+          value={propertyType}
+          onValueChange={setPropertyType}
           buttons={[
             {
-              value: "house",
-              label: "House",
+              value: EPropertyType.Condo,
+              label: EPropertyType.Condo,
+              icon: "home-city-outline",
+            },
+            {
+              value: EPropertyType.Landed,
+              label: EPropertyType.Landed,
               icon: "home-outline",
             },
             {
-              value: "flat",
-              label: "Flat/apartment",
-              icon: "home-city-outline",
+              value: EPropertyType.HDB,
+              label: EPropertyType.HDB,
+              icon: "office-building-outline",
             },
           ]}
         />
@@ -99,7 +99,7 @@ export default function HostingStep1({ navigation, route }) {
           onChangeText={(text) => setAddress({ ...address, aptName: text })}
         />
 
-        <Text variant="headlineMedium">How many people can stay here?</Text>
+        {/* <Text variant="headlineMedium">How many people can stay here?</Text>
         <View style={styles.counter}>
           <Text> Maximum occupancy</Text>
           <Counter
@@ -125,7 +125,7 @@ export default function HostingStep1({ navigation, route }) {
             onMinus={(value) => setBath(value)}
             onPlus={(value) => setBath(value)}
           />
-        </View>
+        </View> */}
       </ScrollView>
 
       <View style={styles.next}>

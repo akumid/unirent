@@ -18,9 +18,15 @@ npm install -g @aws-amplify/cli
 
 - View account info
 
+### Search (WIP)
+
+- Screen flow completed
+- Backend (WIP)
+
 ### Hosting (WIP)
 
--
+- Screen flow completed
+- Backend (WIP)
 
 ## Tools/libraries documentation
 
