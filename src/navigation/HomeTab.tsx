@@ -1,10 +1,9 @@
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 
 import AccountStack from "./AccountStack";
+import ChatStack from "./ChatStack";
 import ExploreStack from "./ExploreStack";
 import Home from "../screens/Home";
-import InboxScreen from "../screens/InboxScreen";
-import ChatStack from "./ChatStack";
 
 const Tab = createMaterialBottomTabNavigator();
 

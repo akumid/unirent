@@ -1,7 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
-import InboxScreen from "../screens/InboxScreen";
 import ChatScreen from "../screens/ChatScreen";
+import InboxScreen from "../screens/InboxScreen";
 
 const Stack = createStackNavigator();
 

@@ -1,29 +1,30 @@
-import { useNavigation } from "@react-navigation/native"
-import { Pressable, TouchableNativeFeedback, TouchableOpacity, View } from "react-native"
-import { Avatar, Divider, Text } from "react-native-paper"
+import { useNavigation } from "@react-navigation/native";
+import { Pressable, View } from "react-native";
+import { Avatar, Divider, Text } from "react-native-paper";
 
+export default function ChatChannel(props: any) {
+  const navigation = useNavigation();
 
-
-const ChatChannel = (props: any) => {
-
-    const navigation = useNavigation();
-
-    return (
-        <Pressable onPress={() => navigation.navigate("Chat Room")}>
-            <View style={{flex: 1, flexDirection: "row", marginVertical: 20}}>
-                <Avatar.Text size={50} label="User1" /> 
-                <View style={{flexDirection: "column", marginHorizontal: 15}}>
-                    <Text variant="labelMedium" style={{color: "gray"}}> User 1 </Text>
-                    <Text variant="titleMedium"> Clementi Avenue 441B </Text>
-                    <Text variant="labelMedium" style={{color: "gray"}}> latest messages from user 1 </Text>
-                </View>
-                <View style={{flex: 1, flexDirection: "row-reverse"}}>
-                    <Text variant="labelMedium" style={{color: "gray"}}> 01/01/2023 </Text>
-                </View>
-            </View>
-            <Divider />
-        </Pressable >
-    )
+  return (
+    <Pressable onPress={() => navigation.navigate("Chat Room")}>
+      <View style={{ flex: 1, flexDirection: "row", marginVertical: 20 }}>
+        <Avatar.Text size={50} label="User1" />
+        <View style={{ flexDirection: "column", marginHorizontal: 15 }}>
+          <Text variant="labelMedium" style={{ color: "gray" }}>
+            User 1
+          </Text>
+          <Text variant="titleMedium"> Clementi Avenue 441B </Text>
+          <Text variant="labelMedium" style={{ color: "gray" }}>
+            latest messages from user 1
+          </Text>
+        </View>
+        <View style={{ flex: 1, flexDirection: "row-reverse" }}>
+          <Text variant="labelMedium" style={{ color: "gray" }}>
+            01/01/2023
+          </Text>
+        </View>
+      </View>
+      <Divider />
+    </Pressable>
+  );
 }
-
-export default ChatChannel;
