@@ -8,7 +8,7 @@ export async function getAll() {
 
   try {
     const response = await API.get(apiName, path, myInit);
-    // console.log(response);
+    console.log(response);
     return response;
   } catch (error) {
     console.error("Error in accommodation API: " + error);

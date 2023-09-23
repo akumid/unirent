@@ -2,7 +2,7 @@ import EPropertyType from "./EPropertyType";
 import IAddress from "./IAddress";
 import IUnitFeature from "./IUnitFeature";
 
-interface IAccommodation {
+export default interface IAccommodation {
   id: string;
   title: string;
   propertyType: EPropertyType;
@@ -16,5 +16,3 @@ interface IAccommodation {
   images: any[];
   listedBy: string;
 }
-
-export default IAccommodation;

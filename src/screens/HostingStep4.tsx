@@ -17,16 +17,12 @@ import { CarouselImages } from "../components/CarouselImages";
 import Map from "../components/Map";
 import EPropertyType from "../model/EPropertyType";
 import IAccommodation from "../model/IAccommodation";
+import IGeo from "../model/IGeo";
 import { getGeocode } from "../services/GoogleMaps";
 import { useHostStore } from "../store/host";
 import { isWeb } from "../utils";
 
 const { width, height } = Dimensions.get("window");
-
-interface IGeo {
-  lat: number;
-  lng: number;
-}
 
 async function uploadToStorage(imageUris: any[], uuid: string) {
   const stored = [];
@@ -69,6 +65,8 @@ export default function HostingStep4({ navigation }) {
     const uuid = nanoid();
     const s3ObjectKeys = await uploadToStorage(hostStore.images, uuid);
     const user = await Auth.currentAuthenticatedUser();
+
+    hostStore.address.geo = geocode;
 
     const request: IAccommodation = {
       id: uuid,
