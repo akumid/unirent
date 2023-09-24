@@ -1,7 +1,7 @@
 import { ScrollView, View } from "react-native";
 import { Avatar, Divider, Text } from "react-native-paper";
 
-import ChatChannel from "../components/ChatChannel";
+import ChatRoom from "../components/ChatRoom";
 
 export default function InboxScreen(props: any) {
   return (
@@ -24,23 +24,23 @@ export default function InboxScreen(props: any) {
       <ScrollView
         style={{ flex: 1, flexDirection: "column", marginBottom: 25 }}
       >
-        <ChatChannel />
-        <ChatChannel />
-        <ChatChannel />
-        <ChatChannel />
-        <ChatChannel />
-        <ChatChannel />
-        <ChatChannel />
-        <ChatChannel />
-        <ChatChannel />
-        <ChatChannel />
-        <ChatChannel />
-        <ChatChannel />
-        <ChatChannel />
-        <ChatChannel />
-        <ChatChannel />
-        <ChatChannel />
-        <ChatChannel />
+        <ChatRoom />
+        <ChatRoom />
+        <ChatRoom />
+        <ChatRoom />
+        <ChatRoom />
+        <ChatRoom />
+        <ChatRoom />
+        <ChatRoom />
+        <ChatRoom />
+        <ChatRoom />
+        <ChatRoom />
+        <ChatRoom />
+        <ChatRoom />
+        <ChatRoom />
+        <ChatRoom />
+        <ChatRoom />
+        <ChatRoom />
       </ScrollView>
     </View>
   );

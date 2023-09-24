@@ -14,7 +14,7 @@ export default function ChatStack() {
       }}
     >
       <Stack.Screen name="Inbox" component={InboxScreen} />
-      <Stack.Screen name="Chat Room" component={ChatScreen} />
+      <Stack.Screen name="Chat" component={ChatScreen} />
     </Stack.Navigator>
   );
 }
