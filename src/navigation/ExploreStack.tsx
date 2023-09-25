@@ -1,6 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
 
 import AccommodationDetailScreen from "../screens/AccommodationDetailScreen";
+import ChatScreen from "../screens/ChatScreen";
 import SearchResultScreen from "../screens/SearchResultScreen";
 import SearchScreen from "../screens/SearchScreen";
 import Welcome from "../screens/Welcome";
@@ -22,6 +23,7 @@ export default function ExploreStack() {
         name="Accommodation Detail"
         component={AccommodationDetailScreen}
       />
+      <Stack.Screen name="Chat" component={ChatScreen} />
     </Stack.Navigator>
   );
 }

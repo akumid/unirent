@@ -13,29 +13,29 @@ import HomeStack from "./src/navigation/HomeStack";
 Amplify.configure(awsExports);
 
 export default function App() {
-  useEffect(() => {
-    const syncUser = async () => {
-      const authUser = await Auth.currentAuthenticatedUser({
-        bypassCache: true,
-      });
+  const syncUser = async () => {
+    const authUser = await Auth.currentAuthenticatedUser({
+      bypassCache: true,
+    });
 
-      const userData = await API.graphql(
-        graphqlOperation(getUser, { id: authUser.attributes.sub }),
-      );
+    const userData = await API.graphql(
+      graphqlOperation(getUser, { id: authUser.attributes.sub }),
+    );
 
-      if (userData.data.getUser) {
-        console.log("User already exists");
-        return;
-      }
+    if (userData.data.getUser) {
+      console.log("User already exists");
+      return;
+    }
 
-      console.log("Creating new User");
-      const newUser = {
-        id: authUser.attributes.sub,
-        name: authUser.username,
-      };
-      await API.graphql(graphqlOperation(createUser, { input: newUser }));
+    console.log("Creating new User");
+    const newUser = {
+      id: authUser.attributes.sub,
+      name: authUser.username,
     };
+    await API.graphql(graphqlOperation(createUser, { input: newUser }));
+  };
 
+  useEffect(() => {
     syncUser();
   }, []);
 

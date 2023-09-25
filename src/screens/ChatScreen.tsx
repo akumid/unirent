@@ -1,7 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { View, Image, ScrollView } from "react-native";
-// import { ScrollView } from "react-native-gesture-handler";
 import {
   Appbar,
   Avatar,
@@ -12,14 +11,10 @@ import {
   TextInput,
 } from "react-native-paper";
 
-export default function ChatScreen(props: any) {
-  const navigation = useNavigation();
-
-  const images = [
-    "https://media.karousell.com/media/photos/products/2019/07/02/master_room_for_rent_at_clementi_1562052953_90c3c04e0_progressive",
-    "https://cdn-cms.pgimgs.com/static/2021/06/958-Hougang-Street-91-Hougang-Punggol-Sengkang-Singapore.jpg",
-    "https://media.karousell.com/media/photos/products/2020/7/28/shunfu_road_hdb_room_rental_1595903271_2f1e723b_progressive",
-  ];
+export default function ChatScreen({ navigation, route }) {
+  // const navigation = useNavigation();
+  const props = route.params.props;
+  const chatroomID = route.params.id;
 
   return (
     <View style={{ flex: 1 }}>
@@ -30,7 +25,7 @@ export default function ChatScreen(props: any) {
           }}
         />
         <View style={{ marginLeft: 20 }}>
-          <Text variant="titleLarge">User 1</Text>
+          <Text variant="titleLarge">props.listedBy</Text>
           <Text variant="labelMedium" style={{ color: "gray" }}>
             Active 40 minutes ago
           </Text>
@@ -39,19 +34,19 @@ export default function ChatScreen(props: any) {
       <View style={{ flex: 1, flexDirection: "column" }}>
         <Surface elevation={4} style={{ height: 95, justifyContent: "center" }}>
           <View style={{ marginHorizontal: 20, flexDirection: "row" }}>
-            <Image
-              source={{ uri: images[0] }}
+            {/* <Image
+              source={{ uri: props.images[0] }}
               style={{ height: 65, width: 65, borderRadius: 15 }}
-            />
+            /> */}
             <View>
               <Text variant="labelLarge" style={{ marginLeft: 10 }}>
-                Clementi Avenue 441B
+                props.title
               </Text>
               <Text
                 variant="labelMedium"
                 style={{ marginLeft: 10, color: "gray" }}
               >
-                $1000 /month
+                S$ props.price / month
               </Text>
               <Button mode="contained" style={{ marginLeft: 10, marginTop: 5 }}>
                 <Text variant="labelSmall" style={{ color: "white" }}>

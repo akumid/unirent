@@ -8,12 +8,12 @@ const Stack = createStackNavigator();
 export default function ChatStack() {
   return (
     <Stack.Navigator
-      initialRouteName="Inbox"
+      initialRouteName="InboxScreen"
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Inbox" component={InboxScreen} />
+      <Stack.Screen name="InboxScreen" component={InboxScreen} />
       <Stack.Screen name="Chat" component={ChatScreen} />
     </Stack.Navigator>
   );
