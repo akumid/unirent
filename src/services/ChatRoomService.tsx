@@ -49,7 +49,7 @@ export const getInbox = /* GraphQL */ `
           chatRoom {
             id
             updatedAt
-            Users {
+            Users(filter: { userId: { ne: $id } }) {
               items {
                 user {
                   id

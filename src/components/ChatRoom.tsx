@@ -5,22 +5,24 @@ import { Avatar, Divider, Text } from "react-native-paper";
 export default function ChatRoom(props: any) {
   const navigation = useNavigation();
 
+  console.log(props);
+
   return (
     <Pressable onPress={() => navigation.navigate("Chat")}>
       <View style={{ flex: 1, flexDirection: "row", marginVertical: 20 }}>
         <Avatar.Text size={50} label="User1" />
         <View style={{ flexDirection: "column", marginHorizontal: 15 }}>
           <Text variant="labelMedium" style={{ color: "gray" }}>
-            User 1
+            {props.chatRoom.Users.items[0].user.name}
           </Text>
           <Text variant="titleMedium"> Clementi Avenue 441B </Text>
           <Text variant="labelMedium" style={{ color: "gray" }}>
-            latest messages from user 1
+            {props.chatRoom.LastMessage}
           </Text>
         </View>
         <View style={{ flex: 1, flexDirection: "row-reverse" }}>
           <Text variant="labelMedium" style={{ color: "gray" }}>
-            01/01/2023
+            {props.chatRoom.updatedAt}
           </Text>
         </View>
       </View>
