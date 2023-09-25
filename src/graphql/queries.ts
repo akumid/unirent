@@ -29,8 +29,8 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
       items {
         id
         text
-        chatroomID
-        userID
+        chatRoomId
+        userId
         createdAt
         updatedAt
         __typename
@@ -75,8 +75,8 @@ export const getMessage = /* GraphQL */ `query GetMessage($id: ID!) {
   getMessage(id: $id) {
     id
     text
-    chatroomID
-    userID
+    chatRoomId
+    userId
     createdAt
     updatedAt
     __typename
@@ -95,8 +95,8 @@ export const listMessages = /* GraphQL */ `query ListMessages(
     items {
       id
       text
-      chatroomID
-      userID
+      chatRoomId
+      userId
       createdAt
       updatedAt
       __typename
@@ -109,15 +109,15 @@ export const listMessages = /* GraphQL */ `query ListMessages(
   APITypes.ListMessagesQueryVariables,
   APITypes.ListMessagesQuery
 >;
-export const messagesByChatroomID = /* GraphQL */ `query MessagesByChatroomID(
-  $chatroomID: ID!
+export const messagesByChatRoomId = /* GraphQL */ `query MessagesByChatRoomId(
+  $chatRoomId: ID!
   $sortDirection: ModelSortDirection
   $filter: ModelMessageFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  messagesByChatroomID(
-    chatroomID: $chatroomID
+  messagesByChatRoomId(
+    chatRoomId: $chatRoomId
     sortDirection: $sortDirection
     filter: $filter
     limit: $limit
@@ -126,8 +126,8 @@ export const messagesByChatroomID = /* GraphQL */ `query MessagesByChatroomID(
     items {
       id
       text
-      chatroomID
-      userID
+      chatRoomId
+      userId
       createdAt
       updatedAt
       __typename
@@ -137,18 +137,18 @@ export const messagesByChatroomID = /* GraphQL */ `query MessagesByChatroomID(
   }
 }
 ` as GeneratedQuery<
-  APITypes.MessagesByChatroomIDQueryVariables,
-  APITypes.MessagesByChatroomIDQuery
+  APITypes.MessagesByChatRoomIdQueryVariables,
+  APITypes.MessagesByChatRoomIdQuery
 >;
-export const messagesByUserID = /* GraphQL */ `query MessagesByUserID(
-  $userID: ID!
+export const messagesByUserId = /* GraphQL */ `query MessagesByUserId(
+  $userId: ID!
   $sortDirection: ModelSortDirection
   $filter: ModelMessageFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  messagesByUserID(
-    userID: $userID
+  messagesByUserId(
+    userId: $userId
     sortDirection: $sortDirection
     filter: $filter
     limit: $limit
@@ -157,8 +157,8 @@ export const messagesByUserID = /* GraphQL */ `query MessagesByUserID(
     items {
       id
       text
-      chatroomID
-      userID
+      chatRoomId
+      userId
       createdAt
       updatedAt
       __typename
@@ -168,8 +168,8 @@ export const messagesByUserID = /* GraphQL */ `query MessagesByUserID(
   }
 }
 ` as GeneratedQuery<
-  APITypes.MessagesByUserIDQueryVariables,
-  APITypes.MessagesByUserIDQuery
+  APITypes.MessagesByUserIdQueryVariables,
+  APITypes.MessagesByUserIdQuery
 >;
 export const getChatRoom = /* GraphQL */ `query GetChatRoom($id: ID!) {
   getChatRoom(id: $id) {
@@ -190,8 +190,8 @@ export const getChatRoom = /* GraphQL */ `query GetChatRoom($id: ID!) {
       items {
         id
         text
-        chatroomID
-        userID
+        chatRoomId
+        userId
         createdAt
         updatedAt
         __typename
@@ -202,8 +202,8 @@ export const getChatRoom = /* GraphQL */ `query GetChatRoom($id: ID!) {
     LastMessage {
       id
       text
-      chatroomID
-      userID
+      chatRoomId
+      userId
       createdAt
       updatedAt
       __typename
@@ -237,8 +237,8 @@ export const listChatRooms = /* GraphQL */ `query ListChatRooms(
       LastMessage {
         id
         text
-        chatroomID
-        userID
+        chatRoomId
+        userId
         createdAt
         updatedAt
         __typename
@@ -290,8 +290,8 @@ export const getUserChatRoom = /* GraphQL */ `query GetUserChatRoom($id: ID!) {
       LastMessage {
         id
         text
-        chatroomID
-        userID
+        chatRoomId
+        userId
         createdAt
         updatedAt
         __typename
