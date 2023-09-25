@@ -8,7 +8,9 @@ export default function ChatRoom(props: any) {
   console.log(props);
 
   return (
-    <Pressable onPress={() => navigation.navigate("Chat")}>
+    <Pressable
+      onPress={() => navigation.navigate("Chat", { id: props.chatRoom.id })}
+    >
       <View style={{ flex: 1, flexDirection: "row", marginVertical: 20 }}>
         <Avatar.Text size={50} label="User1" />
         <View style={{ flexDirection: "column", marginHorizontal: 15 }}>
