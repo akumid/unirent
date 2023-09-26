@@ -1,15 +1,55 @@
 import { Auth, API, graphqlOperation } from "aws-amplify";
-import { useState } from "react";
-import { View, Image, ScrollView, StyleSheet } from "react-native";
-import { Appbar, Button, Surface, Text, TextInput } from "react-native-paper";
+import { useEffect, useState } from "react";
+import { View, Image, ScrollView } from "react-native";
+import {
+  ActivityIndicator,
+  Appbar,
+  Button,
+  Surface,
+  Text,
+  TextInput,
+} from "react-native-paper";
 
+import Message from "../components/Message";
 import { createMessage, updateChatRoom } from "../graphql/mutations";
+import { listMessagesByChatRoom } from "../graphql/queries";
+import { onCreateMessage } from "../graphql/subscriptions";
 
 export default function ChatScreen({ navigation, route }) {
-  const props = route.params.props;
   const chatroomID = route.params.id;
 
+  const [loading, setLoading] = useState(true);
+  const [messages, setMessages] = useState([]);
   const [text, setText] = useState("");
+
+  // fetch Messages
+  useEffect(() => {
+    API.graphql(
+      graphqlOperation(listMessagesByChatRoom, {
+        chatRoomId: chatroomID,
+        sortDirection: "DESC",
+      }),
+    ).then((result) => {
+      setMessages(result.data?.listMessagesByChatRoom?.items);
+    });
+
+    // Subscribe to new messages
+    const subscription = API.graphql(
+      graphqlOperation(onCreateMessage, {
+        filter: { chatRoomId: { eq: chatroomID } },
+      }),
+    ).subscribe({
+      next: ({ value }) => {
+        setMessages((m) => [value.data.onCreateMessage, ...m]);
+      },
+      error: (err) => console.warn(err),
+    });
+
+    setLoading(false);
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [chatroomID]);
 
   const onSend = async () => {
     const authUser = await Auth.currentAuthenticatedUser();
@@ -36,106 +76,75 @@ export default function ChatScreen({ navigation, route }) {
     );
   };
 
-  return (
-    <View style={{ flex: 1 }}>
-      <Appbar.Header>
-        <Appbar.BackAction
-          onPress={() => {
-            navigation.goBack();
-          }}
-        />
-        <View style={{ marginLeft: 20 }}>
-          <Text variant="titleLarge">props.listedBy</Text>
-          <Text variant="labelMedium" style={{ color: "gray" }}>
-            Active 40 minutes ago
-          </Text>
-        </View>
-      </Appbar.Header>
-      <View style={{ flex: 1, flexDirection: "column" }}>
-        <Surface elevation={4} style={{ height: 95, justifyContent: "center" }}>
-          <View style={{ marginHorizontal: 20, flexDirection: "row" }}>
-            {/* <Image
+  if (loading) return <ActivityIndicator animating />;
+  else
+    return (
+      <View style={{ flex: 1 }}>
+        <Appbar.Header>
+          <Appbar.BackAction
+            onPress={() => {
+              navigation.goBack();
+            }}
+          />
+          <View style={{ marginLeft: 20 }}>
+            <Text variant="titleLarge">props.listedBy</Text>
+            <Text variant="labelMedium" style={{ color: "gray" }}>
+              Active 40 minutes ago
+            </Text>
+          </View>
+        </Appbar.Header>
+        <View style={{ flex: 1, flexDirection: "column" }}>
+          <Surface
+            elevation={4}
+            style={{ height: 95, justifyContent: "center" }}
+          >
+            <View style={{ marginHorizontal: 20, flexDirection: "row" }}>
+              {/* <Image
               source={{ uri: props.images[0] }}
               style={{ height: 65, width: 65, borderRadius: 15 }}
             /> */}
-            <View>
-              <Text variant="labelLarge" style={{ marginLeft: 10 }}>
-                props.title
-              </Text>
-              <Text
-                variant="labelMedium"
-                style={{ marginLeft: 10, color: "gray" }}
-              >
-                S$ props.price / month
-              </Text>
-              <Button mode="contained" style={{ marginLeft: 10, marginTop: 5 }}>
-                <Text variant="labelSmall" style={{ color: "white" }}>
-                  Rent Now
+              <View>
+                <Text variant="labelLarge" style={{ marginLeft: 10 }}>
+                  props.title
                 </Text>
-              </Button>
+                <Text
+                  variant="labelMedium"
+                  style={{ marginLeft: 10, color: "gray" }}
+                >
+                  S$ props.price / month
+                </Text>
+                <Button
+                  mode="contained"
+                  style={{ marginLeft: 10, marginTop: 5 }}
+                >
+                  <Text variant="labelSmall" style={{ color: "white" }}>
+                    Rent Now
+                  </Text>
+                </Button>
+              </View>
             </View>
-          </View>
-        </Surface>
-
-        <ScrollView
-          style={{
-            flex: 1,
-            flexDirection: "column",
-            marginHorizontal: 20,
-            marginVertical: 15,
-          }}
-          contentContainerStyle={{}}
-        >
-          <View style={{ flexDirection: "row", marginVertical: 10 }}>
-            <Surface
-              style={[
-                styles.surface,
-                {
-                  alignSelf: "flex-start",
-                },
-              ]}
-              mode="flat"
-              elevation={4}
-            >
-              <Text>Hi Nice to meet you !</Text>
-            </Surface>
-          </View>
-
-          <Surface
-            style={[
-              styles.surface,
-              {
-                backgroundColor: "#6a1b9a",
-                alignSelf: "flex-end",
-              },
-            ]}
-            mode="flat"
-            elevation={4}
-          >
-            <Text>
-              Can i know there is how many bathrooms in the house ? i would like
-              to know
-            </Text>
           </Surface>
-        </ScrollView>
 
-        <View style={{ flex: 1, flexDirection: "column-reverse" }}>
+          <ScrollView
+            style={{
+              flex: 1,
+              flexDirection: "column",
+              padding: 10,
+            }}
+          >
+            {messages.toReversed().map((message, index) => {
+              return <Message {...message} key={index} />;
+            })}
+          </ScrollView>
+
           <TextInput
             placeholder="Type here..."
             right={<TextInput.Icon icon="send" onPress={onSend} />}
             value={text}
             onChangeText={setText}
+            multiline
           />
         </View>
       </View>
-    </View>
-  );
+    );
 }
-
-const styles = StyleSheet.create({
-  surface: {
-    padding: 10,
-    borderRadius: 25,
-    maxWidth: "80%",
-  },
-});
