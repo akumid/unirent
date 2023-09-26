@@ -19,7 +19,7 @@ export default function ChatRoom(props: any) {
           </Text>
           <Text variant="titleMedium"> Clementi Avenue 441B </Text>
           <Text variant="labelMedium" style={{ color: "gray" }}>
-            {props.chatRoom.LastMessage}
+            {props.chatRoom.LastMessage.text}
           </Text>
         </View>
         <View style={{ flex: 1, flexDirection: "row-reverse" }}>
