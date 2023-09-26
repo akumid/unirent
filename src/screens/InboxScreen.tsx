@@ -1,41 +1,76 @@
-import React from "react";
+import { Auth, API, graphqlOperation } from "aws-amplify";
+import { useState, useEffect } from "react";
 import { ScrollView, View } from "react-native";
-import { Avatar, Divider, Text } from "react-native-paper";
-import ChatChannel from "../components/ChatChannel";
+import { ActivityIndicator, Text } from "react-native-paper";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const InboxScreen = (props: any) => {
+import ChatRoom from "../components/ChatRoom";
+import { getInbox } from "../services/ChatRoomService";
+
+export default function InboxScreen(props: any) {
+  const insets = useSafeAreaInsets();
+  const [chatRooms, setChatRooms] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const fetchChatRooms = async () => {
+    setLoading(true);
+    const authUser = await Auth.currentAuthenticatedUser();
+
+    const response = await API.graphql(
+      graphqlOperation(getInbox, { id: authUser.attributes.sub }),
+    );
+
+    const rooms = response?.data?.getUser?.ChatRooms?.items?.filter(
+      (item) => !item._deleted,
+    );
+    const sortedRooms = rooms.sort(
+      (r1, r2) =>
+        new Date(r2.chatRoom.updatedAt) - new Date(r1.chatRoom.updatedAt),
+    );
+
+    setChatRooms(sortedRooms);
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchChatRooms();
+  }, []);
+
+  if (loading) return <ActivityIndicator animating />;
+  else
     return (
-        <View style={{flex: 1, flexDirection: "column", top: "5%", marginHorizontal: 20}}>
-            <View>
-                <Text variant="displaySmall"> Inbox </Text>
-                <Divider style={{marginTop: 10}} />
-            </View>
-            {/* <View style={{flex: 1,}}>
-                <Text variant="titleMedium" style={{}}> You have no unread messages </Text>
-                <Text variant="bodyMedium" style={{ color: "gray"}}> When you contact a host, you will see your messages here</Text>
-            </View> */}
-            <ScrollView style={{flex: 1, flexDirection: "column", marginBottom: 25}}>
-                <ChatChannel />
-                <ChatChannel />
-                <ChatChannel />
-                <ChatChannel />
-                <ChatChannel />
-                <ChatChannel />
-                <ChatChannel />
-                <ChatChannel />
-                <ChatChannel />
-                <ChatChannel />
-                <ChatChannel />
-                <ChatChannel />
-                <ChatChannel />
-                <ChatChannel />
-                <ChatChannel />
-                <ChatChannel />
-                <ChatChannel />
-                
-            </ScrollView>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "column",
+          marginHorizontal: 20,
+          // Paddings to handle safe area
+          paddingTop: insets.top,
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        }}
+      >
+        <View style={{ marginTop: 25, marginBottom: 10 }}>
+          <Text variant="displaySmall"> Inbox </Text>
         </View>
-    )
-}
 
-export default InboxScreen;
+        {chatRooms.length === 0 ? (
+          <View style={{ flex: 1 }}>
+            <Text variant="titleMedium" style={{}}>
+              You have no unread messages
+            </Text>
+            <Text variant="bodyMedium" style={{ color: "gray" }}>
+              When you contact a host, you will see your messages here
+            </Text>
+          </View>
+        ) : (
+          <ScrollView style={{ flex: 1, flexDirection: "column" }}>
+            {chatRooms.map((chatRoom, index) => {
+              return <ChatRoom {...chatRoom} key={index} />;
+            })}
+          </ScrollView>
+        )}
+      </View>
+    );
+}
