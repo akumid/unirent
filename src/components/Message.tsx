@@ -21,7 +21,7 @@ export default function Message(props: any) {
       style={[
         styles.surface,
         {
-          backgroundColor: isMe ? "#6a1b9a" : "9e9e9e",
+          backgroundColor: isMe ? "#6a1b9a" : "#424242",
           alignSelf: isMe ? "flex-end" : "flex-start",
         },
       ]}
