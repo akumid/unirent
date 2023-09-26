@@ -1,4 +1,4 @@
-type User @model @auth(rules: [{allow: public}]) {
+type User @model @auth(rules: [{ allow: public }]) {
   id: ID!
   name: String!
   status: String
@@ -6,17 +6,22 @@ type User @model @auth(rules: [{allow: public}]) {
   Messages: [Message] @hasMany(indexName: "byUser", fields: ["id"])
 }
 
-type Message @model @auth(rules: [{allow: public}]) {
+type Message @model @auth(rules: [{ allow: public }]) {
   id: ID!
+  createdAt: AWSDateTime!
   text: String!
-  chatRoomId: ID! @index(name: "byChatRoom")
+  chatRoomId: ID!
+    @index(
+      name: "byChatRoom"
+      sortKeyFields: ["createdAt"]
+      queryField: "listMessagesByChatRoom"
+    )
   userId: ID! @index(name: "byUser")
 }
 
-type ChatRoom @model @auth(rules: [{allow: public}]) {
+type ChatRoom @model @auth(rules: [{ allow: public }]) {
   id: ID!
   Users: [User] @manyToMany(relationName: "UserChatRoom")
   Messages: [Message] @hasMany(indexName: "byChatRoom", fields: ["id"])
   LastMessage: Message @hasOne
 }
- 
