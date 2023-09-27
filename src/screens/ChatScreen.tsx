@@ -33,7 +33,7 @@ export default function ChatScreen({ navigation, route }) {
       setMessages(result.data?.listMessagesByChatRoom?.items);
     });
 
-    // Subscribe to new messages
+    // subscribe to new messages
     const subscription = API.graphql(
       graphqlOperation(onCreateMessage, {
         filter: { chatRoomId: { eq: chatroomID } },
