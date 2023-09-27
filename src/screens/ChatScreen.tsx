@@ -17,6 +17,7 @@ import { onCreateMessage } from "../graphql/subscriptions";
 
 export default function ChatScreen({ navigation, route }) {
   const chatroomID = route.params.id;
+  const name = route.params.name;
 
   const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState([]);
@@ -92,7 +93,7 @@ export default function ChatScreen({ navigation, route }) {
             }}
           />
           <View style={{ marginLeft: 20 }}>
-            <Text variant="titleLarge">props.listedBy</Text>
+            <Text variant="titleLarge">{name}</Text>
             <Text variant="labelMedium" style={{ color: "gray" }}>
               Active 40 minutes ago
             </Text>
