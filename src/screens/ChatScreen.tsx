@@ -1,5 +1,5 @@
 import { Auth, API, graphqlOperation } from "aws-amplify";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { View, Image, ScrollView } from "react-native";
 import {
   ActivityIndicator,
@@ -17,10 +17,13 @@ import { onCreateMessage } from "../graphql/subscriptions";
 
 export default function ChatScreen({ navigation, route }) {
   const chatroomID = route.params.id;
+  const name = route.params.name;
 
   const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState("");
+
+  const scrollViewRef = useRef();
 
   // fetch Messages
   useEffect(() => {
@@ -33,7 +36,7 @@ export default function ChatScreen({ navigation, route }) {
       setMessages(result.data?.listMessagesByChatRoom?.items);
     });
 
-    // Subscribe to new messages
+    // subscribe to new messages
     const subscription = API.graphql(
       graphqlOperation(onCreateMessage, {
         filter: { chatRoomId: { eq: chatroomID } },
@@ -46,34 +49,37 @@ export default function ChatScreen({ navigation, route }) {
     });
 
     setLoading(false);
+
     return () => {
       subscription.unsubscribe();
     };
   }, [chatroomID]);
 
-  const onSend = async () => {
-    const authUser = await Auth.currentAuthenticatedUser();
+  const onSend = async (event) => {
+    if ((event.key === "Enter" && !event.shiftKey) || event.type === "click") {
+      const authUser = await Auth.currentAuthenticatedUser();
 
-    const newMessage = {
-      chatRoomId: chatroomID,
-      text,
-      userId: authUser.attributes.sub,
-    };
-    const newMessageData = await API.graphql(
-      graphqlOperation(createMessage, { input: newMessage }),
-    );
+      const newMessage = {
+        chatRoomId: chatroomID,
+        text,
+        userId: authUser.attributes.sub,
+      };
+      const newMessageData = await API.graphql(
+        graphqlOperation(createMessage, { input: newMessage }),
+      );
 
-    setText("");
+      setText("");
 
-    // set the new message as LastMessage of the ChatRoom
-    await API.graphql(
-      graphqlOperation(updateChatRoom, {
-        input: {
-          chatRoomLastMessageId: newMessageData.data.createMessage.id,
-          id: chatroomID,
-        },
-      }),
-    );
+      // set the new message as LastMessage of the ChatRoom
+      await API.graphql(
+        graphqlOperation(updateChatRoom, {
+          input: {
+            chatRoomLastMessageId: newMessageData.data.createMessage.id,
+            id: chatroomID,
+          },
+        }),
+      );
+    }
   };
 
   if (loading) return <ActivityIndicator animating />;
@@ -87,7 +93,7 @@ export default function ChatScreen({ navigation, route }) {
             }}
           />
           <View style={{ marginLeft: 20 }}>
-            <Text variant="titleLarge">props.listedBy</Text>
+            <Text variant="titleLarge">{name}</Text>
             <Text variant="labelMedium" style={{ color: "gray" }}>
               Active 40 minutes ago
             </Text>
@@ -126,6 +132,12 @@ export default function ChatScreen({ navigation, route }) {
           </Surface>
 
           <ScrollView
+            ref={scrollViewRef}
+            onContentSizeChange={() =>
+              scrollViewRef.current.scrollToEnd({
+                animated: true,
+              })
+            }
             style={{
               flex: 1,
               flexDirection: "column",
@@ -143,6 +155,7 @@ export default function ChatScreen({ navigation, route }) {
             value={text}
             onChangeText={setText}
             multiline
+            onKeyPress={onSend}
           />
         </View>
       </View>

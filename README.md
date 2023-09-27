@@ -28,6 +28,11 @@ npm install -g @aws-amplify/cli
 - Screen flow completed
 - Backend (WIP)
 
+### Contact / Inbox
+
+- Screen flow completed
+- Backend completed
+
 ## Tools/libraries documentation
 
 - [amplify](https://docs.amplify.aws/start/getting-started/installation/q/integration/react-native/)
