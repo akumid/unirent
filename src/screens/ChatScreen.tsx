@@ -1,5 +1,5 @@
 import { Auth, API, graphqlOperation } from "aws-amplify";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { View, Image, ScrollView } from "react-native";
 import {
   ActivityIndicator,
@@ -21,6 +21,8 @@ export default function ChatScreen({ navigation, route }) {
   const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState("");
+
+  const scrollViewRef = useRef();
 
   // fetch Messages
   useEffect(() => {
@@ -46,6 +48,7 @@ export default function ChatScreen({ navigation, route }) {
     });
 
     setLoading(false);
+
     return () => {
       subscription.unsubscribe();
     };
@@ -128,6 +131,12 @@ export default function ChatScreen({ navigation, route }) {
           </Surface>
 
           <ScrollView
+            ref={scrollViewRef}
+            onContentSizeChange={() =>
+              scrollViewRef.current.scrollToEnd({
+                animated: true,
+              })
+            }
             style={{
               flex: 1,
               flexDirection: "column",
