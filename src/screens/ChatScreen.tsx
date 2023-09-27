@@ -51,29 +51,31 @@ export default function ChatScreen({ navigation, route }) {
     };
   }, [chatroomID]);
 
-  const onSend = async () => {
-    const authUser = await Auth.currentAuthenticatedUser();
+  const onSend = async (event) => {
+    if ((event.key === "Enter" && !event.shiftKey) || event.type === "click") {
+      const authUser = await Auth.currentAuthenticatedUser();
 
-    const newMessage = {
-      chatRoomId: chatroomID,
-      text,
-      userId: authUser.attributes.sub,
-    };
-    const newMessageData = await API.graphql(
-      graphqlOperation(createMessage, { input: newMessage }),
-    );
+      const newMessage = {
+        chatRoomId: chatroomID,
+        text,
+        userId: authUser.attributes.sub,
+      };
+      const newMessageData = await API.graphql(
+        graphqlOperation(createMessage, { input: newMessage }),
+      );
 
-    setText("");
+      setText("");
 
-    // set the new message as LastMessage of the ChatRoom
-    await API.graphql(
-      graphqlOperation(updateChatRoom, {
-        input: {
-          chatRoomLastMessageId: newMessageData.data.createMessage.id,
-          id: chatroomID,
-        },
-      }),
-    );
+      // set the new message as LastMessage of the ChatRoom
+      await API.graphql(
+        graphqlOperation(updateChatRoom, {
+          input: {
+            chatRoomLastMessageId: newMessageData.data.createMessage.id,
+            id: chatroomID,
+          },
+        }),
+      );
+    }
   };
 
   if (loading) return <ActivityIndicator animating />;
@@ -143,6 +145,7 @@ export default function ChatScreen({ navigation, route }) {
             value={text}
             onChangeText={setText}
             multiline
+            onKeyPress={onSend}
           />
         </View>
       </View>
