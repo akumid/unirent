@@ -7,12 +7,13 @@ export default interface IAccommodation {
   title: string;
   propertyType: EPropertyType;
   price: number;
-  shortDescription: string;
-  fullDescription: string;
+  description: string;
   rented: boolean;
   unitFeature?: string[];
   address: IAddress;
   availableDate: string;
   images: any[];
-  listedBy: string;
+  userId: string;
+  createdAt: string;
+  User: any;
 }

@@ -134,7 +134,7 @@ export default function ChatScreen({ navigation, route }) {
           <ScrollView
             ref={scrollViewRef}
             onContentSizeChange={() =>
-              scrollViewRef.current.scrollToEnd({
+              scrollViewRef.current?.scrollToEnd({
                 animated: true,
               })
             }
