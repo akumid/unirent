@@ -2,7 +2,7 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-import * as APITypes from "API";
+import * as APITypes from "./API";
 type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryInput: InputType;
   __generatedQueryOutput: OutputType;
@@ -21,6 +21,26 @@ export const getAccommodation = /* GraphQL */ `query GetAccommodation($id: ID!) 
     title
     address
     userId
+    User {
+      id
+      name
+      status
+      ChatRooms {
+        nextToken
+        __typename
+      }
+      Messages {
+        nextToken
+        __typename
+      }
+      Accommodations {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -47,6 +67,14 @@ export const listAccommodations = /* GraphQL */ `query ListAccommodations(
       title
       address
       userId
+      User {
+        id
+        name
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
       updatedAt
       __typename
     }
@@ -84,6 +112,14 @@ export const accommodationsByUserId = /* GraphQL */ `query AccommodationsByUserI
       title
       address
       userId
+      User {
+        id
+        name
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
       updatedAt
       __typename
     }
@@ -332,6 +368,14 @@ export const getChatRoom = /* GraphQL */ `query GetChatRoom($id: ID!) {
       title
       address
       userId
+      User {
+        id
+        name
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
       updatedAt
       __typename
     }

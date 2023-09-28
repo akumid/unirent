@@ -132,39 +132,8 @@ export type Accommodation = {
   title: string,
   address: string,
   userId: string,
+  User?: User | null,
   updatedAt: string,
-};
-
-export type UpdateAccommodationInput = {
-  id: string,
-  availableDate?: string | null,
-  description?: string | null,
-  images?: Array< string | null > | null,
-  price?: number | null,
-  propertyType?: PropertyEnum | null,
-  rented?: boolean | null,
-  createdAt?: string | null,
-  title?: string | null,
-  address?: string | null,
-  userId?: string | null,
-};
-
-export type DeleteAccommodationInput = {
-  id: string,
-};
-
-export type CreateUserInput = {
-  id?: string | null,
-  name: string,
-  status?: string | null,
-};
-
-export type ModelUserConditionInput = {
-  name?: ModelStringInput | null,
-  status?: ModelStringInput | null,
-  and?: Array< ModelUserConditionInput | null > | null,
-  or?: Array< ModelUserConditionInput | null > | null,
-  not?: ModelUserConditionInput | null,
 };
 
 export type User = {
@@ -229,6 +198,38 @@ export type ModelAccommodationConnection = {
   __typename: "ModelAccommodationConnection",
   items:  Array<Accommodation | null >,
   nextToken?: string | null,
+};
+
+export type UpdateAccommodationInput = {
+  id: string,
+  availableDate?: string | null,
+  description?: string | null,
+  images?: Array< string | null > | null,
+  price?: number | null,
+  propertyType?: PropertyEnum | null,
+  rented?: boolean | null,
+  createdAt?: string | null,
+  title?: string | null,
+  address?: string | null,
+  userId?: string | null,
+};
+
+export type DeleteAccommodationInput = {
+  id: string,
+};
+
+export type CreateUserInput = {
+  id?: string | null,
+  name: string,
+  status?: string | null,
+};
+
+export type ModelUserConditionInput = {
+  name?: ModelStringInput | null,
+  status?: ModelStringInput | null,
+  and?: Array< ModelUserConditionInput | null > | null,
+  or?: Array< ModelUserConditionInput | null > | null,
+  not?: ModelUserConditionInput | null,
 };
 
 export type UpdateUserInput = {
@@ -516,6 +517,26 @@ export type CreateAccommodationMutation = {
     title: string,
     address: string,
     userId: string,
+    User?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      status?: string | null,
+      ChatRooms?:  {
+        __typename: "ModelUserChatRoomConnection",
+        nextToken?: string | null,
+      } | null,
+      Messages?:  {
+        __typename: "ModelMessageConnection",
+        nextToken?: string | null,
+      } | null,
+      Accommodations?:  {
+        __typename: "ModelAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     updatedAt: string,
   } | null,
 };
@@ -539,6 +560,26 @@ export type UpdateAccommodationMutation = {
     title: string,
     address: string,
     userId: string,
+    User?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      status?: string | null,
+      ChatRooms?:  {
+        __typename: "ModelUserChatRoomConnection",
+        nextToken?: string | null,
+      } | null,
+      Messages?:  {
+        __typename: "ModelMessageConnection",
+        nextToken?: string | null,
+      } | null,
+      Accommodations?:  {
+        __typename: "ModelAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     updatedAt: string,
   } | null,
 };
@@ -562,6 +603,26 @@ export type DeleteAccommodationMutation = {
     title: string,
     address: string,
     userId: string,
+    User?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      status?: string | null,
+      ChatRooms?:  {
+        __typename: "ModelUserChatRoomConnection",
+        nextToken?: string | null,
+      } | null,
+      Messages?:  {
+        __typename: "ModelMessageConnection",
+        nextToken?: string | null,
+      } | null,
+      Accommodations?:  {
+        __typename: "ModelAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     updatedAt: string,
   } | null,
 };
@@ -853,6 +914,14 @@ export type CreateChatRoomMutation = {
       title: string,
       address: string,
       userId: string,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
       updatedAt: string,
     } | null,
     createdAt: string,
@@ -918,6 +987,14 @@ export type UpdateChatRoomMutation = {
       title: string,
       address: string,
       userId: string,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
       updatedAt: string,
     } | null,
     createdAt: string,
@@ -983,6 +1060,14 @@ export type DeleteChatRoomMutation = {
       title: string,
       address: string,
       userId: string,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
       updatedAt: string,
     } | null,
     createdAt: string,
@@ -1238,6 +1323,26 @@ export type GetAccommodationQuery = {
     title: string,
     address: string,
     userId: string,
+    User?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      status?: string | null,
+      ChatRooms?:  {
+        __typename: "ModelUserChatRoomConnection",
+        nextToken?: string | null,
+      } | null,
+      Messages?:  {
+        __typename: "ModelMessageConnection",
+        nextToken?: string | null,
+      } | null,
+      Accommodations?:  {
+        __typename: "ModelAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     updatedAt: string,
   } | null,
 };
@@ -1264,6 +1369,14 @@ export type ListAccommodationsQuery = {
       title: string,
       address: string,
       userId: string,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
       updatedAt: string,
     } | null >,
     nextToken?: string | null,
@@ -1294,6 +1407,14 @@ export type AccommodationsByUserIdQuery = {
       title: string,
       address: string,
       userId: string,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
       updatedAt: string,
     } | null >,
     nextToken?: string | null,
@@ -1534,6 +1655,14 @@ export type GetChatRoomQuery = {
       title: string,
       address: string,
       userId: string,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
       updatedAt: string,
     } | null,
     createdAt: string,
@@ -1804,6 +1933,26 @@ export type OnCreateAccommodationSubscription = {
     title: string,
     address: string,
     userId: string,
+    User?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      status?: string | null,
+      ChatRooms?:  {
+        __typename: "ModelUserChatRoomConnection",
+        nextToken?: string | null,
+      } | null,
+      Messages?:  {
+        __typename: "ModelMessageConnection",
+        nextToken?: string | null,
+      } | null,
+      Accommodations?:  {
+        __typename: "ModelAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     updatedAt: string,
   } | null,
 };
@@ -1826,6 +1975,26 @@ export type OnUpdateAccommodationSubscription = {
     title: string,
     address: string,
     userId: string,
+    User?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      status?: string | null,
+      ChatRooms?:  {
+        __typename: "ModelUserChatRoomConnection",
+        nextToken?: string | null,
+      } | null,
+      Messages?:  {
+        __typename: "ModelMessageConnection",
+        nextToken?: string | null,
+      } | null,
+      Accommodations?:  {
+        __typename: "ModelAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     updatedAt: string,
   } | null,
 };
@@ -1848,6 +2017,26 @@ export type OnDeleteAccommodationSubscription = {
     title: string,
     address: string,
     userId: string,
+    User?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      status?: string | null,
+      ChatRooms?:  {
+        __typename: "ModelUserChatRoomConnection",
+        nextToken?: string | null,
+      } | null,
+      Messages?:  {
+        __typename: "ModelMessageConnection",
+        nextToken?: string | null,
+      } | null,
+      Accommodations?:  {
+        __typename: "ModelAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null,
     updatedAt: string,
   } | null,
 };
@@ -2132,6 +2321,14 @@ export type OnCreateChatRoomSubscription = {
       title: string,
       address: string,
       userId: string,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
       updatedAt: string,
     } | null,
     createdAt: string,
@@ -2196,6 +2393,14 @@ export type OnUpdateChatRoomSubscription = {
       title: string,
       address: string,
       userId: string,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
       updatedAt: string,
     } | null,
     createdAt: string,
@@ -2260,6 +2465,14 @@ export type OnDeleteChatRoomSubscription = {
       title: string,
       address: string,
       userId: string,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+      } | null,
       updatedAt: string,
     } | null,
     createdAt: string,

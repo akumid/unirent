@@ -2,7 +2,7 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-import * as APITypes from "API";
+import * as APITypes from "./API";
 type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationInput: InputType;
   __generatedMutationOutput: OutputType;
@@ -24,6 +24,26 @@ export const createAccommodation = /* GraphQL */ `mutation CreateAccommodation(
     title
     address
     userId
+    User {
+      id
+      name
+      status
+      ChatRooms {
+        nextToken
+        __typename
+      }
+      Messages {
+        nextToken
+        __typename
+      }
+      Accommodations {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -48,6 +68,26 @@ export const updateAccommodation = /* GraphQL */ `mutation UpdateAccommodation(
     title
     address
     userId
+    User {
+      id
+      name
+      status
+      ChatRooms {
+        nextToken
+        __typename
+      }
+      Messages {
+        nextToken
+        __typename
+      }
+      Accommodations {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -72,6 +112,26 @@ export const deleteAccommodation = /* GraphQL */ `mutation DeleteAccommodation(
     title
     address
     userId
+    User {
+      id
+      name
+      status
+      ChatRooms {
+        nextToken
+        __typename
+      }
+      Messages {
+        nextToken
+        __typename
+      }
+      Accommodations {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -369,6 +429,14 @@ export const createChatRoom = /* GraphQL */ `mutation CreateChatRoom(
       title
       address
       userId
+      User {
+        id
+        name
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
       updatedAt
       __typename
     }
@@ -435,6 +503,14 @@ export const updateChatRoom = /* GraphQL */ `mutation UpdateChatRoom(
       title
       address
       userId
+      User {
+        id
+        name
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
       updatedAt
       __typename
     }
@@ -501,6 +577,14 @@ export const deleteChatRoom = /* GraphQL */ `mutation DeleteChatRoom(
       title
       address
       userId
+      User {
+        id
+        name
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
       updatedAt
       __typename
     }

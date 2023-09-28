@@ -2,7 +2,7 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-import * as APITypes from "API";
+import * as APITypes from "./API";
 type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionInput: InputType;
   __generatedSubscriptionOutput: OutputType;
@@ -23,6 +23,26 @@ export const onCreateAccommodation = /* GraphQL */ `subscription OnCreateAccommo
     title
     address
     userId
+    User {
+      id
+      name
+      status
+      ChatRooms {
+        nextToken
+        __typename
+      }
+      Messages {
+        nextToken
+        __typename
+      }
+      Accommodations {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -46,6 +66,26 @@ export const onUpdateAccommodation = /* GraphQL */ `subscription OnUpdateAccommo
     title
     address
     userId
+    User {
+      id
+      name
+      status
+      ChatRooms {
+        nextToken
+        __typename
+      }
+      Messages {
+        nextToken
+        __typename
+      }
+      Accommodations {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -69,6 +109,26 @@ export const onDeleteAccommodation = /* GraphQL */ `subscription OnDeleteAccommo
     title
     address
     userId
+    User {
+      id
+      name
+      status
+      ChatRooms {
+        nextToken
+        __typename
+      }
+      Messages {
+        nextToken
+        __typename
+      }
+      Accommodations {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
     updatedAt
     __typename
   }
@@ -345,6 +405,14 @@ export const onCreateChatRoom = /* GraphQL */ `subscription OnCreateChatRoom($fi
       title
       address
       userId
+      User {
+        id
+        name
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
       updatedAt
       __typename
     }
@@ -408,6 +476,14 @@ export const onUpdateChatRoom = /* GraphQL */ `subscription OnUpdateChatRoom($fi
       title
       address
       userId
+      User {
+        id
+        name
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
       updatedAt
       __typename
     }
@@ -471,6 +547,14 @@ export const onDeleteChatRoom = /* GraphQL */ `subscription OnDeleteChatRoom($fi
       title
       address
       userId
+      User {
+        id
+        name
+        status
+        createdAt
+        updatedAt
+        __typename
+      }
       updatedAt
       __typename
     }
