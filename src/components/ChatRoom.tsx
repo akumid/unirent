@@ -58,7 +58,7 @@ export default function ChatRoom(props: any) {
         </View>
         <View style={{ flex: 1, flexDirection: "row-reverse" }}>
           <Text variant="labelMedium" style={{ color: "gray" }}>
-            {dayjs(chatRoom.LastMessage?.createdAt).fromNow(true)}
+            {dayjs(chatRoom.LastMessage?.createdAt).fromNow(true)} ago
           </Text>
         </View>
       </View>

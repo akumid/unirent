@@ -1,37 +1,40 @@
 import { useNavigation } from "@react-navigation/native";
-import { Storage } from "aws-amplify";
+import { API, Storage, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
-import { View, StyleSheet, Dimensions, ScrollView } from "react-native";
+import { View, ScrollView } from "react-native";
 import {
   Searchbar,
-  List,
   Divider,
   Card,
   Text,
-  Button,
   ActivityIndicator,
 } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { getAll } from "../api/AccommodationAPI";
 import AccommodationCard from "../components/AccommodationCard";
-import EPropertyType from "../model/EPropertyType";
 import IAccommodation from "../model/IAccommodation";
-import { LocationSearch } from "../services/LocationSearch";
+import { getTodaysRecommendation } from "../services/AccommodationService";
 
 export default function Welcome({ props }) {
+  const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [accommodationList, setAccommodationList] =
     useState<IAccommodation[]>();
 
-  async function invokeAccommodationAPI() {
-    const resp = await getAll();
-    await downloadFromStorage(resp);
+  async function fetch() {
+    // const resp = await getAll();
+    const resp = await API.graphql(
+      graphqlOperation(getTodaysRecommendation, {
+        limit: 10,
+      }),
+    );
+    await downloadFromStorage(resp.data?.listAccommodations?.items);
   }
 
   async function downloadFromStorage(data: IAccommodation[]) {
+    console.log(data);
     // download first image from each listing and replace images array
     for (let i = 0; i < data.length; i++) {
       await Storage.get(data[i].images[0])
@@ -44,10 +47,10 @@ export default function Welcome({ props }) {
     setAccommodationList(data);
     setIsLoading(false);
   }
-  console.log(accommodationList);
 
+  // fetch all Listings
   useEffect(() => {
-    invokeAccommodationAPI();
+    fetch();
   }, []);
 
   // const accommodationList: IAccommodation[] = [
@@ -77,33 +80,7 @@ export default function Welcome({ props }) {
   //     listedBy: "user1",
   //   },
   //   {
-  //     id: "0001",
-  //     title: "Clementi Condominium",
-  //     propertyType: EPropertyType.Condo,
-  //     price: 1000,
-  //     shortDescription: "short description",
-  //     fullDescription: "full description full descriprtion",
-  //     rented: false,
-  //     unitFeature: [
-  //       "Air-Conditioning",
-  //       "Renovated",
-  //       "Fridge",
-  //       "Cooker Hob/Hood",
-  //       "Washing Machine",
-  //     ],
-  //     availableDate: "2023-07-01",
-  //     address: {
-  //       country: "Singapore",
-  //       postalCode: "520111",
-  //       unitNo: "01-01",
-  //       aptName: "Clementi Avenue Block 100",
-  //     },
-  //     images,
-  //     listedBy: "user1",
-  //   },
   // ];
-
-  const insets = useSafeAreaInsets();
 
   if (isLoading) return <ActivityIndicator animating />;
   else
@@ -113,7 +90,6 @@ export default function Welcome({ props }) {
           flex: 1,
           flexDirection: "column",
           justifyContent: "flex-start",
-          marginHorizontal: 20,
           // Paddings to handle safe area
           paddingTop: insets.top,
           paddingBottom: insets.bottom,
@@ -135,7 +111,13 @@ export default function Welcome({ props }) {
           />
         </View>
         <Divider />
-        <ScrollView>
+        <ScrollView
+          style={{
+            flex: 1,
+            flexDirection: "column",
+            paddingHorizontal: 15,
+          }}
+        >
           <View>
             <Card style={{ marginVertical: 20 }}>
               <Card.Content style={{ marginVertical: 10 }}>
@@ -158,6 +140,7 @@ export default function Welcome({ props }) {
               </Card.Content>
             </Card>
           </View>
+
           <View style={{ marginVertical: 10, flexDirection: "column" }}>
             <Text variant="titleLarge"> Today's Recommendations </Text>
             {accommodationList.map((accommodation, index) => {
