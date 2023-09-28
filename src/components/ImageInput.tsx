@@ -1,12 +1,14 @@
 import * as ImagePicker from "expo-image-picker";
-import { StyleSheet, Alert, View, Image, Pressable } from "react-native";
+import { StyleSheet, View, Image, Pressable } from "react-native";
 import { IconButton } from "react-native-paper";
+
+import alert from "../components/Alert";
 
 export default function ImageInput({ imageUri, onChangeImage }) {
   const handlePress = () => {
     if (!imageUri) selectImage();
     else
-      Alert.alert("Delete", "Delete the picture?", [
+      alert("Delete", "Delete the picture?", [
         { text: "Yes", onPress: () => onChangeImage() },
         { text: "No" },
       ]);
@@ -20,7 +22,7 @@ export default function ImageInput({ imageUri, onChangeImage }) {
       });
       if (!result.canceled) onChangeImage(result.assets[0].uri);
     } catch (error) {
-      console.log("error reading an iamge");
+      console.log("Error reading image: ", error);
     }
   };
 
