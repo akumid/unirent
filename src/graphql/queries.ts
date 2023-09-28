@@ -8,6 +8,93 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
+export const getAccommodation = /* GraphQL */ `query GetAccommodation($id: ID!) {
+  getAccommodation(id: $id) {
+    id
+    availableDate
+    description
+    images
+    price
+    propertyType
+    rented
+    createdAt
+    title
+    address
+    userId
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetAccommodationQueryVariables,
+  APITypes.GetAccommodationQuery
+>;
+export const listAccommodations = /* GraphQL */ `query ListAccommodations(
+  $filter: ModelAccommodationFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listAccommodations(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      availableDate
+      description
+      images
+      price
+      propertyType
+      rented
+      createdAt
+      title
+      address
+      userId
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListAccommodationsQueryVariables,
+  APITypes.ListAccommodationsQuery
+>;
+export const accommodationsByUserId = /* GraphQL */ `query AccommodationsByUserId(
+  $userId: ID!
+  $sortDirection: ModelSortDirection
+  $filter: ModelAccommodationFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  accommodationsByUserId(
+    userId: $userId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      availableDate
+      description
+      images
+      price
+      propertyType
+      rented
+      createdAt
+      title
+      address
+      userId
+      updatedAt
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.AccommodationsByUserIdQueryVariables,
+  APITypes.AccommodationsByUserIdQuery
+>;
 export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
   getUser(id: $id) {
     id
@@ -38,6 +125,25 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
       nextToken
       __typename
     }
+    Accommodations {
+      items {
+        id
+        availableDate
+        description
+        images
+        price
+        propertyType
+        rented
+        createdAt
+        title
+        address
+        userId
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -59,6 +165,10 @@ export const listUsers = /* GraphQL */ `query ListUsers(
         __typename
       }
       Messages {
+        nextToken
+        __typename
+      }
+      Accommodations {
         nextToken
         __typename
       }
@@ -210,9 +320,25 @@ export const getChatRoom = /* GraphQL */ `query GetChatRoom($id: ID!) {
       updatedAt
       __typename
     }
+    Accommodation {
+      id
+      availableDate
+      description
+      images
+      price
+      propertyType
+      rented
+      createdAt
+      title
+      address
+      userId
+      updatedAt
+      __typename
+    }
     createdAt
     updatedAt
     chatRoomLastMessageId
+    chatRoomAccommodationId
     __typename
   }
 }
@@ -245,9 +371,25 @@ export const listChatRooms = /* GraphQL */ `query ListChatRooms(
         updatedAt
         __typename
       }
+      Accommodation {
+        id
+        availableDate
+        description
+        images
+        price
+        propertyType
+        rented
+        createdAt
+        title
+        address
+        userId
+        updatedAt
+        __typename
+      }
       createdAt
       updatedAt
       chatRoomLastMessageId
+      chatRoomAccommodationId
       __typename
     }
     nextToken
@@ -275,6 +417,10 @@ export const getUserChatRoom = /* GraphQL */ `query GetUserChatRoom($id: ID!) {
         nextToken
         __typename
       }
+      Accommodations {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -298,9 +444,25 @@ export const getUserChatRoom = /* GraphQL */ `query GetUserChatRoom($id: ID!) {
         updatedAt
         __typename
       }
+      Accommodation {
+        id
+        availableDate
+        description
+        images
+        price
+        propertyType
+        rented
+        createdAt
+        title
+        address
+        userId
+        updatedAt
+        __typename
+      }
       createdAt
       updatedAt
       chatRoomLastMessageId
+      chatRoomAccommodationId
       __typename
     }
     createdAt
@@ -335,6 +497,7 @@ export const listUserChatRooms = /* GraphQL */ `query ListUserChatRooms(
         createdAt
         updatedAt
         chatRoomLastMessageId
+        chatRoomAccommodationId
         __typename
       }
       createdAt
@@ -380,6 +543,7 @@ export const userChatRoomsByUserId = /* GraphQL */ `query UserChatRoomsByUserId(
         createdAt
         updatedAt
         chatRoomLastMessageId
+        chatRoomAccommodationId
         __typename
       }
       createdAt
@@ -425,6 +589,7 @@ export const userChatRoomsByChatRoomId = /* GraphQL */ `query UserChatRoomsByCha
         createdAt
         updatedAt
         chatRoomLastMessageId
+        chatRoomAccommodationId
         __typename
       }
       createdAt

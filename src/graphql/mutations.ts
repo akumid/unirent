@@ -8,6 +8,78 @@ type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationOutput: OutputType;
 };
 
+export const createAccommodation = /* GraphQL */ `mutation CreateAccommodation(
+  $input: CreateAccommodationInput!
+  $condition: ModelAccommodationConditionInput
+) {
+  createAccommodation(input: $input, condition: $condition) {
+    id
+    availableDate
+    description
+    images
+    price
+    propertyType
+    rented
+    createdAt
+    title
+    address
+    userId
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateAccommodationMutationVariables,
+  APITypes.CreateAccommodationMutation
+>;
+export const updateAccommodation = /* GraphQL */ `mutation UpdateAccommodation(
+  $input: UpdateAccommodationInput!
+  $condition: ModelAccommodationConditionInput
+) {
+  updateAccommodation(input: $input, condition: $condition) {
+    id
+    availableDate
+    description
+    images
+    price
+    propertyType
+    rented
+    createdAt
+    title
+    address
+    userId
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateAccommodationMutationVariables,
+  APITypes.UpdateAccommodationMutation
+>;
+export const deleteAccommodation = /* GraphQL */ `mutation DeleteAccommodation(
+  $input: DeleteAccommodationInput!
+  $condition: ModelAccommodationConditionInput
+) {
+  deleteAccommodation(input: $input, condition: $condition) {
+    id
+    availableDate
+    description
+    images
+    price
+    propertyType
+    rented
+    createdAt
+    title
+    address
+    userId
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteAccommodationMutationVariables,
+  APITypes.DeleteAccommodationMutation
+>;
 export const createUser = /* GraphQL */ `mutation CreateUser(
   $input: CreateUserInput!
   $condition: ModelUserConditionInput
@@ -34,6 +106,25 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
         createdAt
         text
         chatRoomId
+        userId
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    Accommodations {
+      items {
+        id
+        availableDate
+        description
+        images
+        price
+        propertyType
+        rented
+        createdAt
+        title
+        address
         userId
         updatedAt
         __typename
@@ -83,6 +174,25 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
       nextToken
       __typename
     }
+    Accommodations {
+      items {
+        id
+        availableDate
+        description
+        images
+        price
+        propertyType
+        rented
+        createdAt
+        title
+        address
+        userId
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -118,6 +228,25 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
         createdAt
         text
         chatRoomId
+        userId
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    Accommodations {
+      items {
+        id
+        availableDate
+        description
+        images
+        price
+        propertyType
+        rented
+        createdAt
+        title
+        address
         userId
         updatedAt
         __typename
@@ -228,9 +357,25 @@ export const createChatRoom = /* GraphQL */ `mutation CreateChatRoom(
       updatedAt
       __typename
     }
+    Accommodation {
+      id
+      availableDate
+      description
+      images
+      price
+      propertyType
+      rented
+      createdAt
+      title
+      address
+      userId
+      updatedAt
+      __typename
+    }
     createdAt
     updatedAt
     chatRoomLastMessageId
+    chatRoomAccommodationId
     __typename
   }
 }
@@ -278,9 +423,25 @@ export const updateChatRoom = /* GraphQL */ `mutation UpdateChatRoom(
       updatedAt
       __typename
     }
+    Accommodation {
+      id
+      availableDate
+      description
+      images
+      price
+      propertyType
+      rented
+      createdAt
+      title
+      address
+      userId
+      updatedAt
+      __typename
+    }
     createdAt
     updatedAt
     chatRoomLastMessageId
+    chatRoomAccommodationId
     __typename
   }
 }
@@ -328,9 +489,25 @@ export const deleteChatRoom = /* GraphQL */ `mutation DeleteChatRoom(
       updatedAt
       __typename
     }
+    Accommodation {
+      id
+      availableDate
+      description
+      images
+      price
+      propertyType
+      rented
+      createdAt
+      title
+      address
+      userId
+      updatedAt
+      __typename
+    }
     createdAt
     updatedAt
     chatRoomLastMessageId
+    chatRoomAccommodationId
     __typename
   }
 }
@@ -358,6 +535,10 @@ export const createUserChatRoom = /* GraphQL */ `mutation CreateUserChatRoom(
         nextToken
         __typename
       }
+      Accommodations {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -381,9 +562,25 @@ export const createUserChatRoom = /* GraphQL */ `mutation CreateUserChatRoom(
         updatedAt
         __typename
       }
+      Accommodation {
+        id
+        availableDate
+        description
+        images
+        price
+        propertyType
+        rented
+        createdAt
+        title
+        address
+        userId
+        updatedAt
+        __typename
+      }
       createdAt
       updatedAt
       chatRoomLastMessageId
+      chatRoomAccommodationId
       __typename
     }
     createdAt
@@ -415,6 +612,10 @@ export const updateUserChatRoom = /* GraphQL */ `mutation UpdateUserChatRoom(
         nextToken
         __typename
       }
+      Accommodations {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -438,9 +639,25 @@ export const updateUserChatRoom = /* GraphQL */ `mutation UpdateUserChatRoom(
         updatedAt
         __typename
       }
+      Accommodation {
+        id
+        availableDate
+        description
+        images
+        price
+        propertyType
+        rented
+        createdAt
+        title
+        address
+        userId
+        updatedAt
+        __typename
+      }
       createdAt
       updatedAt
       chatRoomLastMessageId
+      chatRoomAccommodationId
       __typename
     }
     createdAt
@@ -472,6 +689,10 @@ export const deleteUserChatRoom = /* GraphQL */ `mutation DeleteUserChatRoom(
         nextToken
         __typename
       }
+      Accommodations {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -495,9 +716,25 @@ export const deleteUserChatRoom = /* GraphQL */ `mutation DeleteUserChatRoom(
         updatedAt
         __typename
       }
+      Accommodation {
+        id
+        availableDate
+        description
+        images
+        price
+        propertyType
+        rented
+        createdAt
+        title
+        address
+        userId
+        updatedAt
+        __typename
+      }
       createdAt
       updatedAt
       chatRoomLastMessageId
+      chatRoomAccommodationId
       __typename
     }
     createdAt

@@ -8,6 +8,75 @@ type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionOutput: OutputType;
 };
 
+export const onCreateAccommodation = /* GraphQL */ `subscription OnCreateAccommodation(
+  $filter: ModelSubscriptionAccommodationFilterInput
+) {
+  onCreateAccommodation(filter: $filter) {
+    id
+    availableDate
+    description
+    images
+    price
+    propertyType
+    rented
+    createdAt
+    title
+    address
+    userId
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnCreateAccommodationSubscriptionVariables,
+  APITypes.OnCreateAccommodationSubscription
+>;
+export const onUpdateAccommodation = /* GraphQL */ `subscription OnUpdateAccommodation(
+  $filter: ModelSubscriptionAccommodationFilterInput
+) {
+  onUpdateAccommodation(filter: $filter) {
+    id
+    availableDate
+    description
+    images
+    price
+    propertyType
+    rented
+    createdAt
+    title
+    address
+    userId
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateAccommodationSubscriptionVariables,
+  APITypes.OnUpdateAccommodationSubscription
+>;
+export const onDeleteAccommodation = /* GraphQL */ `subscription OnDeleteAccommodation(
+  $filter: ModelSubscriptionAccommodationFilterInput
+) {
+  onDeleteAccommodation(filter: $filter) {
+    id
+    availableDate
+    description
+    images
+    price
+    propertyType
+    rented
+    createdAt
+    title
+    address
+    userId
+    updatedAt
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteAccommodationSubscriptionVariables,
+  APITypes.OnDeleteAccommodationSubscription
+>;
 export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
   onCreateUser(filter: $filter) {
     id
@@ -31,6 +100,25 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
         createdAt
         text
         chatRoomId
+        userId
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    Accommodations {
+      items {
+        id
+        availableDate
+        description
+        images
+        price
+        propertyType
+        rented
+        createdAt
+        title
+        address
         userId
         updatedAt
         __typename
@@ -77,6 +165,25 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
       nextToken
       __typename
     }
+    Accommodations {
+      items {
+        id
+        availableDate
+        description
+        images
+        price
+        propertyType
+        rented
+        createdAt
+        title
+        address
+        userId
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
     __typename
@@ -109,6 +216,25 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
         createdAt
         text
         chatRoomId
+        userId
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+    Accommodations {
+      items {
+        id
+        availableDate
+        description
+        images
+        price
+        propertyType
+        rented
+        createdAt
+        title
+        address
         userId
         updatedAt
         __typename
@@ -207,9 +333,25 @@ export const onCreateChatRoom = /* GraphQL */ `subscription OnCreateChatRoom($fi
       updatedAt
       __typename
     }
+    Accommodation {
+      id
+      availableDate
+      description
+      images
+      price
+      propertyType
+      rented
+      createdAt
+      title
+      address
+      userId
+      updatedAt
+      __typename
+    }
     createdAt
     updatedAt
     chatRoomLastMessageId
+    chatRoomAccommodationId
     __typename
   }
 }
@@ -254,9 +396,25 @@ export const onUpdateChatRoom = /* GraphQL */ `subscription OnUpdateChatRoom($fi
       updatedAt
       __typename
     }
+    Accommodation {
+      id
+      availableDate
+      description
+      images
+      price
+      propertyType
+      rented
+      createdAt
+      title
+      address
+      userId
+      updatedAt
+      __typename
+    }
     createdAt
     updatedAt
     chatRoomLastMessageId
+    chatRoomAccommodationId
     __typename
   }
 }
@@ -301,9 +459,25 @@ export const onDeleteChatRoom = /* GraphQL */ `subscription OnDeleteChatRoom($fi
       updatedAt
       __typename
     }
+    Accommodation {
+      id
+      availableDate
+      description
+      images
+      price
+      propertyType
+      rented
+      createdAt
+      title
+      address
+      userId
+      updatedAt
+      __typename
+    }
     createdAt
     updatedAt
     chatRoomLastMessageId
+    chatRoomAccommodationId
     __typename
   }
 }
@@ -330,6 +504,10 @@ export const onCreateUserChatRoom = /* GraphQL */ `subscription OnCreateUserChat
         nextToken
         __typename
       }
+      Accommodations {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -353,9 +531,25 @@ export const onCreateUserChatRoom = /* GraphQL */ `subscription OnCreateUserChat
         updatedAt
         __typename
       }
+      Accommodation {
+        id
+        availableDate
+        description
+        images
+        price
+        propertyType
+        rented
+        createdAt
+        title
+        address
+        userId
+        updatedAt
+        __typename
+      }
       createdAt
       updatedAt
       chatRoomLastMessageId
+      chatRoomAccommodationId
       __typename
     }
     createdAt
@@ -386,6 +580,10 @@ export const onUpdateUserChatRoom = /* GraphQL */ `subscription OnUpdateUserChat
         nextToken
         __typename
       }
+      Accommodations {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -409,9 +607,25 @@ export const onUpdateUserChatRoom = /* GraphQL */ `subscription OnUpdateUserChat
         updatedAt
         __typename
       }
+      Accommodation {
+        id
+        availableDate
+        description
+        images
+        price
+        propertyType
+        rented
+        createdAt
+        title
+        address
+        userId
+        updatedAt
+        __typename
+      }
       createdAt
       updatedAt
       chatRoomLastMessageId
+      chatRoomAccommodationId
       __typename
     }
     createdAt
@@ -442,6 +656,10 @@ export const onDeleteUserChatRoom = /* GraphQL */ `subscription OnDeleteUserChat
         nextToken
         __typename
       }
+      Accommodations {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -465,9 +683,25 @@ export const onDeleteUserChatRoom = /* GraphQL */ `subscription OnDeleteUserChat
         updatedAt
         __typename
       }
+      Accommodation {
+        id
+        availableDate
+        description
+        images
+        price
+        propertyType
+        rented
+        createdAt
+        title
+        address
+        userId
+        updatedAt
+        __typename
+      }
       createdAt
       updatedAt
       chatRoomLastMessageId
+      chatRoomAccommodationId
       __typename
     }
     createdAt
