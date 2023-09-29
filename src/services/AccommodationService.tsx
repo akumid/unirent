@@ -1,4 +1,4 @@
-export const getTodaysRecommendation = /* GraphQL */ `
+export const fetchAll = /* GraphQL */ `
   query MyQuery($limit: Int!) {
     listAccommodations(limit: $limit) {
       items {
@@ -14,6 +14,7 @@ export const getTodaysRecommendation = /* GraphQL */ `
         User {
           name
         }
+        address
       }
     }
   }
