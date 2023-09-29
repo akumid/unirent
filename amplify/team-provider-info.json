@@ -21,13 +21,9 @@
           "s3Key": "amplify-builds/accommodationFunction-55784532304e32344254-build.zip"
         }
       },
-      "api": {
-        "accommodationApi": {},
-        "unirent": {}
-      },
       "storage": {
-        "accommodationTable": {},
-        "accommodationMediaStorage": {}
+        "accommodationMediaStorage": {},
+        "accommodationTable": {}
       }
     }
   }
