@@ -1,0 +1,46 @@
+enum PropertyEnum {
+  HDB
+  CONDO
+  LANDED
+}
+
+type Accommodation @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  availableDate: AWSDate
+  description: String!
+  images: [String]!
+  price: Int!
+  propertyType: PropertyEnum!
+  rented: Boolean
+  createdAt: AWSDateTime!
+  title: String!
+  address: AWSJSON!
+  userId: ID! @index(name: "byUser")
+  User: User @belongsTo(fields: ["userId"])
+}
+
+type User @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  name: String!
+  status: String
+  ChatRooms: [ChatRoom] @manyToMany(relationName: "UserChatRoom")
+  Messages: [Message] @hasMany(indexName: "byUser", fields: ["id"])
+  Accommodations: [Accommodation] @hasMany(indexName: "byUser", fields: ["id"])
+}
+
+type Message @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  createdAt: AWSDateTime!
+  text: String!
+  chatRoomId: ID! @index(name: "byChatRoom", sortKeyFields: ["createdAt"], queryField: "listMessagesByChatRoom")
+  userId: ID! @index(name: "byUser")
+}
+
+type ChatRoom @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  Users: [User] @manyToMany(relationName: "UserChatRoom")
+  Messages: [Message] @hasMany(indexName: "byChatRoom", fields: ["id"])
+  LastMessage: Message @hasOne
+  Accommodation: Accommodation @hasOne
+}
+ 

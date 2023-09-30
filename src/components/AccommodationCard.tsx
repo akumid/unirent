@@ -1,4 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
+import { API, Auth, graphqlOperation } from "aws-amplify";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import { useState } from "react";
 import { View } from "react-native";
 import {
@@ -10,11 +13,51 @@ import {
   IconButton,
 } from "react-native-paper";
 
+import { createChatRoom, createUserChatRoom } from "../graphql/mutations";
 import IAccommodation from "../model/IAccommodation";
+import { getCommonChatRoomWithUser } from "../services/ChatRoomService";
+
+dayjs.extend(relativeTime);
 
 const AccommodationCard = (props: IAccommodation) => {
   const navigation = useNavigation();
   const [saved, setSaved] = useState(false);
+
+  const onContact = async () => {
+    // check if have chatroom with user
+    const existingChatRoom = await getCommonChatRoomWithUser(props.userId);
+    if (existingChatRoom) {
+      console.log("Chatroom already exists");
+      navigation.navigate("Chat", { id: existingChatRoom.chatRoom.id });
+      return;
+    }
+
+    console.log("Creating new chatroom");
+    const newChatRoomData = await API.graphql(
+      graphqlOperation(createChatRoom, { input: {} }),
+    );
+    if (!newChatRoomData.data?.createChatRoom) {
+      console.log("Error creating new chat room");
+    }
+    const newChatRoom = newChatRoomData.data?.createChatRoom;
+
+    // add clicked user to chatroom
+    await API.graphql(
+      graphqlOperation(createUserChatRoom, {
+        input: { chatRoomId: newChatRoom.id, userId: props.userId },
+      }),
+    );
+
+    // add auth user to chatroom
+    const authUser = await Auth.currentAuthenticatedUser();
+    await API.graphql(
+      graphqlOperation(createUserChatRoom, {
+        input: { chatRoomId: newChatRoom.id, userId: authUser.attributes.sub },
+      }),
+    );
+
+    navigation.navigate("Chat", { id: newChatRoom.id });
+  };
 
   return (
     <Card
@@ -25,14 +68,16 @@ const AccommodationCard = (props: IAccommodation) => {
         borderWidth: 0.3,
         marginVertical: 15,
       }}
-      onPress={() => navigation.navigate("Accommodation Detail")}
+      onPress={() =>
+        navigation.navigate("Accommodation Detail", { id: props.id })
+      }
     >
       <Card.Cover source={{ uri: props.images[0] }} />
 
       <View style={{ flex: 1, flexDirection: "row" }}>
         <Card.Title
           title={props.title}
-          subtitle={props.address.aptName}
+          subtitle={props.address?.aptName}
           subtitleNumberOfLines={3}
           subtitleVariant="labelMedium"
           subtitleStyle={{ color: "gray" }}
@@ -53,7 +98,13 @@ const AccommodationCard = (props: IAccommodation) => {
       </View>
       <Divider />
       <Card.Content style={{ marginVertical: 10 }}>
+<<<<<<< HEAD
         <Text style={{ color: "#000" }}>S$ {props.price} / month • Available from 25 Aug </Text>
+=======
+        <Text>
+          S$ {props.price} / month • Available from {props.availableDate}
+        </Text>
+>>>>>>> develop
       </Card.Content>
       <Divider />
       <Card.Content style={{ marginVertical: 10 }}>
@@ -67,15 +118,14 @@ const AccommodationCard = (props: IAccommodation) => {
             }}
           >
             <Text style={{ fontSize: 12, fontWeight: "bold" }}>
-              Listed By {props.listedBy}
+              Listed By {props.User.name}
             </Text>
-            <Text style={{ fontSize: 14 }}> {props.shortDescription} </Text>
+            <Text style={{ fontSize: 12 }}>
+              {dayjs(props.createdAt).fromNow(true)} ago
+            </Text>
           </View>
         </View>
-        <Button
-          mode="outlined"
-          onPress={() => console.warn("navigate to message screen")}
-        >
+        <Button mode="outlined" onPress={() => onContact()}>
           Contact
         </Button>
       </Card.Content>

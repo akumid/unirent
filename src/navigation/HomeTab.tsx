@@ -1,9 +1,9 @@
 import { createMaterialBottomTabNavigator } from "react-native-paper/react-navigation";
 
 import AccountStack from "./AccountStack";
+import ChatStack from "./ChatStack";
 import ExploreStack from "./ExploreStack";
 import Home from "../screens/Home";
-import InboxScreen from "../screens/InboxScreen";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -30,7 +30,7 @@ export default function HomeTab() {
       />
       <Tab.Screen
         name="Inbox"
-        component={InboxScreen}
+        component={ChatStack}
         options={{
           tabBarIcon: "message-text-outline",
         }}

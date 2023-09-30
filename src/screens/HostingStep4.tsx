@@ -1,4 +1,4 @@
-import { Auth, Storage } from "aws-amplify";
+import { API, Auth, Storage, graphqlOperation } from "aws-amplify";
 import { nanoid } from "nanoid";
 import { useEffect, useRef, useState } from "react";
 import { StyleSheet, View, ScrollView, Dimensions } from "react-native";
@@ -15,6 +15,7 @@ import { publish } from "../api/AccommodationAPI";
 import alert from "../components/Alert";
 import { CarouselImages } from "../components/CarouselImages";
 import Map from "../components/Map";
+import { createAccommodation } from "../graphql/mutations";
 import EPropertyType from "../model/EPropertyType";
 import IAccommodation from "../model/IAccommodation";
 import IGeo from "../model/IGeo";
@@ -64,26 +65,55 @@ export default function HostingStep4({ navigation }) {
 
     const uuid = nanoid();
     const s3ObjectKeys = await uploadToStorage(hostStore.images, uuid);
-    const user = await Auth.currentAuthenticatedUser();
+    const authUser = await Auth.currentAuthenticatedUser();
 
     hostStore.address.geo = geocode;
 
-    const request: IAccommodation = {
+    // const request: IAccommodation = {
+    //   id: uuid,
+    //   title: hostStore.title,
+    //   address: hostStore.address,
+    //   propertyType: EPropertyType[hostStore.propertyType],
+    //   images: s3ObjectKeys,
+    //   fullDescription: hostStore.description,
+    //   price: hostStore.price,
+    //   shortDescription: hostStore.description,
+    //   rented: false,
+    //   availableDate: "2024-01-01",
+    //   listedBy: authUser.attributes.sub,
+    // };
+    // const resp = await publish(request);
+    // if (resp.success) {
+    //   alert("New Listing", "Publish successful!", [
+    //     { text: "OK", onPress: () => navigation.navigate("Hosting") },
+    //   ]);
+    // } else {
+    //   alert("Error", "Publish unsuccessful!", [
+    //     {
+    //       text: "Please try again later",
+    //       onPress: () => navigation.navigate("Hosting"),
+    //     },
+    //   ]);
+    // }
+
+    // change to graphql
+    console.log("Creating new accommodation");
+    const newAccomm = {
       id: uuid,
       title: hostStore.title,
-      address: hostStore.address,
+      address: JSON.stringify(hostStore.address),
       propertyType: EPropertyType[hostStore.propertyType],
       images: s3ObjectKeys,
-      fullDescription: hostStore.description,
+      description: hostStore.description,
       price: hostStore.price,
-      shortDescription: hostStore.description,
       rented: false,
-      availableDate: "2024-01-01",
-      listedBy: user.username,
+      availableDate: new Date().toISOString().substring(0, 10),
+      userId: authUser.attributes.sub,
     };
-
-    const resp = await publish(request);
-    if (resp.success) {
+    const newAccommData = await API.graphql(
+      graphqlOperation(createAccommodation, { input: newAccomm }),
+    );
+    if (newAccommData.data.createAccommodation) {
       alert("New Listing", "Publish successful!", [
         { text: "OK", onPress: () => navigation.navigate("Hosting") },
       ]);

@@ -8,10 +8,10 @@ export default function ImageInputList({
   onAddImage,
 }) {
   return (
-    <ScrollView horizontal>
-      <View style={{ flexDirection: "row" }}>
+    <ScrollView>
+      <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
         {imageUris.map((uri) => (
-          <View key={uri} style={{ marginRight: 10 }}>
+          <View key={uri} style={{ margin: 5 }}>
             <ImageInput
               imageUri={uri}
               onChangeImage={() => onRemoveImage(uri)}
