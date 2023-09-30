@@ -14,6 +14,7 @@ frontend:
           fi
     build:
       commands:
+        - echo "EXPO_PUBLIC_GOOGLE_MAPS_API_KEY=$GOOGLE_MAPS_API_KEY" >> .env
         - npx expo export --platform web
   artifacts:
     baseDirectory: dist
