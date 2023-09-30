@@ -2,44 +2,19 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateAccommodationInput = {
+export type CreateSavedAccommodationInput = {
   id?: string | null,
-  availableDate?: string | null,
-  description: string,
-  images: Array< string | null >,
-  price: number,
-  propertyType: PropertyEnum,
-  rented?: boolean | null,
-  createdAt?: string | null,
-  title: string,
-  address: string,
-  userId: string,
+  savedAccommodationUserId?: string | null,
 };
 
-export enum PropertyEnum {
-  HDB = "HDB",
-  CONDO = "CONDO",
-  LANDED = "LANDED",
-}
-
-
-export type ModelAccommodationConditionInput = {
-  availableDate?: ModelStringInput | null,
-  description?: ModelStringInput | null,
-  images?: ModelStringInput | null,
-  price?: ModelIntInput | null,
-  propertyType?: ModelPropertyEnumInput | null,
-  rented?: ModelBooleanInput | null,
-  createdAt?: ModelStringInput | null,
-  title?: ModelStringInput | null,
-  address?: ModelStringInput | null,
-  userId?: ModelIDInput | null,
-  and?: Array< ModelAccommodationConditionInput | null > | null,
-  or?: Array< ModelAccommodationConditionInput | null > | null,
-  not?: ModelAccommodationConditionInput | null,
+export type ModelSavedAccommodationConditionInput = {
+  and?: Array< ModelSavedAccommodationConditionInput | null > | null,
+  or?: Array< ModelSavedAccommodationConditionInput | null > | null,
+  not?: ModelSavedAccommodationConditionInput | null,
+  savedAccommodationUserId?: ModelIDInput | null,
 };
 
-export type ModelStringInput = {
+export type ModelIDInput = {
   ne?: string | null,
   eq?: string | null,
   le?: string | null,
@@ -79,44 +54,31 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type ModelIntInput = {
-  ne?: number | null,
-  eq?: number | null,
-  le?: number | null,
-  lt?: number | null,
-  ge?: number | null,
-  gt?: number | null,
-  between?: Array< number | null > | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
+export type SavedAccommodation = {
+  __typename: "SavedAccommodation",
+  id: string,
+  Accommodations?: ModelSavedAccommodationAccommodationConnection | null,
+  User?: User | null,
+  createdAt: string,
+  updatedAt: string,
+  savedAccommodationUserId?: string | null,
 };
 
-export type ModelPropertyEnumInput = {
-  eq?: PropertyEnum | null,
-  ne?: PropertyEnum | null,
+export type ModelSavedAccommodationAccommodationConnection = {
+  __typename: "ModelSavedAccommodationAccommodationConnection",
+  items:  Array<SavedAccommodationAccommodation | null >,
+  nextToken?: string | null,
 };
 
-export type ModelBooleanInput = {
-  ne?: boolean | null,
-  eq?: boolean | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-};
-
-export type ModelIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  attributeExists?: boolean | null,
-  attributeType?: ModelAttributeTypes | null,
-  size?: ModelSizeInput | null,
+export type SavedAccommodationAccommodation = {
+  __typename: "SavedAccommodationAccommodation",
+  id: string,
+  savedAccommodationId: string,
+  accommodationId: string,
+  savedAccommodation: SavedAccommodation,
+  accommodation: Accommodation,
+  createdAt: string,
+  updatedAt: string,
 };
 
 export type Accommodation = {
@@ -133,8 +95,16 @@ export type Accommodation = {
   address: string,
   userId: string,
   User?: User | null,
+  savedaccommodations?: ModelSavedAccommodationAccommodationConnection | null,
   updatedAt: string,
 };
+
+export enum PropertyEnum {
+  HDB = "HDB",
+  CONDO = "CONDO",
+  LANDED = "LANDED",
+}
+
 
 export type User = {
   __typename: "User",
@@ -144,8 +114,10 @@ export type User = {
   ChatRooms?: ModelUserChatRoomConnection | null,
   Messages?: ModelMessageConnection | null,
   Accommodations?: ModelAccommodationConnection | null,
+  SavedAccommodation?: SavedAccommodation | null,
   createdAt: string,
   updatedAt: string,
+  userSavedAccommodationId?: string | null,
 };
 
 export type ModelUserChatRoomConnection = {
@@ -200,6 +172,85 @@ export type ModelAccommodationConnection = {
   nextToken?: string | null,
 };
 
+export type UpdateSavedAccommodationInput = {
+  id: string,
+  savedAccommodationUserId?: string | null,
+};
+
+export type DeleteSavedAccommodationInput = {
+  id: string,
+};
+
+export type CreateAccommodationInput = {
+  id?: string | null,
+  availableDate?: string | null,
+  description: string,
+  images: Array< string | null >,
+  price: number,
+  propertyType: PropertyEnum,
+  rented?: boolean | null,
+  createdAt?: string | null,
+  title: string,
+  address: string,
+  userId: string,
+};
+
+export type ModelAccommodationConditionInput = {
+  availableDate?: ModelStringInput | null,
+  description?: ModelStringInput | null,
+  images?: ModelStringInput | null,
+  price?: ModelIntInput | null,
+  propertyType?: ModelPropertyEnumInput | null,
+  rented?: ModelBooleanInput | null,
+  createdAt?: ModelStringInput | null,
+  title?: ModelStringInput | null,
+  address?: ModelStringInput | null,
+  userId?: ModelIDInput | null,
+  and?: Array< ModelAccommodationConditionInput | null > | null,
+  or?: Array< ModelAccommodationConditionInput | null > | null,
+  not?: ModelAccommodationConditionInput | null,
+};
+
+export type ModelStringInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+  size?: ModelSizeInput | null,
+};
+
+export type ModelIntInput = {
+  ne?: number | null,
+  eq?: number | null,
+  le?: number | null,
+  lt?: number | null,
+  ge?: number | null,
+  gt?: number | null,
+  between?: Array< number | null > | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
+export type ModelPropertyEnumInput = {
+  eq?: PropertyEnum | null,
+  ne?: PropertyEnum | null,
+};
+
+export type ModelBooleanInput = {
+  ne?: boolean | null,
+  eq?: boolean | null,
+  attributeExists?: boolean | null,
+  attributeType?: ModelAttributeTypes | null,
+};
+
 export type UpdateAccommodationInput = {
   id: string,
   availableDate?: string | null,
@@ -222,6 +273,7 @@ export type CreateUserInput = {
   id?: string | null,
   name: string,
   status?: string | null,
+  userSavedAccommodationId?: string | null,
 };
 
 export type ModelUserConditionInput = {
@@ -230,12 +282,14 @@ export type ModelUserConditionInput = {
   and?: Array< ModelUserConditionInput | null > | null,
   or?: Array< ModelUserConditionInput | null > | null,
   not?: ModelUserConditionInput | null,
+  userSavedAccommodationId?: ModelIDInput | null,
 };
 
 export type UpdateUserInput = {
   id: string,
   name?: string | null,
   status?: string | null,
+  userSavedAccommodationId?: string | null,
 };
 
 export type DeleteUserInput = {
@@ -296,6 +350,30 @@ export type DeleteChatRoomInput = {
   id: string,
 };
 
+export type CreateSavedAccommodationAccommodationInput = {
+  id?: string | null,
+  savedAccommodationId: string,
+  accommodationId: string,
+};
+
+export type ModelSavedAccommodationAccommodationConditionInput = {
+  savedAccommodationId?: ModelIDInput | null,
+  accommodationId?: ModelIDInput | null,
+  and?: Array< ModelSavedAccommodationAccommodationConditionInput | null > | null,
+  or?: Array< ModelSavedAccommodationAccommodationConditionInput | null > | null,
+  not?: ModelSavedAccommodationAccommodationConditionInput | null,
+};
+
+export type UpdateSavedAccommodationAccommodationInput = {
+  id: string,
+  savedAccommodationId?: string | null,
+  accommodationId?: string | null,
+};
+
+export type DeleteSavedAccommodationAccommodationInput = {
+  id: string,
+};
+
 export type CreateUserChatRoomInput = {
   id?: string | null,
   userId: string,
@@ -318,6 +396,20 @@ export type UpdateUserChatRoomInput = {
 
 export type DeleteUserChatRoomInput = {
   id: string,
+};
+
+export type ModelSavedAccommodationFilterInput = {
+  id?: ModelIDInput | null,
+  and?: Array< ModelSavedAccommodationFilterInput | null > | null,
+  or?: Array< ModelSavedAccommodationFilterInput | null > | null,
+  not?: ModelSavedAccommodationFilterInput | null,
+  savedAccommodationUserId?: ModelIDInput | null,
+};
+
+export type ModelSavedAccommodationConnection = {
+  __typename: "ModelSavedAccommodationConnection",
+  items:  Array<SavedAccommodation | null >,
+  nextToken?: string | null,
 };
 
 export type ModelAccommodationFilterInput = {
@@ -350,6 +442,7 @@ export type ModelUserFilterInput = {
   and?: Array< ModelUserFilterInput | null > | null,
   or?: Array< ModelUserFilterInput | null > | null,
   not?: ModelUserFilterInput | null,
+  userSavedAccommodationId?: ModelIDInput | null,
 };
 
 export type ModelUserConnection = {
@@ -394,6 +487,15 @@ export type ModelChatRoomConnection = {
   nextToken?: string | null,
 };
 
+export type ModelSavedAccommodationAccommodationFilterInput = {
+  id?: ModelIDInput | null,
+  savedAccommodationId?: ModelIDInput | null,
+  accommodationId?: ModelIDInput | null,
+  and?: Array< ModelSavedAccommodationAccommodationFilterInput | null > | null,
+  or?: Array< ModelSavedAccommodationAccommodationFilterInput | null > | null,
+  not?: ModelSavedAccommodationAccommodationFilterInput | null,
+};
+
 export type ModelUserChatRoomFilterInput = {
   id?: ModelIDInput | null,
   userId?: ModelIDInput | null,
@@ -401,6 +503,27 @@ export type ModelUserChatRoomFilterInput = {
   and?: Array< ModelUserChatRoomFilterInput | null > | null,
   or?: Array< ModelUserChatRoomFilterInput | null > | null,
   not?: ModelUserChatRoomFilterInput | null,
+};
+
+export type ModelSubscriptionSavedAccommodationFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  and?: Array< ModelSubscriptionSavedAccommodationFilterInput | null > | null,
+  or?: Array< ModelSubscriptionSavedAccommodationFilterInput | null > | null,
+};
+
+export type ModelSubscriptionIDInput = {
+  ne?: string | null,
+  eq?: string | null,
+  le?: string | null,
+  lt?: string | null,
+  ge?: string | null,
+  gt?: string | null,
+  contains?: string | null,
+  notContains?: string | null,
+  between?: Array< string | null > | null,
+  beginsWith?: string | null,
+  in?: Array< string | null > | null,
+  notIn?: Array< string | null > | null,
 };
 
 export type ModelSubscriptionAccommodationFilterInput = {
@@ -417,21 +540,6 @@ export type ModelSubscriptionAccommodationFilterInput = {
   userId?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionAccommodationFilterInput | null > | null,
   or?: Array< ModelSubscriptionAccommodationFilterInput | null > | null,
-};
-
-export type ModelSubscriptionIDInput = {
-  ne?: string | null,
-  eq?: string | null,
-  le?: string | null,
-  lt?: string | null,
-  ge?: string | null,
-  gt?: string | null,
-  contains?: string | null,
-  notContains?: string | null,
-  between?: Array< string | null > | null,
-  beginsWith?: string | null,
-  in?: Array< string | null > | null,
-  notIn?: Array< string | null > | null,
 };
 
 export type ModelSubscriptionStringInput = {
@@ -490,12 +598,185 @@ export type ModelSubscriptionChatRoomFilterInput = {
   or?: Array< ModelSubscriptionChatRoomFilterInput | null > | null,
 };
 
+export type ModelSubscriptionSavedAccommodationAccommodationFilterInput = {
+  id?: ModelSubscriptionIDInput | null,
+  savedAccommodationId?: ModelSubscriptionIDInput | null,
+  accommodationId?: ModelSubscriptionIDInput | null,
+  and?: Array< ModelSubscriptionSavedAccommodationAccommodationFilterInput | null > | null,
+  or?: Array< ModelSubscriptionSavedAccommodationAccommodationFilterInput | null > | null,
+};
+
 export type ModelSubscriptionUserChatRoomFilterInput = {
   id?: ModelSubscriptionIDInput | null,
   userId?: ModelSubscriptionIDInput | null,
   chatRoomId?: ModelSubscriptionIDInput | null,
   and?: Array< ModelSubscriptionUserChatRoomFilterInput | null > | null,
   or?: Array< ModelSubscriptionUserChatRoomFilterInput | null > | null,
+};
+
+export type CreateSavedAccommodationMutationVariables = {
+  input: CreateSavedAccommodationInput,
+  condition?: ModelSavedAccommodationConditionInput | null,
+};
+
+export type CreateSavedAccommodationMutation = {
+  createSavedAccommodation?:  {
+    __typename: "SavedAccommodation",
+    id: string,
+    Accommodations?:  {
+      __typename: "ModelSavedAccommodationAccommodationConnection",
+      items:  Array< {
+        __typename: "SavedAccommodationAccommodation",
+        id: string,
+        savedAccommodationId: string,
+        accommodationId: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    User?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      status?: string | null,
+      ChatRooms?:  {
+        __typename: "ModelUserChatRoomConnection",
+        nextToken?: string | null,
+      } | null,
+      Messages?:  {
+        __typename: "ModelMessageConnection",
+        nextToken?: string | null,
+      } | null,
+      Accommodations?:  {
+        __typename: "ModelAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      SavedAccommodation?:  {
+        __typename: "SavedAccommodation",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        savedAccommodationUserId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      userSavedAccommodationId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    savedAccommodationUserId?: string | null,
+  } | null,
+};
+
+export type UpdateSavedAccommodationMutationVariables = {
+  input: UpdateSavedAccommodationInput,
+  condition?: ModelSavedAccommodationConditionInput | null,
+};
+
+export type UpdateSavedAccommodationMutation = {
+  updateSavedAccommodation?:  {
+    __typename: "SavedAccommodation",
+    id: string,
+    Accommodations?:  {
+      __typename: "ModelSavedAccommodationAccommodationConnection",
+      items:  Array< {
+        __typename: "SavedAccommodationAccommodation",
+        id: string,
+        savedAccommodationId: string,
+        accommodationId: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    User?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      status?: string | null,
+      ChatRooms?:  {
+        __typename: "ModelUserChatRoomConnection",
+        nextToken?: string | null,
+      } | null,
+      Messages?:  {
+        __typename: "ModelMessageConnection",
+        nextToken?: string | null,
+      } | null,
+      Accommodations?:  {
+        __typename: "ModelAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      SavedAccommodation?:  {
+        __typename: "SavedAccommodation",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        savedAccommodationUserId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      userSavedAccommodationId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    savedAccommodationUserId?: string | null,
+  } | null,
+};
+
+export type DeleteSavedAccommodationMutationVariables = {
+  input: DeleteSavedAccommodationInput,
+  condition?: ModelSavedAccommodationConditionInput | null,
+};
+
+export type DeleteSavedAccommodationMutation = {
+  deleteSavedAccommodation?:  {
+    __typename: "SavedAccommodation",
+    id: string,
+    Accommodations?:  {
+      __typename: "ModelSavedAccommodationAccommodationConnection",
+      items:  Array< {
+        __typename: "SavedAccommodationAccommodation",
+        id: string,
+        savedAccommodationId: string,
+        accommodationId: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    User?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      status?: string | null,
+      ChatRooms?:  {
+        __typename: "ModelUserChatRoomConnection",
+        nextToken?: string | null,
+      } | null,
+      Messages?:  {
+        __typename: "ModelMessageConnection",
+        nextToken?: string | null,
+      } | null,
+      Accommodations?:  {
+        __typename: "ModelAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      SavedAccommodation?:  {
+        __typename: "SavedAccommodation",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        savedAccommodationUserId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      userSavedAccommodationId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    savedAccommodationUserId?: string | null,
+  } | null,
 };
 
 export type CreateAccommodationMutationVariables = {
@@ -534,8 +815,28 @@ export type CreateAccommodationMutation = {
         __typename: "ModelAccommodationConnection",
         nextToken?: string | null,
       } | null,
+      SavedAccommodation?:  {
+        __typename: "SavedAccommodation",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        savedAccommodationUserId?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
+      userSavedAccommodationId?: string | null,
+    } | null,
+    savedaccommodations?:  {
+      __typename: "ModelSavedAccommodationAccommodationConnection",
+      items:  Array< {
+        __typename: "SavedAccommodationAccommodation",
+        id: string,
+        savedAccommodationId: string,
+        accommodationId: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     updatedAt: string,
   } | null,
@@ -577,8 +878,28 @@ export type UpdateAccommodationMutation = {
         __typename: "ModelAccommodationConnection",
         nextToken?: string | null,
       } | null,
+      SavedAccommodation?:  {
+        __typename: "SavedAccommodation",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        savedAccommodationUserId?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
+      userSavedAccommodationId?: string | null,
+    } | null,
+    savedaccommodations?:  {
+      __typename: "ModelSavedAccommodationAccommodationConnection",
+      items:  Array< {
+        __typename: "SavedAccommodationAccommodation",
+        id: string,
+        savedAccommodationId: string,
+        accommodationId: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     updatedAt: string,
   } | null,
@@ -620,8 +941,28 @@ export type DeleteAccommodationMutation = {
         __typename: "ModelAccommodationConnection",
         nextToken?: string | null,
       } | null,
+      SavedAccommodation?:  {
+        __typename: "SavedAccommodation",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        savedAccommodationUserId?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
+      userSavedAccommodationId?: string | null,
+    } | null,
+    savedaccommodations?:  {
+      __typename: "ModelSavedAccommodationAccommodationConnection",
+      items:  Array< {
+        __typename: "SavedAccommodationAccommodation",
+        id: string,
+        savedAccommodationId: string,
+        accommodationId: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     updatedAt: string,
   } | null,
@@ -682,8 +1023,29 @@ export type CreateUserMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    SavedAccommodation?:  {
+      __typename: "SavedAccommodation",
+      id: string,
+      Accommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      savedAccommodationUserId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    userSavedAccommodationId?: string | null,
   } | null,
 };
 
@@ -742,8 +1104,29 @@ export type UpdateUserMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    SavedAccommodation?:  {
+      __typename: "SavedAccommodation",
+      id: string,
+      Accommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      savedAccommodationUserId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    userSavedAccommodationId?: string | null,
   } | null,
 };
 
@@ -802,8 +1185,29 @@ export type DeleteUserMutation = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    SavedAccommodation?:  {
+      __typename: "SavedAccommodation",
+      id: string,
+      Accommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      savedAccommodationUserId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    userSavedAccommodationId?: string | null,
   } | null,
 };
 
@@ -921,6 +1325,11 @@ export type CreateChatRoomMutation = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      savedaccommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
       } | null,
       updatedAt: string,
     } | null,
@@ -994,6 +1403,11 @@ export type UpdateChatRoomMutation = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      savedaccommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
       } | null,
       updatedAt: string,
     } | null,
@@ -1067,6 +1481,11 @@ export type DeleteChatRoomMutation = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      savedaccommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
       } | null,
       updatedAt: string,
     } | null,
@@ -1074,6 +1493,198 @@ export type DeleteChatRoomMutation = {
     updatedAt: string,
     chatRoomLastMessageId?: string | null,
     chatRoomAccommodationId?: string | null,
+  } | null,
+};
+
+export type CreateSavedAccommodationAccommodationMutationVariables = {
+  input: CreateSavedAccommodationAccommodationInput,
+  condition?: ModelSavedAccommodationAccommodationConditionInput | null,
+};
+
+export type CreateSavedAccommodationAccommodationMutation = {
+  createSavedAccommodationAccommodation?:  {
+    __typename: "SavedAccommodationAccommodation",
+    id: string,
+    savedAccommodationId: string,
+    accommodationId: string,
+    savedAccommodation:  {
+      __typename: "SavedAccommodation",
+      id: string,
+      Accommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      savedAccommodationUserId?: string | null,
+    },
+    accommodation:  {
+      __typename: "Accommodation",
+      id: string,
+      availableDate?: string | null,
+      description: string,
+      images: Array< string | null >,
+      price: number,
+      propertyType: PropertyEnum,
+      rented?: boolean | null,
+      createdAt: string,
+      title: string,
+      address: string,
+      userId: string,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      savedaccommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type UpdateSavedAccommodationAccommodationMutationVariables = {
+  input: UpdateSavedAccommodationAccommodationInput,
+  condition?: ModelSavedAccommodationAccommodationConditionInput | null,
+};
+
+export type UpdateSavedAccommodationAccommodationMutation = {
+  updateSavedAccommodationAccommodation?:  {
+    __typename: "SavedAccommodationAccommodation",
+    id: string,
+    savedAccommodationId: string,
+    accommodationId: string,
+    savedAccommodation:  {
+      __typename: "SavedAccommodation",
+      id: string,
+      Accommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      savedAccommodationUserId?: string | null,
+    },
+    accommodation:  {
+      __typename: "Accommodation",
+      id: string,
+      availableDate?: string | null,
+      description: string,
+      images: Array< string | null >,
+      price: number,
+      propertyType: PropertyEnum,
+      rented?: boolean | null,
+      createdAt: string,
+      title: string,
+      address: string,
+      userId: string,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      savedaccommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type DeleteSavedAccommodationAccommodationMutationVariables = {
+  input: DeleteSavedAccommodationAccommodationInput,
+  condition?: ModelSavedAccommodationAccommodationConditionInput | null,
+};
+
+export type DeleteSavedAccommodationAccommodationMutation = {
+  deleteSavedAccommodationAccommodation?:  {
+    __typename: "SavedAccommodationAccommodation",
+    id: string,
+    savedAccommodationId: string,
+    accommodationId: string,
+    savedAccommodation:  {
+      __typename: "SavedAccommodation",
+      id: string,
+      Accommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      savedAccommodationUserId?: string | null,
+    },
+    accommodation:  {
+      __typename: "Accommodation",
+      id: string,
+      availableDate?: string | null,
+      description: string,
+      images: Array< string | null >,
+      price: number,
+      propertyType: PropertyEnum,
+      rented?: boolean | null,
+      createdAt: string,
+      title: string,
+      address: string,
+      userId: string,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      savedaccommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
 
@@ -1105,8 +1716,16 @@ export type CreateUserChatRoomMutation = {
         __typename: "ModelAccommodationConnection",
         nextToken?: string | null,
       } | null,
+      SavedAccommodation?:  {
+        __typename: "SavedAccommodation",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        savedAccommodationUserId?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
+      userSavedAccommodationId?: string | null,
     },
     chatRoom:  {
       __typename: "ChatRoom",
@@ -1181,8 +1800,16 @@ export type UpdateUserChatRoomMutation = {
         __typename: "ModelAccommodationConnection",
         nextToken?: string | null,
       } | null,
+      SavedAccommodation?:  {
+        __typename: "SavedAccommodation",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        savedAccommodationUserId?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
+      userSavedAccommodationId?: string | null,
     },
     chatRoom:  {
       __typename: "ChatRoom",
@@ -1257,8 +1884,16 @@ export type DeleteUserChatRoomMutation = {
         __typename: "ModelAccommodationConnection",
         nextToken?: string | null,
       } | null,
+      SavedAccommodation?:  {
+        __typename: "SavedAccommodation",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        savedAccommodationUserId?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
+      userSavedAccommodationId?: string | null,
     },
     chatRoom:  {
       __typename: "ChatRoom",
@@ -1305,6 +1940,93 @@ export type DeleteUserChatRoomMutation = {
   } | null,
 };
 
+export type GetSavedAccommodationQueryVariables = {
+  id: string,
+};
+
+export type GetSavedAccommodationQuery = {
+  getSavedAccommodation?:  {
+    __typename: "SavedAccommodation",
+    id: string,
+    Accommodations?:  {
+      __typename: "ModelSavedAccommodationAccommodationConnection",
+      items:  Array< {
+        __typename: "SavedAccommodationAccommodation",
+        id: string,
+        savedAccommodationId: string,
+        accommodationId: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    User?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      status?: string | null,
+      ChatRooms?:  {
+        __typename: "ModelUserChatRoomConnection",
+        nextToken?: string | null,
+      } | null,
+      Messages?:  {
+        __typename: "ModelMessageConnection",
+        nextToken?: string | null,
+      } | null,
+      Accommodations?:  {
+        __typename: "ModelAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      SavedAccommodation?:  {
+        __typename: "SavedAccommodation",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        savedAccommodationUserId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      userSavedAccommodationId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    savedAccommodationUserId?: string | null,
+  } | null,
+};
+
+export type ListSavedAccommodationsQueryVariables = {
+  filter?: ModelSavedAccommodationFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListSavedAccommodationsQuery = {
+  listSavedAccommodations?:  {
+    __typename: "ModelSavedAccommodationConnection",
+    items:  Array< {
+      __typename: "SavedAccommodation",
+      id: string,
+      Accommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      savedAccommodationUserId?: string | null,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type GetAccommodationQueryVariables = {
   id: string,
 };
@@ -1340,8 +2062,28 @@ export type GetAccommodationQuery = {
         __typename: "ModelAccommodationConnection",
         nextToken?: string | null,
       } | null,
+      SavedAccommodation?:  {
+        __typename: "SavedAccommodation",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        savedAccommodationUserId?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
+      userSavedAccommodationId?: string | null,
+    } | null,
+    savedaccommodations?:  {
+      __typename: "ModelSavedAccommodationAccommodationConnection",
+      items:  Array< {
+        __typename: "SavedAccommodationAccommodation",
+        id: string,
+        savedAccommodationId: string,
+        accommodationId: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     updatedAt: string,
   } | null,
@@ -1376,6 +2118,11 @@ export type ListAccommodationsQuery = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      savedaccommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
       } | null,
       updatedAt: string,
     } | null >,
@@ -1414,6 +2161,11 @@ export type AccommodationsByUserIdQuery = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      savedaccommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
       } | null,
       updatedAt: string,
     } | null >,
@@ -1475,8 +2227,29 @@ export type GetUserQuery = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    SavedAccommodation?:  {
+      __typename: "SavedAccommodation",
+      id: string,
+      Accommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      savedAccommodationUserId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    userSavedAccommodationId?: string | null,
   } | null,
 };
 
@@ -1506,8 +2279,16 @@ export type ListUsersQuery = {
         __typename: "ModelAccommodationConnection",
         nextToken?: string | null,
       } | null,
+      SavedAccommodation?:  {
+        __typename: "SavedAccommodation",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        savedAccommodationUserId?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
+      userSavedAccommodationId?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -1662,6 +2443,11 @@ export type GetChatRoomQuery = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      savedaccommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
       } | null,
       updatedAt: string,
     } | null,
@@ -1725,6 +2511,202 @@ export type ListChatRoomsQuery = {
   } | null,
 };
 
+export type GetSavedAccommodationAccommodationQueryVariables = {
+  id: string,
+};
+
+export type GetSavedAccommodationAccommodationQuery = {
+  getSavedAccommodationAccommodation?:  {
+    __typename: "SavedAccommodationAccommodation",
+    id: string,
+    savedAccommodationId: string,
+    accommodationId: string,
+    savedAccommodation:  {
+      __typename: "SavedAccommodation",
+      id: string,
+      Accommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      savedAccommodationUserId?: string | null,
+    },
+    accommodation:  {
+      __typename: "Accommodation",
+      id: string,
+      availableDate?: string | null,
+      description: string,
+      images: Array< string | null >,
+      price: number,
+      propertyType: PropertyEnum,
+      rented?: boolean | null,
+      createdAt: string,
+      title: string,
+      address: string,
+      userId: string,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      savedaccommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type ListSavedAccommodationAccommodationsQueryVariables = {
+  filter?: ModelSavedAccommodationAccommodationFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ListSavedAccommodationAccommodationsQuery = {
+  listSavedAccommodationAccommodations?:  {
+    __typename: "ModelSavedAccommodationAccommodationConnection",
+    items:  Array< {
+      __typename: "SavedAccommodationAccommodation",
+      id: string,
+      savedAccommodationId: string,
+      accommodationId: string,
+      savedAccommodation:  {
+        __typename: "SavedAccommodation",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        savedAccommodationUserId?: string | null,
+      },
+      accommodation:  {
+        __typename: "Accommodation",
+        id: string,
+        availableDate?: string | null,
+        description: string,
+        images: Array< string | null >,
+        price: number,
+        propertyType: PropertyEnum,
+        rented?: boolean | null,
+        createdAt: string,
+        title: string,
+        address: string,
+        userId: string,
+        updatedAt: string,
+      },
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type SavedAccommodationAccommodationsBySavedAccommodationIdQueryVariables = {
+  savedAccommodationId: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelSavedAccommodationAccommodationFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type SavedAccommodationAccommodationsBySavedAccommodationIdQuery = {
+  savedAccommodationAccommodationsBySavedAccommodationId?:  {
+    __typename: "ModelSavedAccommodationAccommodationConnection",
+    items:  Array< {
+      __typename: "SavedAccommodationAccommodation",
+      id: string,
+      savedAccommodationId: string,
+      accommodationId: string,
+      savedAccommodation:  {
+        __typename: "SavedAccommodation",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        savedAccommodationUserId?: string | null,
+      },
+      accommodation:  {
+        __typename: "Accommodation",
+        id: string,
+        availableDate?: string | null,
+        description: string,
+        images: Array< string | null >,
+        price: number,
+        propertyType: PropertyEnum,
+        rented?: boolean | null,
+        createdAt: string,
+        title: string,
+        address: string,
+        userId: string,
+        updatedAt: string,
+      },
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
+export type SavedAccommodationAccommodationsByAccommodationIdQueryVariables = {
+  accommodationId: string,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelSavedAccommodationAccommodationFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type SavedAccommodationAccommodationsByAccommodationIdQuery = {
+  savedAccommodationAccommodationsByAccommodationId?:  {
+    __typename: "ModelSavedAccommodationAccommodationConnection",
+    items:  Array< {
+      __typename: "SavedAccommodationAccommodation",
+      id: string,
+      savedAccommodationId: string,
+      accommodationId: string,
+      savedAccommodation:  {
+        __typename: "SavedAccommodation",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        savedAccommodationUserId?: string | null,
+      },
+      accommodation:  {
+        __typename: "Accommodation",
+        id: string,
+        availableDate?: string | null,
+        description: string,
+        images: Array< string | null >,
+        price: number,
+        propertyType: PropertyEnum,
+        rented?: boolean | null,
+        createdAt: string,
+        title: string,
+        address: string,
+        userId: string,
+        updatedAt: string,
+      },
+      createdAt: string,
+      updatedAt: string,
+    } | null >,
+    nextToken?: string | null,
+  } | null,
+};
+
 export type GetUserChatRoomQueryVariables = {
   id: string,
 };
@@ -1752,8 +2734,16 @@ export type GetUserChatRoomQuery = {
         __typename: "ModelAccommodationConnection",
         nextToken?: string | null,
       } | null,
+      SavedAccommodation?:  {
+        __typename: "SavedAccommodation",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        savedAccommodationUserId?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
+      userSavedAccommodationId?: string | null,
     },
     chatRoom:  {
       __typename: "ChatRoom",
@@ -1821,6 +2811,7 @@ export type ListUserChatRoomsQuery = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
+        userSavedAccommodationId?: string | null,
       },
       chatRoom:  {
         __typename: "ChatRoom",
@@ -1860,6 +2851,7 @@ export type UserChatRoomsByUserIdQuery = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
+        userSavedAccommodationId?: string | null,
       },
       chatRoom:  {
         __typename: "ChatRoom",
@@ -1899,6 +2891,7 @@ export type UserChatRoomsByChatRoomIdQuery = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
+        userSavedAccommodationId?: string | null,
       },
       chatRoom:  {
         __typename: "ChatRoom",
@@ -1912,6 +2905,168 @@ export type UserChatRoomsByChatRoomIdQuery = {
       updatedAt: string,
     } | null >,
     nextToken?: string | null,
+  } | null,
+};
+
+export type OnCreateSavedAccommodationSubscriptionVariables = {
+  filter?: ModelSubscriptionSavedAccommodationFilterInput | null,
+};
+
+export type OnCreateSavedAccommodationSubscription = {
+  onCreateSavedAccommodation?:  {
+    __typename: "SavedAccommodation",
+    id: string,
+    Accommodations?:  {
+      __typename: "ModelSavedAccommodationAccommodationConnection",
+      items:  Array< {
+        __typename: "SavedAccommodationAccommodation",
+        id: string,
+        savedAccommodationId: string,
+        accommodationId: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    User?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      status?: string | null,
+      ChatRooms?:  {
+        __typename: "ModelUserChatRoomConnection",
+        nextToken?: string | null,
+      } | null,
+      Messages?:  {
+        __typename: "ModelMessageConnection",
+        nextToken?: string | null,
+      } | null,
+      Accommodations?:  {
+        __typename: "ModelAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      SavedAccommodation?:  {
+        __typename: "SavedAccommodation",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        savedAccommodationUserId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      userSavedAccommodationId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    savedAccommodationUserId?: string | null,
+  } | null,
+};
+
+export type OnUpdateSavedAccommodationSubscriptionVariables = {
+  filter?: ModelSubscriptionSavedAccommodationFilterInput | null,
+};
+
+export type OnUpdateSavedAccommodationSubscription = {
+  onUpdateSavedAccommodation?:  {
+    __typename: "SavedAccommodation",
+    id: string,
+    Accommodations?:  {
+      __typename: "ModelSavedAccommodationAccommodationConnection",
+      items:  Array< {
+        __typename: "SavedAccommodationAccommodation",
+        id: string,
+        savedAccommodationId: string,
+        accommodationId: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    User?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      status?: string | null,
+      ChatRooms?:  {
+        __typename: "ModelUserChatRoomConnection",
+        nextToken?: string | null,
+      } | null,
+      Messages?:  {
+        __typename: "ModelMessageConnection",
+        nextToken?: string | null,
+      } | null,
+      Accommodations?:  {
+        __typename: "ModelAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      SavedAccommodation?:  {
+        __typename: "SavedAccommodation",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        savedAccommodationUserId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      userSavedAccommodationId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    savedAccommodationUserId?: string | null,
+  } | null,
+};
+
+export type OnDeleteSavedAccommodationSubscriptionVariables = {
+  filter?: ModelSubscriptionSavedAccommodationFilterInput | null,
+};
+
+export type OnDeleteSavedAccommodationSubscription = {
+  onDeleteSavedAccommodation?:  {
+    __typename: "SavedAccommodation",
+    id: string,
+    Accommodations?:  {
+      __typename: "ModelSavedAccommodationAccommodationConnection",
+      items:  Array< {
+        __typename: "SavedAccommodationAccommodation",
+        id: string,
+        savedAccommodationId: string,
+        accommodationId: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
+    } | null,
+    User?:  {
+      __typename: "User",
+      id: string,
+      name: string,
+      status?: string | null,
+      ChatRooms?:  {
+        __typename: "ModelUserChatRoomConnection",
+        nextToken?: string | null,
+      } | null,
+      Messages?:  {
+        __typename: "ModelMessageConnection",
+        nextToken?: string | null,
+      } | null,
+      Accommodations?:  {
+        __typename: "ModelAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      SavedAccommodation?:  {
+        __typename: "SavedAccommodation",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        savedAccommodationUserId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      userSavedAccommodationId?: string | null,
+    } | null,
+    createdAt: string,
+    updatedAt: string,
+    savedAccommodationUserId?: string | null,
   } | null,
 };
 
@@ -1950,8 +3105,28 @@ export type OnCreateAccommodationSubscription = {
         __typename: "ModelAccommodationConnection",
         nextToken?: string | null,
       } | null,
+      SavedAccommodation?:  {
+        __typename: "SavedAccommodation",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        savedAccommodationUserId?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
+      userSavedAccommodationId?: string | null,
+    } | null,
+    savedaccommodations?:  {
+      __typename: "ModelSavedAccommodationAccommodationConnection",
+      items:  Array< {
+        __typename: "SavedAccommodationAccommodation",
+        id: string,
+        savedAccommodationId: string,
+        accommodationId: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     updatedAt: string,
   } | null,
@@ -1992,8 +3167,28 @@ export type OnUpdateAccommodationSubscription = {
         __typename: "ModelAccommodationConnection",
         nextToken?: string | null,
       } | null,
+      SavedAccommodation?:  {
+        __typename: "SavedAccommodation",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        savedAccommodationUserId?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
+      userSavedAccommodationId?: string | null,
+    } | null,
+    savedaccommodations?:  {
+      __typename: "ModelSavedAccommodationAccommodationConnection",
+      items:  Array< {
+        __typename: "SavedAccommodationAccommodation",
+        id: string,
+        savedAccommodationId: string,
+        accommodationId: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     updatedAt: string,
   } | null,
@@ -2034,8 +3229,28 @@ export type OnDeleteAccommodationSubscription = {
         __typename: "ModelAccommodationConnection",
         nextToken?: string | null,
       } | null,
+      SavedAccommodation?:  {
+        __typename: "SavedAccommodation",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        savedAccommodationUserId?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
+      userSavedAccommodationId?: string | null,
+    } | null,
+    savedaccommodations?:  {
+      __typename: "ModelSavedAccommodationAccommodationConnection",
+      items:  Array< {
+        __typename: "SavedAccommodationAccommodation",
+        id: string,
+        savedAccommodationId: string,
+        accommodationId: string,
+        createdAt: string,
+        updatedAt: string,
+      } | null >,
+      nextToken?: string | null,
     } | null,
     updatedAt: string,
   } | null,
@@ -2095,8 +3310,29 @@ export type OnCreateUserSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    SavedAccommodation?:  {
+      __typename: "SavedAccommodation",
+      id: string,
+      Accommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      savedAccommodationUserId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    userSavedAccommodationId?: string | null,
   } | null,
 };
 
@@ -2154,8 +3390,29 @@ export type OnUpdateUserSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    SavedAccommodation?:  {
+      __typename: "SavedAccommodation",
+      id: string,
+      Accommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      savedAccommodationUserId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    userSavedAccommodationId?: string | null,
   } | null,
 };
 
@@ -2213,8 +3470,29 @@ export type OnDeleteUserSubscription = {
       } | null >,
       nextToken?: string | null,
     } | null,
+    SavedAccommodation?:  {
+      __typename: "SavedAccommodation",
+      id: string,
+      Accommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      savedAccommodationUserId?: string | null,
+    } | null,
     createdAt: string,
     updatedAt: string,
+    userSavedAccommodationId?: string | null,
   } | null,
 };
 
@@ -2328,6 +3606,11 @@ export type OnCreateChatRoomSubscription = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      savedaccommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
       } | null,
       updatedAt: string,
     } | null,
@@ -2400,6 +3683,11 @@ export type OnUpdateChatRoomSubscription = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      savedaccommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
       } | null,
       updatedAt: string,
     } | null,
@@ -2472,6 +3760,11 @@ export type OnDeleteChatRoomSubscription = {
         status?: string | null,
         createdAt: string,
         updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      savedaccommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
       } | null,
       updatedAt: string,
     } | null,
@@ -2479,6 +3772,195 @@ export type OnDeleteChatRoomSubscription = {
     updatedAt: string,
     chatRoomLastMessageId?: string | null,
     chatRoomAccommodationId?: string | null,
+  } | null,
+};
+
+export type OnCreateSavedAccommodationAccommodationSubscriptionVariables = {
+  filter?: ModelSubscriptionSavedAccommodationAccommodationFilterInput | null,
+};
+
+export type OnCreateSavedAccommodationAccommodationSubscription = {
+  onCreateSavedAccommodationAccommodation?:  {
+    __typename: "SavedAccommodationAccommodation",
+    id: string,
+    savedAccommodationId: string,
+    accommodationId: string,
+    savedAccommodation:  {
+      __typename: "SavedAccommodation",
+      id: string,
+      Accommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      savedAccommodationUserId?: string | null,
+    },
+    accommodation:  {
+      __typename: "Accommodation",
+      id: string,
+      availableDate?: string | null,
+      description: string,
+      images: Array< string | null >,
+      price: number,
+      propertyType: PropertyEnum,
+      rented?: boolean | null,
+      createdAt: string,
+      title: string,
+      address: string,
+      userId: string,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      savedaccommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnUpdateSavedAccommodationAccommodationSubscriptionVariables = {
+  filter?: ModelSubscriptionSavedAccommodationAccommodationFilterInput | null,
+};
+
+export type OnUpdateSavedAccommodationAccommodationSubscription = {
+  onUpdateSavedAccommodationAccommodation?:  {
+    __typename: "SavedAccommodationAccommodation",
+    id: string,
+    savedAccommodationId: string,
+    accommodationId: string,
+    savedAccommodation:  {
+      __typename: "SavedAccommodation",
+      id: string,
+      Accommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      savedAccommodationUserId?: string | null,
+    },
+    accommodation:  {
+      __typename: "Accommodation",
+      id: string,
+      availableDate?: string | null,
+      description: string,
+      images: Array< string | null >,
+      price: number,
+      propertyType: PropertyEnum,
+      rented?: boolean | null,
+      createdAt: string,
+      title: string,
+      address: string,
+      userId: string,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      savedaccommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
+  } | null,
+};
+
+export type OnDeleteSavedAccommodationAccommodationSubscriptionVariables = {
+  filter?: ModelSubscriptionSavedAccommodationAccommodationFilterInput | null,
+};
+
+export type OnDeleteSavedAccommodationAccommodationSubscription = {
+  onDeleteSavedAccommodationAccommodation?:  {
+    __typename: "SavedAccommodationAccommodation",
+    id: string,
+    savedAccommodationId: string,
+    accommodationId: string,
+    savedAccommodation:  {
+      __typename: "SavedAccommodation",
+      id: string,
+      Accommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      createdAt: string,
+      updatedAt: string,
+      savedAccommodationUserId?: string | null,
+    },
+    accommodation:  {
+      __typename: "Accommodation",
+      id: string,
+      availableDate?: string | null,
+      description: string,
+      images: Array< string | null >,
+      price: number,
+      propertyType: PropertyEnum,
+      rented?: boolean | null,
+      createdAt: string,
+      title: string,
+      address: string,
+      userId: string,
+      User?:  {
+        __typename: "User",
+        id: string,
+        name: string,
+        status?: string | null,
+        createdAt: string,
+        updatedAt: string,
+        userSavedAccommodationId?: string | null,
+      } | null,
+      savedaccommodations?:  {
+        __typename: "ModelSavedAccommodationAccommodationConnection",
+        nextToken?: string | null,
+      } | null,
+      updatedAt: string,
+    },
+    createdAt: string,
+    updatedAt: string,
   } | null,
 };
 
@@ -2509,8 +3991,16 @@ export type OnCreateUserChatRoomSubscription = {
         __typename: "ModelAccommodationConnection",
         nextToken?: string | null,
       } | null,
+      SavedAccommodation?:  {
+        __typename: "SavedAccommodation",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        savedAccommodationUserId?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
+      userSavedAccommodationId?: string | null,
     },
     chatRoom:  {
       __typename: "ChatRoom",
@@ -2584,8 +4074,16 @@ export type OnUpdateUserChatRoomSubscription = {
         __typename: "ModelAccommodationConnection",
         nextToken?: string | null,
       } | null,
+      SavedAccommodation?:  {
+        __typename: "SavedAccommodation",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        savedAccommodationUserId?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
+      userSavedAccommodationId?: string | null,
     },
     chatRoom:  {
       __typename: "ChatRoom",
@@ -2659,8 +4157,16 @@ export type OnDeleteUserChatRoomSubscription = {
         __typename: "ModelAccommodationConnection",
         nextToken?: string | null,
       } | null,
+      SavedAccommodation?:  {
+        __typename: "SavedAccommodation",
+        id: string,
+        createdAt: string,
+        updatedAt: string,
+        savedAccommodationUserId?: string | null,
+      } | null,
       createdAt: string,
       updatedAt: string,
+      userSavedAccommodationId?: string | null,
     },
     chatRoom:  {
       __typename: "ChatRoom",

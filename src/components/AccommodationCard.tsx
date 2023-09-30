@@ -2,7 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { API, Auth, graphqlOperation } from "aws-amplify";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { View } from "react-native";
 import {
   Card,
@@ -13,7 +13,7 @@ import {
   IconButton,
 } from "react-native-paper";
 
-import { createChatRoom, createUserChatRoom } from "../graphql/mutations";
+import { createChatRoom, createUserChatRoom, updateUser } from "../graphql/mutations";
 import IAccommodation from "../model/IAccommodation";
 import { getCommonChatRoomWithUser } from "../services/ChatRoomService";
 
@@ -22,6 +22,7 @@ dayjs.extend(relativeTime);
 const AccommodationCard = (props: IAccommodation) => {
   const navigation = useNavigation();
   const [saved, setSaved] = useState(false);
+  const [currentUserSavedId, setCurrentUserSavedId] = useState(''); 
 
   const onContact = async () => {
     // check if have chatroom with user
@@ -59,6 +60,14 @@ const AccommodationCard = (props: IAccommodation) => {
     navigation.navigate("Chat", { id: newChatRoom.id });
   };
 
+  const saveToggle = async () => {
+    // toggle Saved function
+  }
+
+  useEffect(() => {
+    setSaved(props.isSaved);
+  })
+
   return (
     <Card
       style={{
@@ -71,6 +80,7 @@ const AccommodationCard = (props: IAccommodation) => {
       onPress={() =>
         navigation.navigate("Accommodation Detail", { id: props.id })
       }
+      key={props.id}
     >
       <Card.Cover source={{ uri: props.images[0] }} />
 
@@ -78,7 +88,6 @@ const AccommodationCard = (props: IAccommodation) => {
         <Card.Title
           title={props.title}
           subtitle={props.address?.aptName}
-          subtitleNumberOfLines={3}
           subtitleVariant="labelMedium"
           subtitleStyle={{ color: "gray" }}
           style={{ flex: 1 }}
@@ -91,7 +100,9 @@ const AccommodationCard = (props: IAccommodation) => {
             marginHorizontal: 20,
           }}
           onPress={() => {
+            savedAccommodation();
             console.warn("Save accommodation");
+            
             setSaved(!saved);
           }}
         />

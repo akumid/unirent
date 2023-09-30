@@ -1,5 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
-import { API, Storage, graphqlOperation } from "aws-amplify";
+import { API, Auth, Storage, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
 import { View, ScrollView } from "react-native";
 import {
@@ -14,12 +14,16 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AccommodationCard from "../components/AccommodationCard";
 import IAccommodation from "../model/IAccommodation";
 import { getTodaysRecommendation } from "../services/AccommodationService";
+import { getUser, savedAccommodationAccommodationsBySavedAccommodationId } from "../graphql/queries";
+import { getSavedAccommodationsById } from "../services/SavedAccommodationService";
+
 
 export default function Welcome({ props }) {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [saved, setSaved] = useState<any[]>();
   const [accommodationList, setAccommodationList] =
     useState<IAccommodation[]>();
 
@@ -31,6 +35,28 @@ export default function Welcome({ props }) {
       }),
     );
     await downloadFromStorage(resp.data?.listAccommodations?.items);
+  }
+
+  async function getSavedAccommodations() {
+
+    const userInfo = await API.graphql(
+      graphqlOperation(getUser, {
+        id: userId
+      }),
+    );
+
+    const savedAccommodationId = userInfo.data.getUser.userSavedAccommodationId;
+
+    const savedAccommodationList = await getSavedAccommodationsById(savedAccommodationId);
+
+
+    console.log("Welcome screen");
+    console.log(savedAccommodationList);
+    setSaved(savedAccommodationList);
+
+    
+    // console.log(savedAccommodation.data.getUser.SavedAccommodation.Accommodations.items);
+    // setSaved(savedAccommodationList.data.savedAccommodationAccommodationsBySavedAccommodationId.items);
   }
 
   async function downloadFromStorage(data: IAccommodation[]) {
@@ -48,8 +74,19 @@ export default function Welcome({ props }) {
     setIsLoading(false);
   }
 
+  function returnAccommodationCard(accommodation: IAccommodation, index: number) {
+    let isSaved = false;
+    if (saved !== undefined && saved.find(e => e.accommodationId == accommodation.id)) {
+      isSaved = true;
+    }
+
+    return (<AccommodationCard {...accommodation} key={index} isSaved={isSaved} />);
+  }
+
   // fetch all Listings
   useEffect(() => {
+    // getSavedAccommodations();
+    getSavedAccommodations();
     fetch();
   }, []);
 
@@ -143,9 +180,9 @@ export default function Welcome({ props }) {
 
           <View style={{ marginVertical: 10, flexDirection: "column" }}>
             <Text variant="titleLarge"> Today's Recommendations </Text>
-            {accommodationList.map((accommodation, index) => {
-              return <AccommodationCard {...accommodation} key={index} />;
-            })}
+            {accommodationList.map((accommodation, index) => 
+              returnAccommodationCard(accommodation, index)
+            )}
           </View>
         </ScrollView>
       </View>
