@@ -159,7 +159,7 @@ export default function Welcome({ props }) {
             </Card>
           </View>
           <View style={{ marginVertical: 10, flexDirection: "column" }}>
-            <Text variant="titleLarge"> Today's Recommendations </Text>
+            <Text variant="titleLarge" style={{ color: "#000" }}> Today's Recommendations </Text>
             {accommodationList.map((accommodation, index) => {
               return <AccommodationCard {...accommodation} key={index} />;
             })}

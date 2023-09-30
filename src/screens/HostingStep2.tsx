@@ -28,7 +28,7 @@ export default function HostingStep2({ navigation }) {
   return (
     <View style={styles.view}>
       <ScrollView>
-        <Text variant="headlineMedium">
+        <Text variant="headlineMedium" style={{ color: "#000" }}>
           Make your listing stand out with great photos
         </Text>
 

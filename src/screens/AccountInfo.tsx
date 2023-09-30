@@ -1,6 +1,6 @@
 import { useAuthenticator } from "@aws-amplify/ui-react-native";
 import { Auth } from "aws-amplify";
-import { Divider, List } from "react-native-paper";
+import { Divider, List, Text } from "react-native-paper";
 
 async function changePassword(oldPassword: string, newPassword: string) {
   try {
@@ -18,11 +18,11 @@ export default function AccountInfo({ navigation }) {
 
   return (
     <List.Section>
-      <List.Item title="Username" description={user.username} />
+      <List.Item title={<Text style={{ color: "#000" }}> Username </Text>} description={<Text style={{ color: "#808080" }}>{user.username}</Text>} />
       <Divider />
-      <List.Item title="Email" description={user.attributes.email} />
+      <List.Item title={<Text style={{ color: "#000" }}> Email </Text>} description={<Text style={{ color: "#808080" }}>{user.attributes.email}</Text>} />
       <Divider />
-      <List.Item title="Password" description="Tap to edit" />
+      <List.Item title={<Text style={{ color: "#000" }}> Password </Text>} description={<Text style={{ color: "#808080" }}>Tap to edit</Text>} />
       <Divider />
     </List.Section>
   );

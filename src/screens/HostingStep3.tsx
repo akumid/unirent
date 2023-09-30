@@ -30,7 +30,7 @@ export default function HostingStep3({ navigation }) {
   return (
     <View style={styles.view}>
       <ScrollView>
-        <Text variant="headlineMedium">Add a title for your place</Text>
+        <Text variant="headlineMedium" style={{ color: "#000" }}>Add a title for your place</Text>
         <TextInput
           label="Title"
           placeholder="Enter Title"
@@ -38,7 +38,7 @@ export default function HostingStep3({ navigation }) {
           value={title}
         />
 
-        <Text variant="headlineMedium">Add a description</Text>
+        <Text variant="headlineMedium" style={{ color: "#000" }}>Add a description</Text>
         <TextInput
           label="Description"
           placeholder="Enter Description"
@@ -49,7 +49,7 @@ export default function HostingStep3({ navigation }) {
           value={description}
         />
 
-        <Text variant="headlineMedium">Set price</Text>
+        <Text variant="headlineMedium" style={{ color: "#000" }}>Set price</Text>
         <TextInput
           label="Price"
           placeholder="Enter Price"

@@ -47,7 +47,7 @@ export default function HostingStep1({ navigation, route }) {
   return (
     <View style={styles.view}>
       <ScrollView>
-        <Text variant="headlineMedium">
+        <Text variant="headlineMedium" style={{ color: "#000" }}>
           Which of these best describes your place?
         </Text>
 
@@ -59,40 +59,47 @@ export default function HostingStep1({ navigation, route }) {
               value: EPropertyType.Condo,
               label: EPropertyType.Condo,
               icon: "home-city-outline",
+              uncheckedColor: "#000"
             },
             {
               value: EPropertyType.Landed,
               label: EPropertyType.Landed,
               icon: "home-outline",
+              uncheckedColor: "#000"
             },
             {
               value: EPropertyType.HDB,
               label: EPropertyType.HDB,
               icon: "office-building-outline",
+              uncheckedColor: "#000"
             },
           ]}
         />
 
-        <Text variant="headlineMedium">Where is your place?</Text>
+        <Text variant="headlineMedium" style={{ color: "#000" }}>Where is your place?</Text>
         <TextInput
+          textColor="#FFFFFF"
           label="Country"
           placeholder="Enter your country"
           value={address?.country}
           onChangeText={(text) => setAddress({ ...address, country: text })}
         />
         <TextInput
+          textColor="#FFFFFF"
           label="Postal Code"
           placeholder="Enter your postal code"
           value={address?.postalCode}
           onChangeText={(text) => setAddress({ ...address, postalCode: text })}
         />
         <TextInput
+          textColor="#FFFFFF"
           label="Unit Number"
           placeholder="Enter your unit number, not required for landed properties"
           value={address?.unitNo}
           onChangeText={(text) => setAddress({ ...address, unitNo: text })}
         />
         <TextInput
+          textColor="#FFFFFF"
           label="Apt, Suite, etc (optional)"
           placeholder="Enter your apartment, suite name, etc, usually for condo properties"
           value={address?.aptName}
@@ -101,7 +108,7 @@ export default function HostingStep1({ navigation, route }) {
 
         {/* <Text variant="headlineMedium">How many people can stay here?</Text>
         <View style={styles.counter}>
-          <Text> Maximum occupancy</Text>
+          <Text style={{color: "#000"}}> Maximum occupancy</Text>
           <Counter
             result={guest}
             onMinus={(value) => setGuest(value)}
@@ -110,7 +117,7 @@ export default function HostingStep1({ navigation, route }) {
         </View>
 
         <View style={styles.counter}>
-          <Text> No. of bedrooms</Text>
+          <Text style={{color: "#000"}}> No. of bedrooms</Text>
           <Counter
             result={bed}
             onMinus={(value) => setBed(value)}
@@ -119,7 +126,7 @@ export default function HostingStep1({ navigation, route }) {
         </View>
 
         <View style={styles.counter}>
-          <Text> No. of bathrooms</Text>
+          <Text style={{color: "#000"}}> No. of bathrooms</Text>
           <Counter
             result={bath}
             onMinus={(value) => setBath(value)}

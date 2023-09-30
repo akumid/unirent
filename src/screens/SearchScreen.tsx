@@ -233,9 +233,9 @@ const SearchScreen = (props: any) => {
         </View>
         {searchLocation()}
         {prefferLocation()}
-        {/* <Text>Component</Text>
-                    <Text>Component</Text>
-                    <Text>Component</Text> */}
+        {/* <Text style={{color: "#000"}}>Component</Text>
+                    <Text style={{color: "#000"}}>Component</Text>
+                    <Text style={{color: "#000"}}>Component</Text> */}
       </Card>
     </>
   );
