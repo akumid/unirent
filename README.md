@@ -23,12 +23,17 @@ npm install -g @aws-amplify/cli
 - Screen flow completed
 - Backend (WIP)
 
-### Hosting (WIP)
+### Hosting
 
 - Screen flow completed
-- Backend (WIP)
+- Backend completed
 
 ### Contact / Inbox
+
+- Screen flow completed
+- Backend completed
+
+### Recommendation
 
 - Screen flow completed
 - Backend completed
