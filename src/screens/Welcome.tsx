@@ -38,7 +38,8 @@ export default function Welcome({ props }) {
   }
 
   async function getSavedAccommodations() {
-
+    const authUser = await Auth.currentAuthenticatedUser();
+    const userId = authUser.attributes.sub;
     const userInfo = await API.graphql(
       graphqlOperation(getUser, {
         id: userId
