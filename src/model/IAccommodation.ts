@@ -16,5 +16,6 @@ export default interface IAccommodation {
   userId: string;
   createdAt: string;
   User: any;
-  isSaved: boolean;
+  isSaved?: any;
+  savedAccommodationId?: string;
 }

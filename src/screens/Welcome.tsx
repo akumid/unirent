@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { API, Auth, Storage, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
 import { View, ScrollView } from "react-native";
@@ -15,7 +15,7 @@ import AccommodationCard from "../components/AccommodationCard";
 import IAccommodation from "../model/IAccommodation";
 import { getTodaysRecommendation } from "../services/AccommodationService";
 import { getUser, savedAccommodationAccommodationsBySavedAccommodationId } from "../graphql/queries";
-import { getSavedAccommodationsById } from "../services/SavedAccommodationService";
+import { addSavedAccommodation, deleteSavedAccommodationById, getSavedAccommodationsById } from "../services/SavedAccommodationService";
 
 
 export default function Welcome({ props }) {
@@ -24,8 +24,10 @@ export default function Welcome({ props }) {
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [saved, setSaved] = useState<any[]>();
+  const [savedAccommodationId, setSavedAccommodationId] = useState('');
   const [accommodationList, setAccommodationList] =
     useState<IAccommodation[]>();
+  const isFocused = useIsFocused();
 
   async function fetch() {
     // const resp = await getAll();
@@ -46,18 +48,18 @@ export default function Welcome({ props }) {
       }),
     );
 
-    const savedAccommodationId = userInfo.data.getUser.userSavedAccommodationId;
+    const userSavedId = userInfo.data.getUser.userSavedAccommodationId;
+    setSavedAccommodationId(userSavedId);
 
-    const savedAccommodationList = await getSavedAccommodationsById(savedAccommodationId);
+    const savedAccommodationList = await getSavedAccommodationsById(userSavedId);
+    // console.log("savedAccommodationList");
+    // console.log(savedAccommodationList);
 
 
-    console.log("Welcome screen");
-    console.log(savedAccommodationList);
+    // console.log("Welcome screen");
+    // console.log(savedAccommodationList);
     setSaved(savedAccommodationList);
 
-    
-    // console.log(savedAccommodation.data.getUser.SavedAccommodation.Accommodations.items);
-    // setSaved(savedAccommodationList.data.savedAccommodationAccommodationsBySavedAccommodationId.items);
   }
 
   async function downloadFromStorage(data: IAccommodation[]) {
@@ -76,20 +78,32 @@ export default function Welcome({ props }) {
   }
 
   function returnAccommodationCard(accommodation: IAccommodation, index: number) {
-    let isSaved = false;
-    if (saved !== undefined && saved.find(e => e.accommodationId == accommodation.id)) {
-      isSaved = true;
+    let savedId = '';
+    if (saved !== undefined ) {
+      savedId = saved.find(e => {
+        if (e.accommodationId === accommodation.id) {
+          return e.id;
+        } else {
+          return '';
+        }
+      })
     }
 
-    return (<AccommodationCard {...accommodation} key={index} isSaved={isSaved} />);
+    return (<AccommodationCard {...accommodation} key={index} isSaved={savedId} savedAccommodationId={savedAccommodationId} />);
+
   }
+
 
   // fetch all Listings
   useEffect(() => {
     // getSavedAccommodations();
-    getSavedAccommodations();
-    fetch();
-  }, []);
+
+    if (isFocused) {
+      console.log("call again");
+      getSavedAccommodations();
+      fetch();
+    }
+  }, [props, isFocused]);
 
   // const accommodationList: IAccommodation[] = [
   //   {

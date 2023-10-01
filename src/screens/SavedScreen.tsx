@@ -13,12 +13,16 @@ import {
   } from "react-native-paper";
 import IAccommodation from "../model/IAccommodation";
 import AccommodationCard from "../components/AccommodationCard";
+import { useIsFocused } from "@react-navigation/native";
 
 const SavedScreen = (props: any) => {
     const insets = useSafeAreaInsets();
-    const [saved, setSaved] = useState<any[]>();
+    const [savedAccommodationId, setSavedAccommodationId] = useState('');
+    const [saved, setSaved] = useState<any[]>([]);
     const [accommodationList, setAccommodationList] = useState<IAccommodation[]>();
     const [isLoading, setIsLoading] = useState(true);
+    const [rerenderFlag, setRerenderFlag] = useState(false);
+    const isFocused = useIsFocused();
 
     async function fetch() {
         const authUser = await Auth.currentAuthenticatedUser();
@@ -31,11 +35,11 @@ const SavedScreen = (props: any) => {
     
         const savedAccommodationId = userInfo.data.getUser.userSavedAccommodationId;
         console.log(savedAccommodationId);
+        setSavedAccommodationId(savedAccommodationId);
         
     
         const savedAccommodationList = await getSavedAccommodationsById(savedAccommodationId);
-        console.log("savedAccommodationList");
-        console.log(savedAccommodationList);
+        setSaved(savedAccommodationList);
         const accommodationList = savedAccommodationList.map((item) => {
             return item.accommodation
         })
@@ -62,11 +66,31 @@ const SavedScreen = (props: any) => {
         }
         setAccommodationList(data);
         setIsLoading(false);
+    }
+
+    function returnAccommodationCard(accommodation: IAccommodation, index: number) {
+        let savedId = '';
+        if (saved !== undefined ) {
+          savedId = saved.find(e => {
+            if (e.accommodationId === accommodation.id) {
+              return e.id;
+            } else {
+              return '';
+            }
+          })
+          console.log("savedId = " + savedId);
+        }
+        return (<AccommodationCard {...accommodation} key={index} isSaved={savedId} savedAccommodationId={savedAccommodationId} 
+            onRerender={() => setRerenderFlag(!rerenderFlag)}/>);
       }
 
     useEffect(() => {
-        fetch();
-    }, [])
+
+        if (isFocused) {
+            fetch();
+        }
+        
+    }, [props, isFocused, rerenderFlag])
 
     if (isLoading) return <ActivityIndicator animating />;
     else
@@ -93,8 +117,8 @@ const SavedScreen = (props: any) => {
                     }}
                 >
                 <View style={{ marginVertical: 10, flexDirection: "column" }}>
-                    {accommodationList.map((accommodation, index) => 
-                        <AccommodationCard {...accommodation} key={index} isSaved={true} />
+                    {accommodationList.map((accommodation, index) =>
+                        returnAccommodationCard(accommodation, index)
                     )}
                 </View>
                 </ScrollView>

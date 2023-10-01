@@ -16,13 +16,14 @@ import {
 import { createChatRoom, createUserChatRoom, updateUser } from "../graphql/mutations";
 import IAccommodation from "../model/IAccommodation";
 import { getCommonChatRoomWithUser } from "../services/ChatRoomService";
+import { addSavedAccommodation, deleteSavedAccommodationById } from "../services/SavedAccommodationService";
 
 dayjs.extend(relativeTime);
 
 const AccommodationCard = (props: IAccommodation) => {
   const navigation = useNavigation();
   const [saved, setSaved] = useState(false);
-  const [currentUserSavedId, setCurrentUserSavedId] = useState(''); 
+  const [cardSavedId, setCardSavedId] = useState(''); 
 
   const onContact = async () => {
     // check if have chatroom with user
@@ -62,11 +63,40 @@ const AccommodationCard = (props: IAccommodation) => {
 
   const saveToggle = async () => {
     // toggle Saved function
+    if (saved) {
+      const deleted = await deleteSavedAccommodationById(cardSavedId);
+      setCardSavedId('');
+      if (deleted !== undefined) {
+        setCardSavedId('');
+      } else {
+        console.log("delete save failed");
+      }
+    } else {
+      
+      const created = await addSavedAccommodation(props.savedAccommodationId, props.id);
+      if (created !== undefined) {
+        setCardSavedId(created.data.createSavedAccommodationAccommodation.id);
+      } else {
+        console.log("save failed");
+      }
+      
+    }
+    setSaved(!saved);
+    if (props.onRerender !== undefined) {
+      props.onRerender();
+    }
+    
+    // setSavedAccommodationId(props.savedAccommodationId);
   }
+  
 
   useEffect(() => {
-    setSaved(props.isSaved);
-  })
+    console.log("card");
+    console.log(props);
+    setSaved(props.isSaved ? true : false);
+    setCardSavedId(props.isSaved ? props.isSaved.id : '');
+    console.log("cardSavedId = " + cardSavedId);
+  }, [props])
 
   return (
     <Card
@@ -99,11 +129,11 @@ const AccommodationCard = (props: IAccommodation) => {
             marginVertical: 20,
             marginHorizontal: 20,
           }}
-          onPress={() => {
-            savedAccommodation();
+          onPress={async () => {
+            await saveToggle();
             console.warn("Save accommodation");
             
-            setSaved(!saved);
+            // setSaved(!saved);
           }}
         />
       </View>
