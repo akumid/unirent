@@ -15,6 +15,13 @@ const ListingScreen = (props: any) => {
                 <ListingCard />
                 <ListingCard />
                 <ListingCard />
+                {/* If no listing available */}
+                {/* <View style={{justifyContent: 'center', alignItems: 'center', marginVertical: 10}}>
+                    <Avatar.Icon size={80} icon="emoticon-sad" color='#f1e9e9' style={{backgroundColor: 'white'}} />
+                </View>
+                <Text style={{verticalAlign: 'middle'}}>
+                    You do not have any accommodation listing right now 
+                </Text> */}
             </ScrollView>
 
         </View>
