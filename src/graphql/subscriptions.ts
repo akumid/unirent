@@ -228,6 +228,7 @@ export const onCreateAccommodation = /* GraphQL */ `subscription OnCreateAccommo
       nextToken
       __typename
     }
+    unitFeature
     updatedAt
     __typename
   }
@@ -291,6 +292,7 @@ export const onUpdateAccommodation = /* GraphQL */ `subscription OnUpdateAccommo
       nextToken
       __typename
     }
+    unitFeature
     updatedAt
     __typename
   }
@@ -354,6 +356,7 @@ export const onDeleteAccommodation = /* GraphQL */ `subscription OnDeleteAccommo
       nextToken
       __typename
     }
+    unitFeature
     updatedAt
     __typename
   }
@@ -405,6 +408,7 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
         title
         address
         userId
+        unitFeature
         updatedAt
         __typename
       }
@@ -484,6 +488,7 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
         title
         address
         userId
+        unitFeature
         updatedAt
         __typename
       }
@@ -563,6 +568,7 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
         title
         address
         userId
+        unitFeature
         updatedAt
         __typename
       }
@@ -706,6 +712,7 @@ export const onCreateChatRoom = /* GraphQL */ `subscription OnCreateChatRoom($fi
         nextToken
         __typename
       }
+      unitFeature
       updatedAt
       __typename
     }
@@ -782,6 +789,7 @@ export const onUpdateChatRoom = /* GraphQL */ `subscription OnUpdateChatRoom($fi
         nextToken
         __typename
       }
+      unitFeature
       updatedAt
       __typename
     }
@@ -858,6 +866,7 @@ export const onDeleteChatRoom = /* GraphQL */ `subscription OnDeleteChatRoom($fi
         nextToken
         __typename
       }
+      unitFeature
       updatedAt
       __typename
     }
@@ -924,6 +933,7 @@ export const onCreateSavedAccommodationAccommodation = /* GraphQL */ `subscripti
         nextToken
         __typename
       }
+      unitFeature
       updatedAt
       __typename
     }
@@ -988,6 +998,7 @@ export const onUpdateSavedAccommodationAccommodation = /* GraphQL */ `subscripti
         nextToken
         __typename
       }
+      unitFeature
       updatedAt
       __typename
     }
@@ -1052,6 +1063,7 @@ export const onDeleteSavedAccommodationAccommodation = /* GraphQL */ `subscripti
         nextToken
         __typename
       }
+      unitFeature
       updatedAt
       __typename
     }
@@ -1130,6 +1142,7 @@ export const onCreateUserChatRoom = /* GraphQL */ `subscription OnCreateUserChat
         title
         address
         userId
+        unitFeature
         updatedAt
         __typename
       }
@@ -1214,6 +1227,7 @@ export const onUpdateUserChatRoom = /* GraphQL */ `subscription OnUpdateUserChat
         title
         address
         userId
+        unitFeature
         updatedAt
         __typename
       }
@@ -1298,6 +1312,7 @@ export const onDeleteUserChatRoom = /* GraphQL */ `subscription OnDeleteUserChat
         title
         address
         userId
+        unitFeature
         updatedAt
         __typename
       }

@@ -5,5 +5,7 @@ export default interface IAddress {
   postalCode: string;
   unitNo: string;
   aptName: string;
+  addressLine1: string;
+  addressLine2: string;
   geo: IGeo;
 }

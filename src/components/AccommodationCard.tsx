@@ -131,7 +131,6 @@ const AccommodationCard = (props: IAccommodation) => {
           }}
           onPress={async () => {
             await saveToggle();
-            console.warn("Save accommodation");
             
             // setSaved(!saved);
           }}

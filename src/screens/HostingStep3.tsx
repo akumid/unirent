@@ -1,13 +1,37 @@
-import { useState } from "react";
-import { StyleSheet, View, ScrollView } from "react-native";
-import { Button as PaperButton, Text, TextInput } from "react-native-paper";
+import React, { useState } from "react";
+import { View, ScrollView, StyleSheet } from "react-native";
+import { Card, Checkbox, Button as PaperButton, Text, TextInput } from "react-native-paper";
 
 import { useHostStore } from "../store/host";
+import IUnitFeature from "../model/IUnitFeature";
+import { convertUnitFeatureToArray } from "../utils/UnitFeatureUtil";
+
+const featureLabels = [
+  "Air-Conditioning",
+  "WIFI",
+  "Cooker Hood",
+  "Fridge",
+  "Washing Machine",
+  "Dryer",
+  "Near Public Transport",
+  "Balcony",
+];
+const defaultValue: IUnitFeature = {
+  airConditioning: false,
+  wifi: false,
+  cookerHood: false,
+  fridge: false,
+  washingMachine: false,
+  dryer: false,
+  nearPublicTransport: false,
+  balcony: false
+} 
 
 export default function HostingStep3({ navigation }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(undefined);
+  const [unitFeature, setUnitFeature] = useState<IUnitFeature>({});
 
   const handlePriceChange = (text) => {
     const number = text.replace(/[^0-9]/g, "");
@@ -18,13 +42,38 @@ export default function HostingStep3({ navigation }) {
   const updateTitle = useHostStore((state) => state.updateTitle);
   const updateDescription = useHostStore((state) => state.updateDescription);
   const updatePrice = useHostStore((state) => state.updatePrice);
+  const updateUnitFeature = useHostStore((state) => state.updateUnitFeature);
 
   const onNavigate = () => {
     // update zustand store
     updateTitle(title);
     updateDescription(description);
     updatePrice(price);
+    updateUnitFeature(convertUnitFeatureToArray(unitFeature));
     navigation.navigate("HostingStep4");
+  };
+
+  const CheckboxGroup = ({ unitFeature, setUnitFeature }) => {
+    return (
+      <View style={styles.checkboxRowGroup}>
+        <View style={styles.checkboxColumnGroup}>
+          {featureLabels.map((label) => (
+            <Checkbox.Item
+              key={label}
+              label={label}
+              status={unitFeature[label] ? "checked" : "unchecked"}
+              onPress={() => {
+                console.log(unitFeature);
+                setUnitFeature((prevUnitFeature) => ({
+                  ...prevUnitFeature,
+                  [label]: !prevUnitFeature[label],
+                }));
+              }}
+            />
+          ))}
+        </View>
+      </View>
+    );
   };
 
   return (
@@ -58,6 +107,12 @@ export default function HostingStep3({ navigation }) {
           onChangeText={(text) => handlePriceChange(text)}
           value={price}
         />
+
+        <Text variant="headlineMedium">Unit Feature</Text>
+        <Text variant="labelLarge"> Select the unit features provided by your accommodation </Text>
+        <Card>
+          <CheckboxGroup unitFeature={unitFeature} setUnitFeature={setUnitFeature} />
+        </Card>
       </ScrollView>
 
       <View style={styles.next}>
@@ -76,9 +131,20 @@ export default function HostingStep3({ navigation }) {
 const styles = StyleSheet.create({
   view: {
     flex: 1,
+    marginHorizontal: 20
   },
   scroll: {
     flex: 1,
+  },
+  checkboxRowGroup: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  checkboxColumnGroup: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
   },
   next: {
     flexDirection: "row",

@@ -207,7 +207,7 @@ export default function AccommodationDetailScreen({ navigation, route }) {
               {address.country} {address.postalCode}
             </Text>
             <Text variant="bodyMedium" style={{}}>
-              Clementi / West
+              {address.addressLine1}
             </Text>
           </View>
           <Divider />

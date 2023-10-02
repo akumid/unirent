@@ -152,6 +152,7 @@ export const getAccommodation = /* GraphQL */ `query GetAccommodation($id: ID!) 
       nextToken
       __typename
     }
+    unitFeature
     updatedAt
     __typename
   }
@@ -191,6 +192,7 @@ export const listAccommodations = /* GraphQL */ `query ListAccommodations(
         nextToken
         __typename
       }
+      unitFeature
       updatedAt
       __typename
     }
@@ -241,6 +243,7 @@ export const accommodationsByUserId = /* GraphQL */ `query AccommodationsByUserI
         nextToken
         __typename
       }
+      unitFeature
       updatedAt
       __typename
     }
@@ -295,6 +298,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
         title
         address
         userId
+        unitFeature
         updatedAt
         __typename
       }
@@ -531,6 +535,7 @@ export const getChatRoom = /* GraphQL */ `query GetChatRoom($id: ID!) {
         nextToken
         __typename
       }
+      unitFeature
       updatedAt
       __typename
     }
@@ -582,6 +587,7 @@ export const listChatRooms = /* GraphQL */ `query ListChatRooms(
         title
         address
         userId
+        unitFeature
         updatedAt
         __typename
       }
@@ -649,6 +655,7 @@ export const getSavedAccommodationAccommodation = /* GraphQL */ `query GetSavedA
         nextToken
         __typename
       }
+      unitFeature
       updatedAt
       __typename
     }
@@ -694,6 +701,7 @@ export const listSavedAccommodationAccommodations = /* GraphQL */ `query ListSav
         title
         address
         userId
+        unitFeature
         updatedAt
         __typename
       }
@@ -746,6 +754,7 @@ export const savedAccommodationAccommodationsBySavedAccommodationId = /* GraphQL
         title
         address
         userId
+        unitFeature
         updatedAt
         __typename
       }
@@ -798,6 +807,7 @@ export const savedAccommodationAccommodationsByAccommodationId = /* GraphQL */ `
         title
         address
         userId
+        unitFeature
         updatedAt
         __typename
       }
@@ -877,6 +887,7 @@ export const getUserChatRoom = /* GraphQL */ `query GetUserChatRoom($id: ID!) {
         title
         address
         userId
+        unitFeature
         updatedAt
         __typename
       }
