@@ -8,6 +8,7 @@ import HostingStep1 from "../screens/HostingStep1";
 import HostingStep2 from "../screens/HostingStep2";
 import HostingStep3 from "../screens/HostingStep3";
 import HostingStep4 from "../screens/HostingStep4";
+import ListingScreen from "../screens/ListingScreen";
 
 const Stack = createStackNavigator();
 
@@ -79,6 +80,17 @@ export default function AccountStack({ navigation, route }) {
         component={HostingStep4}
         options={{
           title: "",
+          headerBackTitleVisible: false,
+          headerBackImage: () => (
+            <MaterialCommunityIcons name="chevron-left" size={30} />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="My Listing"
+        component={ListingScreen}
+        options={{
+          title: "My Listing",
           headerBackTitleVisible: false,
           headerBackImage: () => (
             <MaterialCommunityIcons name="chevron-left" size={30} />

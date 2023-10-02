@@ -23,7 +23,7 @@ dayjs.extend(relativeTime);
 const AccommodationCard = (props: IAccommodation) => {
   const navigation = useNavigation();
   const [saved, setSaved] = useState(false);
-  const [cardSavedId, setCardSavedId] = useState(''); 
+  const [savedAccommodationAccommodationID, setSavedAccommodationAccommodationID] = useState(''); 
 
   const onContact = async () => {
     // check if have chatroom with user
@@ -64,10 +64,10 @@ const AccommodationCard = (props: IAccommodation) => {
   const saveToggle = async () => {
     // toggle Saved function
     if (saved) {
-      const deleted = await deleteSavedAccommodationById(cardSavedId);
-      setCardSavedId('');
+      const deleted = await deleteSavedAccommodationById(savedAccommodationAccommodationID);
+      setSavedAccommodationAccommodationID('');
       if (deleted !== undefined) {
-        setCardSavedId('');
+        setSavedAccommodationAccommodationID('');
       } else {
         console.log("delete save failed");
       }
@@ -75,7 +75,7 @@ const AccommodationCard = (props: IAccommodation) => {
       
       const created = await addSavedAccommodation(props.savedAccommodationId, props.id);
       if (created !== undefined) {
-        setCardSavedId(created.data.createSavedAccommodationAccommodation.id);
+        setSavedAccommodationAccommodationID(created.data.createSavedAccommodationAccommodation.id);
       } else {
         console.log("save failed");
       }
@@ -94,8 +94,8 @@ const AccommodationCard = (props: IAccommodation) => {
     console.log("card");
     console.log(props);
     setSaved(props.isSaved ? true : false);
-    setCardSavedId(props.isSaved ? props.isSaved.id : '');
-    console.log("cardSavedId = " + cardSavedId);
+    setSavedAccommodationAccommodationID(props.isSaved ? props.isSaved.id : '');
+    console.log("cardSavedId = " + savedAccommodationAccommodationID);
   }, [props])
 
   return (

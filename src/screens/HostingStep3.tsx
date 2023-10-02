@@ -16,16 +16,6 @@ const featureLabels = [
   "Near Public Transport",
   "Balcony",
 ];
-const defaultValue: IUnitFeature = {
-  airConditioning: false,
-  wifi: false,
-  cookerHood: false,
-  fridge: false,
-  washingMachine: false,
-  dryer: false,
-  nearPublicTransport: false,
-  balcony: false
-} 
 
 export default function HostingStep3({ navigation }) {
   const [title, setTitle] = useState("");
