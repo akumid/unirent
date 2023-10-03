@@ -1,3 +1,9 @@
+type SavedAccommodation @model @auth(rules: [{allow: public}]) {
+  id: ID!
+  Accommodations: [Accommodation] @manyToMany(relationName: "SavedAccommodationAccommodation")
+  User: User @belongsTo
+}
+
 enum PropertyEnum {
   HDB
   CONDO
@@ -17,6 +23,8 @@ type Accommodation @model @auth(rules: [{allow: public}]) {
   address: AWSJSON!
   userId: ID! @index(name: "byUser")
   User: User @belongsTo(fields: ["userId"])
+  savedaccommodations: [SavedAccommodation] @manyToMany(relationName: "SavedAccommodationAccommodation")
+  unitFeature: [String]
 }
 
 type User @model @auth(rules: [{allow: public}]) {
@@ -26,6 +34,7 @@ type User @model @auth(rules: [{allow: public}]) {
   ChatRooms: [ChatRoom] @manyToMany(relationName: "UserChatRoom")
   Messages: [Message] @hasMany(indexName: "byUser", fields: ["id"])
   Accommodations: [Accommodation] @hasMany(indexName: "byUser", fields: ["id"])
+  SavedAccommodation: SavedAccommodation @hasOne
 }
 
 type Message @model @auth(rules: [{allow: public}]) {
