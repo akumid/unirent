@@ -14,6 +14,20 @@
       "providerPlugin": "awscloudformation",
       "service": "API Gateway"
     },
+    "googleMapsApi": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "geocodingHandler"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
     "unirent": {
       "dependsOn": [],
       "output": {
@@ -81,6 +95,11 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "geocodingHandler": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "parameters": {
@@ -97,6 +116,22 @@
         {
           "category": "function",
           "resourceName": "accommodationFunction"
+        }
+      ]
+    },
+    "AMPLIFY_function_geocodingHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "geocodingHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_geocodingHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "geocodingHandler"
         }
       ]
     }
