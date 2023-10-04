@@ -8,7 +8,8 @@ type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionOutput: OutputType;
 };
 
-export const onCreateSavedAccommodation = /* GraphQL */ `subscription OnCreateSavedAccommodation(
+export const onCreateSavedAccommodation =
+  /* GraphQL */ `subscription OnCreateSavedAccommodation(
   $filter: ModelSubscriptionSavedAccommodationFilterInput
 ) {
   onCreateSavedAccommodation(filter: $filter) {
@@ -60,10 +61,11 @@ export const onCreateSavedAccommodation = /* GraphQL */ `subscription OnCreateSa
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnCreateSavedAccommodationSubscriptionVariables,
-  APITypes.OnCreateSavedAccommodationSubscription
->;
-export const onUpdateSavedAccommodation = /* GraphQL */ `subscription OnUpdateSavedAccommodation(
+    APITypes.OnCreateSavedAccommodationSubscriptionVariables,
+    APITypes.OnCreateSavedAccommodationSubscription
+  >;
+export const onUpdateSavedAccommodation =
+  /* GraphQL */ `subscription OnUpdateSavedAccommodation(
   $filter: ModelSubscriptionSavedAccommodationFilterInput
 ) {
   onUpdateSavedAccommodation(filter: $filter) {
@@ -115,10 +117,11 @@ export const onUpdateSavedAccommodation = /* GraphQL */ `subscription OnUpdateSa
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnUpdateSavedAccommodationSubscriptionVariables,
-  APITypes.OnUpdateSavedAccommodationSubscription
->;
-export const onDeleteSavedAccommodation = /* GraphQL */ `subscription OnDeleteSavedAccommodation(
+    APITypes.OnUpdateSavedAccommodationSubscriptionVariables,
+    APITypes.OnUpdateSavedAccommodationSubscription
+  >;
+export const onDeleteSavedAccommodation =
+  /* GraphQL */ `subscription OnDeleteSavedAccommodation(
   $filter: ModelSubscriptionSavedAccommodationFilterInput
 ) {
   onDeleteSavedAccommodation(filter: $filter) {
@@ -170,10 +173,11 @@ export const onDeleteSavedAccommodation = /* GraphQL */ `subscription OnDeleteSa
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnDeleteSavedAccommodationSubscriptionVariables,
-  APITypes.OnDeleteSavedAccommodationSubscription
->;
-export const onCreateAccommodation = /* GraphQL */ `subscription OnCreateAccommodation(
+    APITypes.OnDeleteSavedAccommodationSubscriptionVariables,
+    APITypes.OnDeleteSavedAccommodationSubscription
+  >;
+export const onCreateAccommodation =
+  /* GraphQL */ `subscription OnCreateAccommodation(
   $filter: ModelSubscriptionAccommodationFilterInput
 ) {
   onCreateAccommodation(filter: $filter) {
@@ -234,10 +238,11 @@ export const onCreateAccommodation = /* GraphQL */ `subscription OnCreateAccommo
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnCreateAccommodationSubscriptionVariables,
-  APITypes.OnCreateAccommodationSubscription
->;
-export const onUpdateAccommodation = /* GraphQL */ `subscription OnUpdateAccommodation(
+    APITypes.OnCreateAccommodationSubscriptionVariables,
+    APITypes.OnCreateAccommodationSubscription
+  >;
+export const onUpdateAccommodation =
+  /* GraphQL */ `subscription OnUpdateAccommodation(
   $filter: ModelSubscriptionAccommodationFilterInput
 ) {
   onUpdateAccommodation(filter: $filter) {
@@ -298,10 +303,11 @@ export const onUpdateAccommodation = /* GraphQL */ `subscription OnUpdateAccommo
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnUpdateAccommodationSubscriptionVariables,
-  APITypes.OnUpdateAccommodationSubscription
->;
-export const onDeleteAccommodation = /* GraphQL */ `subscription OnDeleteAccommodation(
+    APITypes.OnUpdateAccommodationSubscriptionVariables,
+    APITypes.OnUpdateAccommodationSubscription
+  >;
+export const onDeleteAccommodation =
+  /* GraphQL */ `subscription OnDeleteAccommodation(
   $filter: ModelSubscriptionAccommodationFilterInput
 ) {
   onDeleteAccommodation(filter: $filter) {
@@ -362,10 +368,11 @@ export const onDeleteAccommodation = /* GraphQL */ `subscription OnDeleteAccommo
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnDeleteAccommodationSubscriptionVariables,
-  APITypes.OnDeleteAccommodationSubscription
->;
-export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
+    APITypes.OnDeleteAccommodationSubscriptionVariables,
+    APITypes.OnDeleteAccommodationSubscription
+  >;
+export const onCreateUser =
+  /* GraphQL */ `subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
   onCreateUser(filter: $filter) {
     id
     name
@@ -442,10 +449,11 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnCreateUserSubscriptionVariables,
-  APITypes.OnCreateUserSubscription
->;
-export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
+    APITypes.OnCreateUserSubscriptionVariables,
+    APITypes.OnCreateUserSubscription
+  >;
+export const onUpdateUser =
+  /* GraphQL */ `subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
   onUpdateUser(filter: $filter) {
     id
     name
@@ -522,10 +530,11 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnUpdateUserSubscriptionVariables,
-  APITypes.OnUpdateUserSubscription
->;
-export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
+    APITypes.OnUpdateUserSubscriptionVariables,
+    APITypes.OnUpdateUserSubscription
+  >;
+export const onDeleteUser =
+  /* GraphQL */ `subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
   onDeleteUser(filter: $filter) {
     id
     name
@@ -602,10 +611,11 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnDeleteUserSubscriptionVariables,
-  APITypes.OnDeleteUserSubscription
->;
-export const onCreateMessage = /* GraphQL */ `subscription OnCreateMessage($filter: ModelSubscriptionMessageFilterInput) {
+    APITypes.OnDeleteUserSubscriptionVariables,
+    APITypes.OnDeleteUserSubscription
+  >;
+export const onCreateMessage =
+  /* GraphQL */ `subscription OnCreateMessage($filter: ModelSubscriptionMessageFilterInput) {
   onCreateMessage(filter: $filter) {
     id
     createdAt
@@ -617,10 +627,11 @@ export const onCreateMessage = /* GraphQL */ `subscription OnCreateMessage($filt
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnCreateMessageSubscriptionVariables,
-  APITypes.OnCreateMessageSubscription
->;
-export const onUpdateMessage = /* GraphQL */ `subscription OnUpdateMessage($filter: ModelSubscriptionMessageFilterInput) {
+    APITypes.OnCreateMessageSubscriptionVariables,
+    APITypes.OnCreateMessageSubscription
+  >;
+export const onUpdateMessage =
+  /* GraphQL */ `subscription OnUpdateMessage($filter: ModelSubscriptionMessageFilterInput) {
   onUpdateMessage(filter: $filter) {
     id
     createdAt
@@ -632,10 +643,11 @@ export const onUpdateMessage = /* GraphQL */ `subscription OnUpdateMessage($filt
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnUpdateMessageSubscriptionVariables,
-  APITypes.OnUpdateMessageSubscription
->;
-export const onDeleteMessage = /* GraphQL */ `subscription OnDeleteMessage($filter: ModelSubscriptionMessageFilterInput) {
+    APITypes.OnUpdateMessageSubscriptionVariables,
+    APITypes.OnUpdateMessageSubscription
+  >;
+export const onDeleteMessage =
+  /* GraphQL */ `subscription OnDeleteMessage($filter: ModelSubscriptionMessageFilterInput) {
   onDeleteMessage(filter: $filter) {
     id
     createdAt
@@ -647,10 +659,11 @@ export const onDeleteMessage = /* GraphQL */ `subscription OnDeleteMessage($filt
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnDeleteMessageSubscriptionVariables,
-  APITypes.OnDeleteMessageSubscription
->;
-export const onCreateChatRoom = /* GraphQL */ `subscription OnCreateChatRoom($filter: ModelSubscriptionChatRoomFilterInput) {
+    APITypes.OnDeleteMessageSubscriptionVariables,
+    APITypes.OnDeleteMessageSubscription
+  >;
+export const onCreateChatRoom =
+  /* GraphQL */ `subscription OnCreateChatRoom($filter: ModelSubscriptionChatRoomFilterInput) {
   onCreateChatRoom(filter: $filter) {
     id
     Users {
@@ -724,10 +737,11 @@ export const onCreateChatRoom = /* GraphQL */ `subscription OnCreateChatRoom($fi
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnCreateChatRoomSubscriptionVariables,
-  APITypes.OnCreateChatRoomSubscription
->;
-export const onUpdateChatRoom = /* GraphQL */ `subscription OnUpdateChatRoom($filter: ModelSubscriptionChatRoomFilterInput) {
+    APITypes.OnCreateChatRoomSubscriptionVariables,
+    APITypes.OnCreateChatRoomSubscription
+  >;
+export const onUpdateChatRoom =
+  /* GraphQL */ `subscription OnUpdateChatRoom($filter: ModelSubscriptionChatRoomFilterInput) {
   onUpdateChatRoom(filter: $filter) {
     id
     Users {
@@ -801,10 +815,11 @@ export const onUpdateChatRoom = /* GraphQL */ `subscription OnUpdateChatRoom($fi
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnUpdateChatRoomSubscriptionVariables,
-  APITypes.OnUpdateChatRoomSubscription
->;
-export const onDeleteChatRoom = /* GraphQL */ `subscription OnDeleteChatRoom($filter: ModelSubscriptionChatRoomFilterInput) {
+    APITypes.OnUpdateChatRoomSubscriptionVariables,
+    APITypes.OnUpdateChatRoomSubscription
+  >;
+export const onDeleteChatRoom =
+  /* GraphQL */ `subscription OnDeleteChatRoom($filter: ModelSubscriptionChatRoomFilterInput) {
   onDeleteChatRoom(filter: $filter) {
     id
     Users {
@@ -878,10 +893,11 @@ export const onDeleteChatRoom = /* GraphQL */ `subscription OnDeleteChatRoom($fi
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnDeleteChatRoomSubscriptionVariables,
-  APITypes.OnDeleteChatRoomSubscription
->;
-export const onCreateSavedAccommodationAccommodation = /* GraphQL */ `subscription OnCreateSavedAccommodationAccommodation(
+    APITypes.OnDeleteChatRoomSubscriptionVariables,
+    APITypes.OnDeleteChatRoomSubscription
+  >;
+export const onCreateSavedAccommodationAccommodation =
+  /* GraphQL */ `subscription OnCreateSavedAccommodationAccommodation(
   $filter: ModelSubscriptionSavedAccommodationAccommodationFilterInput
 ) {
   onCreateSavedAccommodationAccommodation(filter: $filter) {
@@ -943,10 +959,11 @@ export const onCreateSavedAccommodationAccommodation = /* GraphQL */ `subscripti
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnCreateSavedAccommodationAccommodationSubscriptionVariables,
-  APITypes.OnCreateSavedAccommodationAccommodationSubscription
->;
-export const onUpdateSavedAccommodationAccommodation = /* GraphQL */ `subscription OnUpdateSavedAccommodationAccommodation(
+    APITypes.OnCreateSavedAccommodationAccommodationSubscriptionVariables,
+    APITypes.OnCreateSavedAccommodationAccommodationSubscription
+  >;
+export const onUpdateSavedAccommodationAccommodation =
+  /* GraphQL */ `subscription OnUpdateSavedAccommodationAccommodation(
   $filter: ModelSubscriptionSavedAccommodationAccommodationFilterInput
 ) {
   onUpdateSavedAccommodationAccommodation(filter: $filter) {
@@ -1008,10 +1025,11 @@ export const onUpdateSavedAccommodationAccommodation = /* GraphQL */ `subscripti
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnUpdateSavedAccommodationAccommodationSubscriptionVariables,
-  APITypes.OnUpdateSavedAccommodationAccommodationSubscription
->;
-export const onDeleteSavedAccommodationAccommodation = /* GraphQL */ `subscription OnDeleteSavedAccommodationAccommodation(
+    APITypes.OnUpdateSavedAccommodationAccommodationSubscriptionVariables,
+    APITypes.OnUpdateSavedAccommodationAccommodationSubscription
+  >;
+export const onDeleteSavedAccommodationAccommodation =
+  /* GraphQL */ `subscription OnDeleteSavedAccommodationAccommodation(
   $filter: ModelSubscriptionSavedAccommodationAccommodationFilterInput
 ) {
   onDeleteSavedAccommodationAccommodation(filter: $filter) {
@@ -1073,10 +1091,11 @@ export const onDeleteSavedAccommodationAccommodation = /* GraphQL */ `subscripti
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnDeleteSavedAccommodationAccommodationSubscriptionVariables,
-  APITypes.OnDeleteSavedAccommodationAccommodationSubscription
->;
-export const onCreateUserChatRoom = /* GraphQL */ `subscription OnCreateUserChatRoom(
+    APITypes.OnDeleteSavedAccommodationAccommodationSubscriptionVariables,
+    APITypes.OnDeleteSavedAccommodationAccommodationSubscription
+  >;
+export const onCreateUserChatRoom =
+  /* GraphQL */ `subscription OnCreateUserChatRoom(
   $filter: ModelSubscriptionUserChatRoomFilterInput
 ) {
   onCreateUserChatRoom(filter: $filter) {
@@ -1158,10 +1177,11 @@ export const onCreateUserChatRoom = /* GraphQL */ `subscription OnCreateUserChat
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnCreateUserChatRoomSubscriptionVariables,
-  APITypes.OnCreateUserChatRoomSubscription
->;
-export const onUpdateUserChatRoom = /* GraphQL */ `subscription OnUpdateUserChatRoom(
+    APITypes.OnCreateUserChatRoomSubscriptionVariables,
+    APITypes.OnCreateUserChatRoomSubscription
+  >;
+export const onUpdateUserChatRoom =
+  /* GraphQL */ `subscription OnUpdateUserChatRoom(
   $filter: ModelSubscriptionUserChatRoomFilterInput
 ) {
   onUpdateUserChatRoom(filter: $filter) {
@@ -1243,10 +1263,11 @@ export const onUpdateUserChatRoom = /* GraphQL */ `subscription OnUpdateUserChat
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnUpdateUserChatRoomSubscriptionVariables,
-  APITypes.OnUpdateUserChatRoomSubscription
->;
-export const onDeleteUserChatRoom = /* GraphQL */ `subscription OnDeleteUserChatRoom(
+    APITypes.OnUpdateUserChatRoomSubscriptionVariables,
+    APITypes.OnUpdateUserChatRoomSubscription
+  >;
+export const onDeleteUserChatRoom =
+  /* GraphQL */ `subscription OnDeleteUserChatRoom(
   $filter: ModelSubscriptionUserChatRoomFilterInput
 ) {
   onDeleteUserChatRoom(filter: $filter) {
@@ -1328,6 +1349,6 @@ export const onDeleteUserChatRoom = /* GraphQL */ `subscription OnDeleteUserChat
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnDeleteUserChatRoomSubscriptionVariables,
-  APITypes.OnDeleteUserChatRoomSubscription
->;
+    APITypes.OnDeleteUserChatRoomSubscriptionVariables,
+    APITypes.OnDeleteUserChatRoomSubscription
+  >;

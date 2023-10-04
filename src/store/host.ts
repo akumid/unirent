@@ -38,12 +38,11 @@ export const useHostStore = create<HostState>()((set) => ({
   price: 0,
   unitFeature: [],
 
-
   updatePropertyType: (input) => set(() => ({ propertyType: input })),
   updateAddress: (input) => set(() => ({ address: input })),
   updateImages: (input) => set(() => ({ images: input })),
   updateTitle: (input) => set(() => ({ title: input })),
   updateDescription: (input) => set(() => ({ description: input })),
   updatePrice: (input) => set(() => ({ price: input })),
-  updateUnitFeature: (input) => set(() => ({unitFeature: input})),
+  updateUnitFeature: (input) => set(() => ({ unitFeature: input })),
 }));

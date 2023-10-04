@@ -1,8 +1,11 @@
 import { API, graphqlOperation } from "aws-amplify";
 import { savedAccommodationAccommodationsBySavedAccommodationId } from "../graphql/queries";
-import { createSavedAccommodationAccommodation, deleteSavedAccommodationAccommodation } from "../graphql/mutations";
+import {
+  createSavedAccommodationAccommodation,
+  deleteSavedAccommodationAccommodation,
+} from "../graphql/mutations";
 
-const query =  `query SavedAccommodationAccommodationsBySavedAccommodationId(
+const query = `query SavedAccommodationAccommodationsBySavedAccommodationId(
   $savedAccommodationId: ID!
   $sortDirection: ModelSortDirection
   $filter: ModelSavedAccommodationAccommodationFilterInput
@@ -54,40 +57,42 @@ const query =  `query SavedAccommodationAccommodationsBySavedAccommodationId(
     __typename
   }
 }
-`
+`;
 
 export const getSavedAccommodationsById = async (savedAccommodationId) => {
+  const savedAccommodationList = await API.graphql(
+    graphqlOperation(query, {
+      savedAccommodationId: savedAccommodationId,
+    }),
+  );
+  const result =
+    savedAccommodationList.data
+      .savedAccommodationAccommodationsBySavedAccommodationId.items;
+  // console.log(savedAccommodation.data.getUser.SavedAccommodation.Accommodations.items);
+  return result;
+};
 
-    const savedAccommodationList = await API.graphql(
-      graphqlOperation(
-        query, {
-          savedAccommodationId: savedAccommodationId
-        }
-      )
-    )
-    const result = savedAccommodationList.data.savedAccommodationAccommodationsBySavedAccommodationId.items;
-    // console.log(savedAccommodation.data.getUser.SavedAccommodation.Accommodations.items);
-    return result;
-}
-
-export const addSavedAccommodation = async (savedAccommodationId, accommodationId) => {
+export const addSavedAccommodation = async (
+  savedAccommodationId,
+  accommodationId,
+) => {
   const created = await API.graphql(
-    graphqlOperation(
-      createSavedAccommodationAccommodation,
-      {input: {savedAccommodationId: savedAccommodationId, accommodationId: accommodationId}}
-    )
-  )
+    graphqlOperation(createSavedAccommodationAccommodation, {
+      input: {
+        savedAccommodationId: savedAccommodationId,
+        accommodationId: accommodationId,
+      },
+    }),
+  );
   return created;
-}
-
+};
 
 export const deleteSavedAccommodationById = async (savedAccommodationId) => {
   const deleted = await API.graphql(
     graphqlOperation(deleteSavedAccommodationAccommodation, {
-      input: { id: savedAccommodationId }
-    })
-  )
+      input: { id: savedAccommodationId },
+    }),
+  );
 
   return deleted;
-
-}
+};

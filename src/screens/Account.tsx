@@ -50,6 +50,6 @@ export const styles = StyleSheet.create({
   view: {
     flex: 1,
     marginHorizontal: 20,
-    marginTop: 50
+    marginTop: 50,
   },
 });

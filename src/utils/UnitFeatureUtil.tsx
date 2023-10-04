@@ -1,13 +1,13 @@
 import IUnitFeature from "../model/IUnitFeature";
 
 export const convertUnitFeatureToArray = (unitFeature: IUnitFeature) => {
-    const featureArray = [];
+  const featureArray = [];
 
-    for (const feature in unitFeature) {
-      if (unitFeature[feature]) {
-        featureArray.push(feature);
-      }
+  for (const feature in unitFeature) {
+    if (unitFeature[feature]) {
+      featureArray.push(feature);
     }
-  
-    return featureArray;
-}
+  }
+
+  return featureArray;
+};
