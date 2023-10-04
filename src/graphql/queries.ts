@@ -8,8 +8,7 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
-export const getSavedAccommodation =
-  /* GraphQL */ `query GetSavedAccommodation($id: ID!) {
+export const getSavedAccommodation = /* GraphQL */ `query GetSavedAccommodation($id: ID!) {
   getSavedAccommodation(id: $id) {
     id
     Accommodations {
@@ -47,6 +46,7 @@ export const getSavedAccommodation =
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -59,11 +59,10 @@ export const getSavedAccommodation =
   }
 }
 ` as GeneratedQuery<
-    APITypes.GetSavedAccommodationQueryVariables,
-    APITypes.GetSavedAccommodationQuery
-  >;
-export const listSavedAccommodations =
-  /* GraphQL */ `query ListSavedAccommodations(
+  APITypes.GetSavedAccommodationQueryVariables,
+  APITypes.GetSavedAccommodationQuery
+>;
+export const listSavedAccommodations = /* GraphQL */ `query ListSavedAccommodations(
   $filter: ModelSavedAccommodationFilterInput
   $limit: Int
   $nextToken: String
@@ -83,6 +82,7 @@ export const listSavedAccommodations =
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -98,11 +98,10 @@ export const listSavedAccommodations =
   }
 }
 ` as GeneratedQuery<
-    APITypes.ListSavedAccommodationsQueryVariables,
-    APITypes.ListSavedAccommodationsQuery
-  >;
-export const getAccommodation =
-  /* GraphQL */ `query GetAccommodation($id: ID!) {
+  APITypes.ListSavedAccommodationsQueryVariables,
+  APITypes.ListSavedAccommodationsQuery
+>;
+export const getAccommodation = /* GraphQL */ `query GetAccommodation($id: ID!) {
   getAccommodation(id: $id) {
     id
     availableDate
@@ -138,6 +137,7 @@ export const getAccommodation =
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -161,9 +161,9 @@ export const getAccommodation =
   }
 }
 ` as GeneratedQuery<
-    APITypes.GetAccommodationQueryVariables,
-    APITypes.GetAccommodationQuery
-  >;
+  APITypes.GetAccommodationQueryVariables,
+  APITypes.GetAccommodationQuery
+>;
 export const listAccommodations = /* GraphQL */ `query ListAccommodations(
   $filter: ModelAccommodationFilterInput
   $limit: Int
@@ -186,6 +186,7 @@ export const listAccommodations = /* GraphQL */ `query ListAccommodations(
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -207,8 +208,7 @@ export const listAccommodations = /* GraphQL */ `query ListAccommodations(
   APITypes.ListAccommodationsQueryVariables,
   APITypes.ListAccommodationsQuery
 >;
-export const accommodationsByUserId =
-  /* GraphQL */ `query AccommodationsByUserId(
+export const accommodationsByUserId = /* GraphQL */ `query AccommodationsByUserId(
   $userId: ID!
   $sortDirection: ModelSortDirection
   $filter: ModelAccommodationFilterInput
@@ -238,6 +238,7 @@ export const accommodationsByUserId =
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -256,9 +257,9 @@ export const accommodationsByUserId =
   }
 }
 ` as GeneratedQuery<
-    APITypes.AccommodationsByUserIdQueryVariables,
-    APITypes.AccommodationsByUserIdQuery
-  >;
+  APITypes.AccommodationsByUserIdQueryVariables,
+  APITypes.AccommodationsByUserIdQuery
+>;
 export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
   getUser(id: $id) {
     id
@@ -319,6 +320,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -329,6 +331,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
       savedAccommodationUserId
       __typename
     }
+    savedAccommIds
     createdAt
     updatedAt
     userSavedAccommodationId
@@ -365,6 +368,7 @@ export const listUsers = /* GraphQL */ `query ListUsers(
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -413,8 +417,7 @@ export const listMessages = /* GraphQL */ `query ListMessages(
   APITypes.ListMessagesQueryVariables,
   APITypes.ListMessagesQuery
 >;
-export const listMessagesByChatRoom =
-  /* GraphQL */ `query ListMessagesByChatRoom(
+export const listMessagesByChatRoom = /* GraphQL */ `query ListMessagesByChatRoom(
   $chatRoomId: ID!
   $createdAt: ModelStringKeyConditionInput
   $sortDirection: ModelSortDirection
@@ -444,9 +447,9 @@ export const listMessagesByChatRoom =
   }
 }
 ` as GeneratedQuery<
-    APITypes.ListMessagesByChatRoomQueryVariables,
-    APITypes.ListMessagesByChatRoomQuery
-  >;
+  APITypes.ListMessagesByChatRoomQueryVariables,
+  APITypes.ListMessagesByChatRoomQuery
+>;
 export const messagesByUserId = /* GraphQL */ `query MessagesByUserId(
   $userId: ID!
   $sortDirection: ModelSortDirection
@@ -531,6 +534,7 @@ export const getChatRoom = /* GraphQL */ `query GetChatRoom($id: ID!) {
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -610,8 +614,7 @@ export const listChatRooms = /* GraphQL */ `query ListChatRooms(
   APITypes.ListChatRoomsQueryVariables,
   APITypes.ListChatRoomsQuery
 >;
-export const getSavedAccommodationAccommodation =
-  /* GraphQL */ `query GetSavedAccommodationAccommodation($id: ID!) {
+export const getSavedAccommodationAccommodation = /* GraphQL */ `query GetSavedAccommodationAccommodation($id: ID!) {
   getSavedAccommodationAccommodation(id: $id) {
     id
     savedAccommodationId
@@ -626,6 +629,7 @@ export const getSavedAccommodationAccommodation =
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -652,6 +656,7 @@ export const getSavedAccommodationAccommodation =
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -671,11 +676,10 @@ export const getSavedAccommodationAccommodation =
   }
 }
 ` as GeneratedQuery<
-    APITypes.GetSavedAccommodationAccommodationQueryVariables,
-    APITypes.GetSavedAccommodationAccommodationQuery
-  >;
-export const listSavedAccommodationAccommodations =
-  /* GraphQL */ `query ListSavedAccommodationAccommodations(
+  APITypes.GetSavedAccommodationAccommodationQueryVariables,
+  APITypes.GetSavedAccommodationAccommodationQuery
+>;
+export const listSavedAccommodationAccommodations = /* GraphQL */ `query ListSavedAccommodationAccommodations(
   $filter: ModelSavedAccommodationAccommodationFilterInput
   $limit: Int
   $nextToken: String
@@ -721,11 +725,10 @@ export const listSavedAccommodationAccommodations =
   }
 }
 ` as GeneratedQuery<
-    APITypes.ListSavedAccommodationAccommodationsQueryVariables,
-    APITypes.ListSavedAccommodationAccommodationsQuery
-  >;
-export const savedAccommodationAccommodationsBySavedAccommodationId =
-  /* GraphQL */ `query SavedAccommodationAccommodationsBySavedAccommodationId(
+  APITypes.ListSavedAccommodationAccommodationsQueryVariables,
+  APITypes.ListSavedAccommodationAccommodationsQuery
+>;
+export const savedAccommodationAccommodationsBySavedAccommodationId = /* GraphQL */ `query SavedAccommodationAccommodationsBySavedAccommodationId(
   $savedAccommodationId: ID!
   $sortDirection: ModelSortDirection
   $filter: ModelSavedAccommodationAccommodationFilterInput
@@ -775,11 +778,10 @@ export const savedAccommodationAccommodationsBySavedAccommodationId =
   }
 }
 ` as GeneratedQuery<
-    APITypes.SavedAccommodationAccommodationsBySavedAccommodationIdQueryVariables,
-    APITypes.SavedAccommodationAccommodationsBySavedAccommodationIdQuery
-  >;
-export const savedAccommodationAccommodationsByAccommodationId =
-  /* GraphQL */ `query SavedAccommodationAccommodationsByAccommodationId(
+  APITypes.SavedAccommodationAccommodationsBySavedAccommodationIdQueryVariables,
+  APITypes.SavedAccommodationAccommodationsBySavedAccommodationIdQuery
+>;
+export const savedAccommodationAccommodationsByAccommodationId = /* GraphQL */ `query SavedAccommodationAccommodationsByAccommodationId(
   $accommodationId: ID!
   $sortDirection: ModelSortDirection
   $filter: ModelSavedAccommodationAccommodationFilterInput
@@ -829,9 +831,9 @@ export const savedAccommodationAccommodationsByAccommodationId =
   }
 }
 ` as GeneratedQuery<
-    APITypes.SavedAccommodationAccommodationsByAccommodationIdQueryVariables,
-    APITypes.SavedAccommodationAccommodationsByAccommodationIdQuery
-  >;
+  APITypes.SavedAccommodationAccommodationsByAccommodationIdQueryVariables,
+  APITypes.SavedAccommodationAccommodationsByAccommodationIdQuery
+>;
 export const getUserChatRoom = /* GraphQL */ `query GetUserChatRoom($id: ID!) {
   getUserChatRoom(id: $id) {
     id
@@ -860,6 +862,7 @@ export const getUserChatRoom = /* GraphQL */ `query GetUserChatRoom($id: ID!) {
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -929,6 +932,7 @@ export const listUserChatRooms = /* GraphQL */ `query ListUserChatRooms(
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -976,6 +980,7 @@ export const userChatRoomsByUserId = /* GraphQL */ `query UserChatRoomsByUserId(
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -1001,8 +1006,7 @@ export const userChatRoomsByUserId = /* GraphQL */ `query UserChatRoomsByUserId(
   APITypes.UserChatRoomsByUserIdQueryVariables,
   APITypes.UserChatRoomsByUserIdQuery
 >;
-export const userChatRoomsByChatRoomId =
-  /* GraphQL */ `query UserChatRoomsByChatRoomId(
+export const userChatRoomsByChatRoomId = /* GraphQL */ `query UserChatRoomsByChatRoomId(
   $chatRoomId: ID!
   $sortDirection: ModelSortDirection
   $filter: ModelUserChatRoomFilterInput
@@ -1024,6 +1028,7 @@ export const userChatRoomsByChatRoomId =
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -1046,6 +1051,6 @@ export const userChatRoomsByChatRoomId =
   }
 }
 ` as GeneratedQuery<
-    APITypes.UserChatRoomsByChatRoomIdQueryVariables,
-    APITypes.UserChatRoomsByChatRoomIdQuery
-  >;
+  APITypes.UserChatRoomsByChatRoomIdQueryVariables,
+  APITypes.UserChatRoomsByChatRoomIdQuery
+>;

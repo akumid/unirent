@@ -19,6 +19,10 @@
         "accommodationFunction": {
           "deploymentBucketName": "amplify-unirent-dev-150111-deployment",
           "s3Key": "amplify-builds/accommodationFunction-486d6734696362456950-build.zip"
+        },
+        "geocodingHandler": {
+          "deploymentBucketName": "amplify-unirent-dev-150111-deployment",
+          "s3Key": "amplify-builds/geocodingHandler-7456676653386c305367-build.zip"
         }
       },
       "storage": {

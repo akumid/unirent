@@ -8,8 +8,7 @@ type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationOutput: OutputType;
 };
 
-export const createSavedAccommodation =
-  /* GraphQL */ `mutation CreateSavedAccommodation(
+export const createSavedAccommodation = /* GraphQL */ `mutation CreateSavedAccommodation(
   $input: CreateSavedAccommodationInput!
   $condition: ModelSavedAccommodationConditionInput
 ) {
@@ -50,6 +49,7 @@ export const createSavedAccommodation =
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -62,11 +62,10 @@ export const createSavedAccommodation =
   }
 }
 ` as GeneratedMutation<
-    APITypes.CreateSavedAccommodationMutationVariables,
-    APITypes.CreateSavedAccommodationMutation
-  >;
-export const updateSavedAccommodation =
-  /* GraphQL */ `mutation UpdateSavedAccommodation(
+  APITypes.CreateSavedAccommodationMutationVariables,
+  APITypes.CreateSavedAccommodationMutation
+>;
+export const updateSavedAccommodation = /* GraphQL */ `mutation UpdateSavedAccommodation(
   $input: UpdateSavedAccommodationInput!
   $condition: ModelSavedAccommodationConditionInput
 ) {
@@ -107,6 +106,7 @@ export const updateSavedAccommodation =
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -119,11 +119,10 @@ export const updateSavedAccommodation =
   }
 }
 ` as GeneratedMutation<
-    APITypes.UpdateSavedAccommodationMutationVariables,
-    APITypes.UpdateSavedAccommodationMutation
-  >;
-export const deleteSavedAccommodation =
-  /* GraphQL */ `mutation DeleteSavedAccommodation(
+  APITypes.UpdateSavedAccommodationMutationVariables,
+  APITypes.UpdateSavedAccommodationMutation
+>;
+export const deleteSavedAccommodation = /* GraphQL */ `mutation DeleteSavedAccommodation(
   $input: DeleteSavedAccommodationInput!
   $condition: ModelSavedAccommodationConditionInput
 ) {
@@ -164,6 +163,7 @@ export const deleteSavedAccommodation =
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -176,9 +176,9 @@ export const deleteSavedAccommodation =
   }
 }
 ` as GeneratedMutation<
-    APITypes.DeleteSavedAccommodationMutationVariables,
-    APITypes.DeleteSavedAccommodationMutation
-  >;
+  APITypes.DeleteSavedAccommodationMutationVariables,
+  APITypes.DeleteSavedAccommodationMutation
+>;
 export const createAccommodation = /* GraphQL */ `mutation CreateAccommodation(
   $input: CreateAccommodationInput!
   $condition: ModelAccommodationConditionInput
@@ -218,6 +218,7 @@ export const createAccommodation = /* GraphQL */ `mutation CreateAccommodation(
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -283,6 +284,7 @@ export const updateAccommodation = /* GraphQL */ `mutation UpdateAccommodation(
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -348,6 +350,7 @@ export const deleteAccommodation = /* GraphQL */ `mutation DeleteAccommodation(
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -437,6 +440,7 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -447,6 +451,7 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
       savedAccommodationUserId
       __typename
     }
+    savedAccommIds
     createdAt
     updatedAt
     userSavedAccommodationId
@@ -520,6 +525,7 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -530,6 +536,7 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
       savedAccommodationUserId
       __typename
     }
+    savedAccommIds
     createdAt
     updatedAt
     userSavedAccommodationId
@@ -603,6 +610,7 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -613,6 +621,7 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
       savedAccommodationUserId
       __typename
     }
+    savedAccommIds
     createdAt
     updatedAt
     userSavedAccommodationId
@@ -733,6 +742,7 @@ export const createChatRoom = /* GraphQL */ `mutation CreateChatRoom(
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -813,6 +823,7 @@ export const updateChatRoom = /* GraphQL */ `mutation UpdateChatRoom(
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -893,6 +904,7 @@ export const deleteChatRoom = /* GraphQL */ `mutation DeleteChatRoom(
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -917,8 +929,7 @@ export const deleteChatRoom = /* GraphQL */ `mutation DeleteChatRoom(
   APITypes.DeleteChatRoomMutationVariables,
   APITypes.DeleteChatRoomMutation
 >;
-export const createSavedAccommodationAccommodation =
-  /* GraphQL */ `mutation CreateSavedAccommodationAccommodation(
+export const createSavedAccommodationAccommodation = /* GraphQL */ `mutation CreateSavedAccommodationAccommodation(
   $input: CreateSavedAccommodationAccommodationInput!
   $condition: ModelSavedAccommodationAccommodationConditionInput
 ) {
@@ -936,6 +947,7 @@ export const createSavedAccommodationAccommodation =
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -962,6 +974,7 @@ export const createSavedAccommodationAccommodation =
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -981,11 +994,10 @@ export const createSavedAccommodationAccommodation =
   }
 }
 ` as GeneratedMutation<
-    APITypes.CreateSavedAccommodationAccommodationMutationVariables,
-    APITypes.CreateSavedAccommodationAccommodationMutation
-  >;
-export const updateSavedAccommodationAccommodation =
-  /* GraphQL */ `mutation UpdateSavedAccommodationAccommodation(
+  APITypes.CreateSavedAccommodationAccommodationMutationVariables,
+  APITypes.CreateSavedAccommodationAccommodationMutation
+>;
+export const updateSavedAccommodationAccommodation = /* GraphQL */ `mutation UpdateSavedAccommodationAccommodation(
   $input: UpdateSavedAccommodationAccommodationInput!
   $condition: ModelSavedAccommodationAccommodationConditionInput
 ) {
@@ -1003,6 +1015,7 @@ export const updateSavedAccommodationAccommodation =
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -1029,6 +1042,7 @@ export const updateSavedAccommodationAccommodation =
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -1048,11 +1062,10 @@ export const updateSavedAccommodationAccommodation =
   }
 }
 ` as GeneratedMutation<
-    APITypes.UpdateSavedAccommodationAccommodationMutationVariables,
-    APITypes.UpdateSavedAccommodationAccommodationMutation
-  >;
-export const deleteSavedAccommodationAccommodation =
-  /* GraphQL */ `mutation DeleteSavedAccommodationAccommodation(
+  APITypes.UpdateSavedAccommodationAccommodationMutationVariables,
+  APITypes.UpdateSavedAccommodationAccommodationMutation
+>;
+export const deleteSavedAccommodationAccommodation = /* GraphQL */ `mutation DeleteSavedAccommodationAccommodation(
   $input: DeleteSavedAccommodationAccommodationInput!
   $condition: ModelSavedAccommodationAccommodationConditionInput
 ) {
@@ -1070,6 +1083,7 @@ export const deleteSavedAccommodationAccommodation =
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -1096,6 +1110,7 @@ export const deleteSavedAccommodationAccommodation =
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -1115,9 +1130,9 @@ export const deleteSavedAccommodationAccommodation =
   }
 }
 ` as GeneratedMutation<
-    APITypes.DeleteSavedAccommodationAccommodationMutationVariables,
-    APITypes.DeleteSavedAccommodationAccommodationMutation
-  >;
+  APITypes.DeleteSavedAccommodationAccommodationMutationVariables,
+  APITypes.DeleteSavedAccommodationAccommodationMutation
+>;
 export const createUserChatRoom = /* GraphQL */ `mutation CreateUserChatRoom(
   $input: CreateUserChatRoomInput!
   $condition: ModelUserChatRoomConditionInput
@@ -1149,6 +1164,7 @@ export const createUserChatRoom = /* GraphQL */ `mutation CreateUserChatRoom(
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -1235,6 +1251,7 @@ export const updateUserChatRoom = /* GraphQL */ `mutation UpdateUserChatRoom(
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -1321,6 +1338,7 @@ export const deleteUserChatRoom = /* GraphQL */ `mutation DeleteUserChatRoom(
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId

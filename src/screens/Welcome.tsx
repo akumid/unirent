@@ -30,7 +30,7 @@ export default function Welcome({ props }) {
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [saved, setSaved] = useState<any[]>();
-  const [savedAccommodationId, setSavedAccommodationId] = useState("");
+  const [savedAccommodationIds, setSavedAccommodationIds] = useState([]);
   const [accommodationList, setAccommodationList] =
     useState<IAccommodation[]>();
   const isFocused = useIsFocused();
@@ -47,24 +47,17 @@ export default function Welcome({ props }) {
 
   async function getSavedAccommodations() {
     const authUser = await Auth.currentAuthenticatedUser();
-    const userId = authUser.attributes.sub;
     const userInfo = await API.graphql(
       graphqlOperation(getUser, {
-        id: userId,
+        id: authUser.attributes.sub,
       }),
     );
 
-    const userSavedId = userInfo.data.getUser.userSavedAccommodationId;
-    setSavedAccommodationId(userSavedId);
+    setSavedAccommodationIds(userInfo.data.getUser.savedAccommIds);
 
-    const savedAccommodationList =
-      await getSavedAccommodationsById(userSavedId);
-    // console.log("savedAccommodationList");
-    // console.log(savedAccommodationList);
-
-    // console.log("Welcome screen");
-    // console.log(savedAccommodationList);
-    setSaved(savedAccommodationList);
+    // const savedAccommodationList =
+    //   await getSavedAccommodationsById(userSavedId);
+    // setSaved(savedAccommodationList);
   }
 
   async function downloadFromStorage(data: IAccommodation[]) {
@@ -86,11 +79,12 @@ export default function Welcome({ props }) {
     accommodation: IAccommodation,
     index: number,
   ) {
+    console.log(savedAccommodationIds);
     let savedId = "";
-    if (saved !== undefined) {
-      savedId = saved.find((e) => {
-        if (e.accommodationId === accommodation.id) {
-          return e.id;
+    if (savedAccommodationIds.length > 0) {
+      savedId = savedAccommodationIds.find((e) => {
+        if (e === accommodation.id) {
+          return e;
         } else {
           return "";
         }
@@ -102,7 +96,7 @@ export default function Welcome({ props }) {
         {...accommodation}
         key={index}
         isSaved={savedId}
-        savedAccommodationId={savedAccommodationId}
+        // savedAccommodationId={savedAccommodationId}
       />
     );
   }
