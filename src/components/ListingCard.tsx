@@ -1,11 +1,13 @@
 import React from "react";
 import { View } from "react-native";
 import { Card, Divider, Text } from "react-native-paper";
+import IAccommodation from "../model/IAccommodation";
+import { useNavigation } from "@react-navigation/native";
 
-const ListingCard = (props: any) => {
-    const images = [
-        "https://stay.greatworld.com.sg/wp-content/uploads/2022/08/serviced-apartments-singapore.jpg-scaled.jpg",
-    ]
+const ListingCard = (props: IAccommodation) => {
+
+    const navigation = useNavigation();
+
     return (
         <Card
         style={{
@@ -14,15 +16,17 @@ const ListingCard = (props: any) => {
             borderWidth: 0.3,
             marginVertical: 15,
         }}
-        onPress={() => {console.warn("navigate to detail and edit screen")}}
+        onPress={() => {
+            navigation.navigate("Listing Detail", { id: props.id })
+        }}
         key={props.id}
         >
-        <Card.Cover source={{ uri: images[0] }} />
+        <Card.Cover source={{ uri: props.images[0] }} />
 
         <View style={{ flex: 1, flexDirection: "row" }}>
             <Card.Title
-            title={"Best HDB in the world"}
-            subtitle={"Very cool apartment"}
+            title={props.title}
+            subtitle={props.address?.aptName}
             subtitleVariant="labelMedium"
             subtitleStyle={{ color: "gray" }}
             style={{ flex: 1 }}
@@ -31,7 +35,7 @@ const ListingCard = (props: any) => {
         <Divider />
         <Card.Content style={{ marginVertical: 10 }}>
             <Text>
-                $ 1000 / month • Available From 2023-10-2
+                $ {props.price} / month • Available From {props.availableDate}
             </Text>
         </Card.Content>
         <Divider />
