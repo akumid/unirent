@@ -198,7 +198,7 @@ const ListingDetailScreen = ({navigation, route}) => {
             </View>
             </ScrollView>
         </View>
-        )
+    )
 }
 
 export default ListingDetailScreen;

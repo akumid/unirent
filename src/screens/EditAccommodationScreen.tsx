@@ -7,6 +7,7 @@ import IAddress from "../model/IAddress";
 import IUnitFeature from "../model/IUnitFeature";
 import EPropertyType from "../model/EPropertyType";
 import { convertArrayToUnitFeature, convertUnitFeatureToArray, getFeatureLabel } from "../utils/UnitFeatureUtil";
+import { Auth } from "aws-amplify";
 
 const EditAccommodationScreen = ( props: any, uriArray: string[] ) => {
 
@@ -87,9 +88,24 @@ const EditAccommodationScreen = ( props: any, uriArray: string[] ) => {
     const updatePrice = useHostStore((state) => state.updatePrice);
     const updateUnitFeature = useHostStore((state) => state.updateUnitFeature);
   
-    const onNavigate = () => {
+    const onNavigate = async () => {
+        const authUser = await Auth.currentAuthenticatedUser();
+        const newAccomm = {
+            id: props.route.params.details.id,
+            title: title,
+            address: address,
+            propertyType: propertyType,
+            images: imageUris,
+            description: description,
+            price: price,
+            rented: false,
+            availableDate: new Date().toISOString().substring(0, 10),
+            unitFeature: unitFeature,
+            userId: authUser.attributes.sub,
+        };
+        console.log(newAccomm);
       // update zustand store
-      updateImages(imageUris);
+    //   updateImages(imageUris);
     //   navigation.navigate("HostingStep3");
     };
 
@@ -161,7 +177,7 @@ const EditAccommodationScreen = ( props: any, uriArray: string[] ) => {
                         onChangeText={(text) => setTitle(text)}
                     />
                     <TextInput
-                        label="Title"
+                        label="Description"
                         placeholder="Enter Description"
                         value={description}
                         onChangeText={(text) => setDescription(text)}
@@ -220,7 +236,7 @@ const EditAccommodationScreen = ( props: any, uriArray: string[] ) => {
 
             </ScrollView>
     
-            {/* <View style={styles.next}>
+            <View style={styles.next}>
             <PaperButton
                 mode="contained"
                 onPress={() => onNavigate()}
@@ -228,7 +244,7 @@ const EditAccommodationScreen = ( props: any, uriArray: string[] ) => {
             >
                 Next
             </PaperButton>
-            </View> */}
+            </View>
       </View>
     )
 }
