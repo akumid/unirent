@@ -23,6 +23,7 @@ import {
   deleteSavedAccommodationById,
   getSavedAccommodationsById,
 } from "../services/SavedAccommodationService";
+import { createSavedAccommodation, updateUser } from "../graphql/mutations";
 
 export default function Welcome({ props }) {
   const insets = useSafeAreaInsets();
@@ -30,7 +31,8 @@ export default function Welcome({ props }) {
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [saved, setSaved] = useState<any[]>();
-  const [savedAccommodationIds, setSavedAccommodationIds] = useState([]);
+  // const [savedAccommodationIds, setSavedAccommodationIds] = useState([]);
+  const [savedAccommodationId, setSavedAccommodationId] = useState('');
   const [accommodationList, setAccommodationList] =
     useState<IAccommodation[]>();
   const isFocused = useIsFocused();
@@ -45,23 +47,51 @@ export default function Welcome({ props }) {
     await downloadFromStorage(resp.data?.listAccommodations?.items);
   }
 
-  async function getSavedAccommodations() {
-    const authUser = await Auth.currentAuthenticatedUser();
-    const userInfo = await API.graphql(
-      graphqlOperation(getUser, {
-        id: authUser.attributes.sub,
+  async function createNewSavedAccommodationId(userId) {
+    // createSavedAccommodation
+    const userSavedAccommodaiton = await API.graphql(
+      graphqlOperation(createSavedAccommodation, {
+        input: {savedAccommodationUserId: userId}
       }),
     );
 
-    setSavedAccommodationIds(userInfo.data.getUser.savedAccommIds);
+    const updateUserInfo = await API.graphql(
+      graphqlOperation(updateUser, {
+        input: {id: userId, userSavedAccommodationId: userSavedAccommodaiton.data.createSavedAccommodation.id}
+      }),
+    );
 
-    // const savedAccommodationList =
-    //   await getSavedAccommodationsById(userSavedId);
-    // setSaved(savedAccommodationList);
+    return updateUserInfo.data.updateUser.userSavedAccommodationId;
+
+  }
+
+  async function getSavedAccommodations() {
+    const authUser = await Auth.currentAuthenticatedUser();
+    const userId = authUser.attributes.sub;
+    let userSavedAccoimmodationId = '';
+    const userInfo = await API.graphql(
+      graphqlOperation(getUser, {
+        id: userId
+      }),
+  );
+    
+
+    if (userInfo.data.getUser.userSavedAccommodationId == null || userInfo.data.getUser.userSavedAccommodationId == undefined ) {
+      const savedAccommId = await createNewSavedAccommodationId(authUser.attributes.sub);
+      setSavedAccommodationId(savedAccommId);
+      userSavedAccoimmodationId = savedAccommId;
+    } else {
+      userSavedAccoimmodationId = userInfo.data.getUser.userSavedAccommodationId;
+      setSavedAccommodationId(userInfo.data.getUser.userSavedAccommodationId);
+    }
+
+    
+
+    const savedAccommodationList = await getSavedAccommodationsById(userSavedAccoimmodationId);
+    setSaved(savedAccommodationList);
   }
 
   async function downloadFromStorage(data: IAccommodation[]) {
-    console.log(data);
     // download first image from each listing and replace images array
     for (let i = 0; i < data.length; i++) {
       await Storage.get(data[i].images[0])
@@ -79,11 +109,10 @@ export default function Welcome({ props }) {
     accommodation: IAccommodation,
     index: number,
   ) {
-    console.log(savedAccommodationIds);
     let savedId = "";
-    if (savedAccommodationIds.length > 0) {
-      savedId = savedAccommodationIds.find((e) => {
-        if (e === accommodation.id) {
+    if (saved.length > 0) {
+      savedId = saved.find((e) => {
+        if (e.accommodationId === accommodation.id) {
           return e;
         } else {
           return "";
@@ -96,7 +125,7 @@ export default function Welcome({ props }) {
         {...accommodation}
         key={index}
         isSaved={savedId}
-        // savedAccommodationId={savedAccommodationId}
+        savedAccommodationId={savedAccommodationId}
       />
     );
   }

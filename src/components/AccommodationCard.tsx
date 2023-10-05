@@ -105,11 +105,8 @@ const AccommodationCard = (props: IAccommodation) => {
   };
 
   useEffect(() => {
-    console.log("card");
-    console.log(props);
     setSaved(props.isSaved ? true : false);
     setSavedAccommodationAccommodationID(props.isSaved ? props.isSaved.id : "");
-    console.log("cardSavedId = " + savedAccommodationAccommodationID);
   }, [props]);
 
   return (
