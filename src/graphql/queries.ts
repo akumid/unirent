@@ -46,6 +46,7 @@ export const getSavedAccommodation = /* GraphQL */ `query GetSavedAccommodation(
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -81,6 +82,7 @@ export const listSavedAccommodations = /* GraphQL */ `query ListSavedAccommodati
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -135,6 +137,7 @@ export const getAccommodation = /* GraphQL */ `query GetAccommodation($id: ID!) 
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -183,6 +186,7 @@ export const listAccommodations = /* GraphQL */ `query ListAccommodations(
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -234,6 +238,7 @@ export const accommodationsByUserId = /* GraphQL */ `query AccommodationsByUserI
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -315,6 +320,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -325,6 +331,7 @@ export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
       savedAccommodationUserId
       __typename
     }
+    savedAccommIds
     createdAt
     updatedAt
     userSavedAccommodationId
@@ -361,6 +368,7 @@ export const listUsers = /* GraphQL */ `query ListUsers(
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -526,6 +534,7 @@ export const getChatRoom = /* GraphQL */ `query GetChatRoom($id: ID!) {
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -620,6 +629,7 @@ export const getSavedAccommodationAccommodation = /* GraphQL */ `query GetSavedA
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -646,6 +656,7 @@ export const getSavedAccommodationAccommodation = /* GraphQL */ `query GetSavedA
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -851,6 +862,7 @@ export const getUserChatRoom = /* GraphQL */ `query GetUserChatRoom($id: ID!) {
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -920,6 +932,7 @@ export const listUserChatRooms = /* GraphQL */ `query ListUserChatRooms(
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -967,6 +980,7 @@ export const userChatRoomsByUserId = /* GraphQL */ `query UserChatRoomsByUserId(
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -1014,6 +1028,7 @@ export const userChatRoomsByChatRoomId = /* GraphQL */ `query UserChatRoomsByCha
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId

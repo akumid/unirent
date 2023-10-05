@@ -8,6 +8,7 @@ import IUnitFeature from "../model/IUnitFeature";
 import EPropertyType from "../model/EPropertyType";
 import { convertArrayToUnitFeature, convertUnitFeatureToArray, getFeatureLabel } from "../utils/UnitFeatureUtil";
 import { Auth } from "aws-amplify";
+import { getGeocode } from "../services/GoogleMaps";
 
 const EditAccommodationScreen = ( props: any, uriArray: string[] ) => {
 
@@ -18,6 +19,7 @@ const EditAccommodationScreen = ( props: any, uriArray: string[] ) => {
     const [unitFeature, setUnitFeature] = useState<IUnitFeature>({});
     const [address, setAddress] = useState<IAddress>();
     const [propertyType, setPropertyType] = useState("");
+    const [geocode, setGeocode] = useState<IGeo>();
     
     const test = {
         wifi: true,
@@ -27,6 +29,11 @@ const EditAccommodationScreen = ( props: any, uriArray: string[] ) => {
         washingMachine: true,
         dryer: true,
         nearPublicTransport: true
+    }
+
+    async function invokeGoogleMaps(address: object) {
+        const resp = await getGeocode(address);
+        setGeocode(resp);
     }
 
 
@@ -90,6 +97,8 @@ const EditAccommodationScreen = ( props: any, uriArray: string[] ) => {
   
     const onNavigate = async () => {
         const authUser = await Auth.currentAuthenticatedUser();
+        // const s3ObjectKeys = await uploadToStorage(hostStore.images, uuid);
+        invokeGoogleMaps(address);
         const newAccomm = {
             id: props.route.params.details.id,
             title: title,

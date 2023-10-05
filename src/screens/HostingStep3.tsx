@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { View, ScrollView, StyleSheet } from "react-native";
-import { Card, Checkbox, Button as PaperButton, Text, TextInput } from "react-native-paper";
+import {
+  Card,
+  Checkbox,
+  Button as PaperButton,
+  Text,
+  TextInput,
+} from "react-native-paper";
 
 import { useHostStore } from "../store/host";
 import IUnitFeature from "../model/IUnitFeature";
@@ -88,9 +94,15 @@ export default function HostingStep3({ navigation }) {
         />
 
         <Text variant="headlineMedium">Unit Feature</Text>
-        <Text variant="labelLarge"> Select the unit features provided by your accommodation </Text>
+        <Text variant="labelLarge">
+          {" "}
+          Select the unit features provided by your accommodation{" "}
+        </Text>
         <Card>
-          <CheckboxGroup unitFeature={unitFeature} setUnitFeature={setUnitFeature} />
+          <CheckboxGroup
+            unitFeature={unitFeature}
+            setUnitFeature={setUnitFeature}
+          />
         </Card>
       </ScrollView>
 
@@ -110,20 +122,20 @@ export default function HostingStep3({ navigation }) {
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    marginHorizontal: 20
+    marginHorizontal: 20,
   },
   scroll: {
     flex: 1,
   },
   checkboxRowGroup: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
   },
   checkboxColumnGroup: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start',
+    flexDirection: "column",
+    justifyContent: "flex-start",
   },
   next: {
     flexDirection: "row",

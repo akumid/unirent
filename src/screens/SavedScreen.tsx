@@ -5,125 +5,139 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { getUser } from "../graphql/queries";
 import { getSavedAccommodationsById } from "../services/SavedAccommodationService";
 import {
-    Searchbar,
-    Divider,
-    Card,
-    Text,
-    ActivityIndicator,
-  } from "react-native-paper";
+  Searchbar,
+  Divider,
+  Card,
+  Text,
+  ActivityIndicator,
+} from "react-native-paper";
 import IAccommodation from "../model/IAccommodation";
 import AccommodationCard from "../components/AccommodationCard";
 import { useIsFocused } from "@react-navigation/native";
 
 const SavedScreen = (props: any) => {
-    const insets = useSafeAreaInsets();
-    const [savedAccommodationId, setSavedAccommodationId] = useState('');
-    const [saved, setSaved] = useState<any[]>([]);
-    const [accommodationList, setAccommodationList] = useState<IAccommodation[]>();
-    const [isLoading, setIsLoading] = useState(true);
-    const [rerenderFlag, setRerenderFlag] = useState(false);
-    const isFocused = useIsFocused();
+  const insets = useSafeAreaInsets();
+  const [savedAccommodationId, setSavedAccommodationId] = useState("");
+  const [saved, setSaved] = useState<any[]>([]);
+  const [accommodationList, setAccommodationList] =
+    useState<IAccommodation[]>();
+  const [isLoading, setIsLoading] = useState(true);
+  const [rerenderFlag, setRerenderFlag] = useState(false);
+  const isFocused = useIsFocused();
 
-    async function fetch() {
-        const authUser = await Auth.currentAuthenticatedUser();
-        const userId = authUser.attributes.sub;
-        const userInfo = await API.graphql(
-          graphqlOperation(getUser, {
-            id: userId
-          }),
-        );
-    
-        const savedAccommodationId = userInfo.data.getUser.userSavedAccommodationId;
-        console.log(savedAccommodationId);
-        setSavedAccommodationId(savedAccommodationId);
-        
-    
-        const savedAccommodationList = await getSavedAccommodationsById(savedAccommodationId);
-        setSaved(savedAccommodationList);
-        const accommodationList = savedAccommodationList.map((item) => {
-            return item.accommodation
+  async function fetch() {
+    const authUser = await Auth.currentAuthenticatedUser();
+    const userId = authUser.attributes.sub;
+    const userInfo = await API.graphql(
+      graphqlOperation(getUser, {
+        id: userId,
+      }),
+    );
+
+    const savedAccommodationId = userInfo.data.getUser.userSavedAccommodationId;
+    console.log(savedAccommodationId);
+    setSavedAccommodationId(savedAccommodationId);
+
+    const savedAccommodationList =
+      await getSavedAccommodationsById(savedAccommodationId);
+    setSaved(savedAccommodationList);
+    const accommodationList = savedAccommodationList.map((item) => {
+      return item.accommodation;
+    });
+
+    await downloadFromStorage(accommodationList);
+
+    // // console.log(savedAccommodation.data.getUser.SavedAccommodation.Accommodations.items);
+    // console.log("SavedScreen");
+    // setAccommodationList(savedAccommodationList);
+    // console.log(accommodationList)
+  }
+
+  async function downloadFromStorage(data: IAccommodation[]) {
+    console.log("saved");
+    console.log(data);
+    // download first image from each listing and replace images array
+    for (let i = 0; i < data.length; i++) {
+      await Storage.get(data[i].images[0])
+        .then((uri) => {
+          data[i].images.length = 0; // clear array
+          data[i].images.push(uri); // push first image uri
         })
-    
-        await downloadFromStorage(accommodationList);
-        
-        // // console.log(savedAccommodation.data.getUser.SavedAccommodation.Accommodations.items);
-        // console.log("SavedScreen");
-        // setAccommodationList(savedAccommodationList);
-        // console.log(accommodationList)
+        .catch((err) => console.log("Error downloading file:" + err));
     }
+    setAccommodationList(data);
+    setIsLoading(false);
+  }
 
-    async function downloadFromStorage(data: IAccommodation[]) {
-        console.log("saved");
-        console.log(data);
-        // download first image from each listing and replace images array
-        for (let i = 0; i < data.length; i++) {
-          await Storage.get(data[i].images[0])
-            .then((uri) => {
-              data[i].images.length = 0; // clear array
-              data[i].images.push(uri); // push first image uri
-            })
-            .catch((err) => console.log("Error downloading file:" + err));
+  function returnAccommodationCard(
+    accommodation: IAccommodation,
+    index: number,
+  ) {
+    let savedId = "";
+    if (saved !== undefined) {
+      savedId = saved.find((e) => {
+        if (e.accommodationId === accommodation.id) {
+          return e.id;
+        } else {
+          return "";
         }
-        setAccommodationList(data);
-        setIsLoading(false);
+      });
+      console.log("savedId = " + savedId);
     }
+    return (
+      <AccommodationCard
+        {...accommodation}
+        key={index}
+        isSaved={savedId}
+        savedAccommodationId={savedAccommodationId}
+        onRerender={() => setRerenderFlag(!rerenderFlag)}
+      />
+    );
+  }
 
-    function returnAccommodationCard(accommodation: IAccommodation, index: number) {
-        let savedId = '';
-        if (saved !== undefined ) {
-          savedId = saved.find(e => {
-            if (e.accommodationId === accommodation.id) {
-              return e.id;
-            } else {
-              return '';
-            }
-          })
-          console.log("savedId = " + savedId);
-        }
-        return (<AccommodationCard {...accommodation} key={index} isSaved={savedId} savedAccommodationId={savedAccommodationId} 
-            onRerender={() => setRerenderFlag(!rerenderFlag)}/>);
-      }
+  useEffect(() => {
+    if (isFocused) {
+      fetch();
+    }
+  }, [props, isFocused, rerenderFlag]);
 
-    useEffect(() => {
-
-        if (isFocused) {
-            fetch();
-        }
-        
-    }, [props, isFocused, rerenderFlag])
-
-    if (isLoading) return <ActivityIndicator animating />;
-    else
-        return (
-            <View
-                style={{
-                    flex: 1,
-                    flexDirection: "column",
-                    justifyContent: "flex-start",
-                    // Paddings to handle safe area
-                    paddingTop: insets.top,
-                    paddingBottom: insets.bottom,
-                    paddingLeft: insets.left,
-                    paddingRight: insets.right,
-                }}
-            >
-                <Text variant="headlineLarge" style={{marginLeft: 20, marginBottom: 10,}}>Saved</Text>
-                <Divider />
-                <ScrollView
-                    style={{
-                        flex: 1,
-                        flexDirection: "column",
-                        paddingHorizontal: 15,
-                    }}
-                >
-                <View style={{ marginVertical: 10, flexDirection: "column" }}>
-                    {accommodationList.map((accommodation, index) =>
-                        returnAccommodationCard(accommodation, index)
-                    )}
-                </View>
-                </ScrollView>
-            </View>
-        )
-}
+  if (isLoading) return <ActivityIndicator animating />;
+  else
+    return (
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "column",
+          justifyContent: "flex-start",
+          // Paddings to handle safe area
+          paddingTop: insets.top,
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        }}
+      >
+        <Text
+          variant="headlineLarge"
+          style={{ marginLeft: 20, marginBottom: 10 }}
+        >
+          Saved
+        </Text>
+        <Divider />
+        <ScrollView
+          style={{
+            flex: 1,
+            flexDirection: "column",
+            paddingHorizontal: 15,
+          }}
+        >
+          <View style={{ marginVertical: 10, flexDirection: "column" }}>
+            {accommodationList.map((accommodation, index) =>
+              returnAccommodationCard(accommodation, index),
+            )}
+          </View>
+        </ScrollView>
+      </View>
+    );
+};
 
 export default SavedScreen;

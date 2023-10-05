@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { StyleSheet, View, ScrollView, KeyboardAvoidingView, Platform } from "react-native";
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import {
   Button as PaperButton,
   SegmentedButtons,
@@ -45,7 +51,7 @@ export default function HostingStep1({ navigation, route }) {
   };
 
   return (
-    <KeyboardAvoidingView 
+    <KeyboardAvoidingView
       style={styles.view}
       behavior={Platform.OS === "ios" || "android" ? "padding" : "height"}
       keyboardVerticalOffset={Platform.OS === "ios" || "android" ? 100 : -300}
@@ -77,7 +83,9 @@ export default function HostingStep1({ navigation, route }) {
           ]}
         />
 
-        <Text variant="headlineMedium" style={{marginBottom: 10}}>Where is your place?</Text>
+        <Text variant="headlineMedium" style={{ marginBottom: 10 }}>
+          Where is your place?
+        </Text>
         <TextInput
           label="Country"
           placeholder="Enter your country"
@@ -100,13 +108,17 @@ export default function HostingStep1({ navigation, route }) {
           label="Address Line 1"
           placeholder=""
           value={address?.addressLine1}
-          onChangeText={(text) => setAddress({ ...address, addressLine1: text })}
+          onChangeText={(text) =>
+            setAddress({ ...address, addressLine1: text })
+          }
         />
         <TextInput
           label="Address Line 2"
           placeholder=""
           value={address?.addressLine2}
-          onChangeText={(text) => setAddress({ ...address, addressLine2: text })}
+          onChangeText={(text) =>
+            setAddress({ ...address, addressLine2: text })
+          }
         />
         <TextInput
           label="Apt, Suite, etc (optional)"
@@ -153,14 +165,14 @@ export default function HostingStep1({ navigation, route }) {
           Next
         </PaperButton>
       </View>
-    </KeyboardAvoidingView >
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    marginHorizontal: 20
+    marginHorizontal: 20,
   },
   scroll: {
     flex: 1,
@@ -175,6 +187,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-end",
     padding: 20,
-    marginTop: 20
+    marginTop: 20,
   },
 });

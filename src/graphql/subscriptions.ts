@@ -48,6 +48,7 @@ export const onCreateSavedAccommodation = /* GraphQL */ `subscription OnCreateSa
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -103,6 +104,7 @@ export const onUpdateSavedAccommodation = /* GraphQL */ `subscription OnUpdateSa
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -158,6 +160,7 @@ export const onDeleteSavedAccommodation = /* GraphQL */ `subscription OnDeleteSa
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -211,6 +214,7 @@ export const onCreateAccommodation = /* GraphQL */ `subscription OnCreateAccommo
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -275,6 +279,7 @@ export const onUpdateAccommodation = /* GraphQL */ `subscription OnUpdateAccommo
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -339,6 +344,7 @@ export const onDeleteAccommodation = /* GraphQL */ `subscription OnDeleteAccommo
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -425,6 +431,7 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -435,6 +442,7 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
       savedAccommodationUserId
       __typename
     }
+    savedAccommIds
     createdAt
     updatedAt
     userSavedAccommodationId
@@ -505,6 +513,7 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -515,6 +524,7 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
       savedAccommodationUserId
       __typename
     }
+    savedAccommIds
     createdAt
     updatedAt
     userSavedAccommodationId
@@ -585,6 +595,7 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -595,6 +606,7 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
       savedAccommodationUserId
       __typename
     }
+    savedAccommIds
     createdAt
     updatedAt
     userSavedAccommodationId
@@ -703,6 +715,7 @@ export const onCreateChatRoom = /* GraphQL */ `subscription OnCreateChatRoom($fi
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -780,6 +793,7 @@ export const onUpdateChatRoom = /* GraphQL */ `subscription OnUpdateChatRoom($fi
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -857,6 +871,7 @@ export const onDeleteChatRoom = /* GraphQL */ `subscription OnDeleteChatRoom($fi
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -898,6 +913,7 @@ export const onCreateSavedAccommodationAccommodation = /* GraphQL */ `subscripti
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -924,6 +940,7 @@ export const onCreateSavedAccommodationAccommodation = /* GraphQL */ `subscripti
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -963,6 +980,7 @@ export const onUpdateSavedAccommodationAccommodation = /* GraphQL */ `subscripti
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -989,6 +1007,7 @@ export const onUpdateSavedAccommodationAccommodation = /* GraphQL */ `subscripti
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -1028,6 +1047,7 @@ export const onDeleteSavedAccommodationAccommodation = /* GraphQL */ `subscripti
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -1054,6 +1074,7 @@ export const onDeleteSavedAccommodationAccommodation = /* GraphQL */ `subscripti
         id
         name
         status
+        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -1106,6 +1127,7 @@ export const onCreateUserChatRoom = /* GraphQL */ `subscription OnCreateUserChat
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -1191,6 +1213,7 @@ export const onUpdateUserChatRoom = /* GraphQL */ `subscription OnUpdateUserChat
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -1276,6 +1299,7 @@ export const onDeleteUserChatRoom = /* GraphQL */ `subscription OnDeleteUserChat
         savedAccommodationUserId
         __typename
       }
+      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId

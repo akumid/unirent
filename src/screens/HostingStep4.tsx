@@ -194,7 +194,9 @@ export default function HostingStep4({ navigation }) {
           <Divider />
           <View style={{ marginTop: 10 }}>
             <Text variant="headlineMedium">UnitFeature</Text>
-            {hostStore.unitFeature.map((feature) => {return <Text>{feature}</Text>})}
+            {hostStore.unitFeature.map((feature) => {
+              return <Text>{feature}</Text>;
+            })}
           </View>
           <Divider />
 
@@ -213,11 +215,7 @@ export default function HostingStep4({ navigation }) {
         </ScrollView>
 
         <View style={styles.next}>
-          <PaperButton
-            mode="contained"
-            onPress={() =>  onPublish()}
-            style={{}}
-          >
+          <PaperButton mode="contained" onPress={() => onPublish()} style={{}}>
             Publish
           </PaperButton>
         </View>

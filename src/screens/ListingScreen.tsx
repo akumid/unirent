@@ -80,18 +80,17 @@ const ListingScreen = (props: any) => {
                 <Text style={{verticalAlign: 'middle'}}>
                     You do not have any accommodation listing right now 
                 </Text> */}
-            </ScrollView>
-
-        </View>
-    )
-}
+      </ScrollView>
+    </View>
+  );
+};
 
 export default ListingScreen;
 
 const styles = StyleSheet.create({
-    view: {
-      flex: 1,
-      marginHorizontal: 20,
-      marginTop: 10
-    },
-  });
+  view: {
+    flex: 1,
+    marginHorizontal: 20,
+    marginTop: 10,
+  },
+});

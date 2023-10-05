@@ -14,9 +14,15 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import AccommodationCard from "../components/AccommodationCard";
 import IAccommodation from "../model/IAccommodation";
 import { getTodaysRecommendation } from "../services/AccommodationService";
-import { getUser, savedAccommodationAccommodationsBySavedAccommodationId } from "../graphql/queries";
-import { addSavedAccommodation, deleteSavedAccommodationById, getSavedAccommodationsById } from "../services/SavedAccommodationService";
-
+import {
+  getUser,
+  savedAccommodationAccommodationsBySavedAccommodationId,
+} from "../graphql/queries";
+import {
+  addSavedAccommodation,
+  deleteSavedAccommodationById,
+  getSavedAccommodationsById,
+} from "../services/SavedAccommodationService";
 
 export default function Welcome({ props }) {
   const insets = useSafeAreaInsets();
@@ -24,7 +30,7 @@ export default function Welcome({ props }) {
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [saved, setSaved] = useState<any[]>();
-  const [savedAccommodationId, setSavedAccommodationId] = useState('');
+  const [savedAccommodationIds, setSavedAccommodationIds] = useState([]);
   const [accommodationList, setAccommodationList] =
     useState<IAccommodation[]>();
   const isFocused = useIsFocused();
@@ -41,25 +47,17 @@ export default function Welcome({ props }) {
 
   async function getSavedAccommodations() {
     const authUser = await Auth.currentAuthenticatedUser();
-    const userId = authUser.attributes.sub;
     const userInfo = await API.graphql(
       graphqlOperation(getUser, {
-        id: userId
+        id: authUser.attributes.sub,
       }),
     );
 
-    const userSavedId = userInfo.data.getUser.userSavedAccommodationId;
-    setSavedAccommodationId(userSavedId);
+    setSavedAccommodationIds(userInfo.data.getUser.savedAccommIds);
 
-    const savedAccommodationList = await getSavedAccommodationsById(userSavedId);
-    // console.log("savedAccommodationList");
-    // console.log(savedAccommodationList);
-
-
-    // console.log("Welcome screen");
-    // console.log(savedAccommodationList);
-    setSaved(savedAccommodationList);
-
+    // const savedAccommodationList =
+    //   await getSavedAccommodationsById(userSavedId);
+    // setSaved(savedAccommodationList);
   }
 
   async function downloadFromStorage(data: IAccommodation[]) {
@@ -77,22 +75,31 @@ export default function Welcome({ props }) {
     setIsLoading(false);
   }
 
-  function returnAccommodationCard(accommodation: IAccommodation, index: number) {
-    let savedId = '';
-    if (saved !== undefined ) {
-      savedId = saved.find(e => {
-        if (e.accommodationId === accommodation.id) {
-          return e.id;
+  function returnAccommodationCard(
+    accommodation: IAccommodation,
+    index: number,
+  ) {
+    console.log(savedAccommodationIds);
+    let savedId = "";
+    if (savedAccommodationIds.length > 0) {
+      savedId = savedAccommodationIds.find((e) => {
+        if (e === accommodation.id) {
+          return e;
         } else {
-          return '';
+          return "";
         }
-      })
+      });
     }
 
-    return (<AccommodationCard {...accommodation} key={index} isSaved={savedId} savedAccommodationId={savedAccommodationId} />);
-
+    return (
+      <AccommodationCard
+        {...accommodation}
+        key={index}
+        isSaved={savedId}
+        // savedAccommodationId={savedAccommodationId}
+      />
+    );
   }
-
 
   // fetch all Listings
   useEffect(() => {
@@ -195,8 +202,8 @@ export default function Welcome({ props }) {
 
           <View style={{ marginVertical: 10, flexDirection: "column" }}>
             <Text variant="titleLarge"> Today's Recommendations </Text>
-            {accommodationList.map((accommodation, index) => 
-              returnAccommodationCard(accommodation, index)
+            {accommodationList.map((accommodation, index) =>
+              returnAccommodationCard(accommodation, index),
             )}
           </View>
         </ScrollView>
