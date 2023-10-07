@@ -10,7 +10,8 @@
     "check:lint": "eslint ./src",
     "check:ts": "tsc",
     "fix:prettier": "prettier ./src --write",
-    "test": "jest"
+    "test": "jest",
+    "test:ci": "jest --coverage --coverageReporters='json-summary'"
   },
   "jest": {
     "preset": "jest-expo",
@@ -34,6 +35,11 @@
     "resolver": "./tests/common/resolver.js",
     "setupFiles": [
       "./tests/common/jestSetup.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/.expo",
+      "/amplify/"
     ]
   },
   "dependencies": {

@@ -28,4 +28,7 @@ jobs:
       - name: Install
         run: npm ci
       - name: Test
-        run: npm test
+        run: npm run test:ci
+      - run: |
+          coverageJSON = $(cat coverage/coverage-summary.json)
+          echo "$coverageJSON"
