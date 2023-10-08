@@ -29,6 +29,13 @@ jobs:
         run: npm ci
       - name: Test
         run: npm run test:ci
-      - run: |
-          coverageJSON = $(cat coverage/coverage-summary.json)
-          echo "$coverageJSON"
+      - name: Collect coverage
+        id: collect
+        run: |
+          export coverage_file=$('cat ./coverage/coverage-summary.json')
+          echo "coverage=$(coverage_file)" >> "$GITHUB_OUTPUT"
+      - name: Check %
+        env:
+          JSON: ${{ steps.collect.outputs.json_output }}
+        run: |
+          echo "$JSON"
