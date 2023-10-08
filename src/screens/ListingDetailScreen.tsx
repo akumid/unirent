@@ -50,10 +50,10 @@ const ListingDetailScreen = ({navigation, route}) => {
     setAddress(JSON.parse(data.address));
     setLoading(false);
 
-    // console.log("Listing details");
-    // console.log(data);
-    // console.log(array);
-    // console.log(JSON.parse(data.address));
+    console.log("Listing details");
+    console.log(data);
+    console.log(array);
+    console.log(JSON.parse(data.address));
     }
 
     useEffect(() => {

@@ -7,33 +7,30 @@ import IAddress from "../model/IAddress";
 import IUnitFeature from "../model/IUnitFeature";
 import EPropertyType from "../model/EPropertyType";
 import { convertArrayToUnitFeature, convertUnitFeatureToArray, getFeatureLabel } from "../utils/UnitFeatureUtil";
-import { Auth } from "aws-amplify";
+import { API, Auth, Storage, graphqlOperation } from "aws-amplify";
 import { getGeocode } from "../services/GoogleMaps";
+import IGeo from "../model/IGeo";
+import { updateAccommodation } from "../graphql/mutations";
+import { useNavigation } from "@react-navigation/native";
+import alert from "../components/Alert";
+
 
 const EditAccommodationScreen = ( props: any, uriArray: string[] ) => {
+
+    const navigation = useNavigation();
 
     const [imageUris, setImageUris] = useState([]);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [price, setPrice] = useState('');
+    const [price, setPrice] = useState(0);
     const [unitFeature, setUnitFeature] = useState<IUnitFeature>({});
     const [address, setAddress] = useState<IAddress>();
     const [propertyType, setPropertyType] = useState("");
-    const [geocode, setGeocode] = useState<IGeo>();
-    
-    const test = {
-        wifi: true,
-        airConditioning: true,
-        cookerHood: true,
-        fridge: true,
-        washingMachine: true,
-        dryer: true,
-        nearPublicTransport: true
-    }
 
-    async function invokeGoogleMaps(address: object) {
+    const invokeGoogleMaps = async (address: object) => {
         const resp = await getGeocode(address);
-        setGeocode(resp);
+        console.log("geo resp");
+        return resp;
     }
 
 
@@ -85,38 +82,68 @@ const EditAccommodationScreen = ( props: any, uriArray: string[] ) => {
             </View>
           </View>
         );
-      };
-  
-    // initialize zustand store methods
-    const updateImages = useHostStore((state) => state.updateImages);
-    const updateAddress = useHostStore((state) => state.updateAddress);
-    const updateTitle = useHostStore((state) => state.updateTitle);
-    const updateDescription = useHostStore((state) => state.updateDescription);
-    const updatePrice = useHostStore((state) => state.updatePrice);
-    const updateUnitFeature = useHostStore((state) => state.updateUnitFeature);
+    };
   
     const onNavigate = async () => {
+        console.log("Publish");
         const authUser = await Auth.currentAuthenticatedUser();
         // const s3ObjectKeys = await uploadToStorage(hostStore.images, uuid);
-        invokeGoogleMaps(address);
+        const geocode = await invokeGoogleMaps(address);
+        address.geo = geocode;
+        console.log("geo");
+        console.log(address.geo);
+        const s3ObjectKeys = await uploadToStorage(imageUris, props.route.params.details.id);
         const newAccomm = {
             id: props.route.params.details.id,
             title: title,
-            address: address,
-            propertyType: propertyType,
-            images: imageUris,
+            address: JSON.stringify(address),
+            propertyType: EPropertyType[propertyType],
+            images: s3ObjectKeys,
             description: description,
             price: price,
             rented: false,
             availableDate: new Date().toISOString().substring(0, 10),
-            unitFeature: unitFeature,
+            unitFeature: convertUnitFeatureToArray(unitFeature),
             userId: authUser.attributes.sub,
         };
+        console.log("newAccomm");
         console.log(newAccomm);
-      // update zustand store
-    //   updateImages(imageUris);
-    //   navigation.navigate("HostingStep3");
+        const newAccommData = await API.graphql(
+          graphqlOperation(updateAccommodation, { input: newAccomm }),
+        );
+        if (newAccommData.data.updateAccommodation) {
+          alert("Update Listing", "Update successful!", [
+            { text: "OK", onPress: () => navigation.navigate("Listing Detail", { id: props.id }) },
+          ]);
+        } else {
+          alert("Error", "Update unsuccessful!", [
+            {
+              text: "Please try again later",
+              onPress: () => navigation.navigate("Listing Detail", { id: props.id }),
+            },
+          ]);
+        }
+
     };
+
+    async function uploadToStorage(imageUris: any[], uuid: string) {
+      const stored = [];
+      for (let index = 0; index < imageUris.length; index++) {
+        const imageUri = imageUris[index];
+        try {
+          const response = await fetch(imageUri);
+          const blob = await response.blob();
+          const resp = await Storage.put(uuid + "/image_" + index, blob, {
+            contentType: "image/jpeg",
+          });
+          stored.push(resp.key);
+        } catch (err) {
+          console.log("Error uploading file: ", err);
+        }
+      }
+      return stored;
+    }
+    
 
     // const submitEdit = () => {
     //     const newAccomm = {

@@ -21,12 +21,14 @@ import { getAccommodation } from "../graphql/queries";
 import IAccommodation from "../model/IAccommodation";
 import IAddress from "../model/IAddress";
 import { isWeb } from "../utils";
+import { useIsFocused } from "@react-navigation/native";
 
 dayjs.extend(relativeTime);
 const { width, height } = Dimensions.get("window");
 
 export default function AccommodationDetailScreen({ navigation, route }) {
   const accommId = route.params.id;
+  const isFocused = useIsFocused();
 
   const ref = useRef<ICarouselInstance>(null);
 
@@ -59,6 +61,7 @@ export default function AccommodationDetailScreen({ navigation, route }) {
     setAddress(JSON.parse(data.address));
     setLoading(false);
 
+    console.log("data");
     console.log(data);
     console.log(JSON.parse(data.address));
   }
@@ -66,7 +69,8 @@ export default function AccommodationDetailScreen({ navigation, route }) {
   // fetch accomm details
   useEffect(() => {
     fetch();
-  }, []);
+    
+  }, [navigation, route]);
 
   if (loading) return <ActivityIndicator animating />;
   else

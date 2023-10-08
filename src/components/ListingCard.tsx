@@ -5,9 +5,9 @@ import IAccommodation from "../model/IAccommodation";
 import { useNavigation } from "@react-navigation/native";
 
 const ListingCard = (props: any) => {
-    const images = [
-        "https://stay.greatworld.com.sg/wp-content/uploads/2022/08/serviced-apartments-singapore.jpg-scaled.jpg",
-    ]
+
+    const navigation = useNavigation();
+
     return (
         <Card
         style={{
@@ -16,10 +16,10 @@ const ListingCard = (props: any) => {
             borderWidth: 0.3,
             marginVertical: 15,
         }}
-        onPress={() => {console.warn("navigate to detail and edit screen")}}
+        onPress={() => {navigation.navigate("Listing Detail", { id: props.id })}}
         key={props.id}
         >
-        <Card.Cover source={{ uri: images[0] }} />
+        <Card.Cover source={{ uri: props.images[0] }} />
 
         <View style={{ flex: 1, flexDirection: "row" }}>
             <Card.Title
