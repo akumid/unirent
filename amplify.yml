@@ -42,7 +42,7 @@ test:
     postTest:
       commands:
         - npx mochawesome-merge cypress/report/mochawesome-report/mochawesome*.json > cypress/report/mochawesome.json
-        - pm2 kill
+        # - pm2 kill
   artifacts:
     baseDirectory: cypress
     configFilePath: "**/mochawesome.json"
