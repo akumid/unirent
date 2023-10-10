@@ -8,24 +8,24 @@ import IAccommodation from "../model/IAccommodation";
 import IAddress from "../model/IAddress";
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
 import { API, graphqlOperation, Storage } from "aws-amplify";
-import { getAccommodation } from "../graphql/queries";
+import { accommodationsByUserId, getAccommodation } from "../graphql/queries";
 import { CarouselImages } from "../components/CarouselImages";
 import Map from "../components/Map";
+import { useFocusEffect } from "@react-navigation/native";
 
 dayjs.extend(relativeTime);
 const { width, height } = Dimensions.get("window");
 
 const ListingDetailScreen = ({navigation, route}) => {
 
-    const accommId = route.params.id;
-
     const ref = useRef<ICarouselInstance>(null);
   
-    const [saved, setSaved] = useState(false);
+    const [accommId, setAccommId] = useState('');
     const [loading, setLoading] = useState(true);
     const [details, setDetails] = useState<IAccommodation>();
     const [uriArray, setUriArray] = useState([]);
     const [address, setAddress] = useState<IAddress>();
+    const [rerenderFlag, setRerenderFlag] = useState(false);
 
     async function fetch() {
         const resp = await API.graphql(
@@ -56,9 +56,21 @@ const ListingDetailScreen = ({navigation, route}) => {
     console.log(JSON.parse(data.address));
     }
 
-    useEffect(() => {
-        fetch();
-      }, []);
+    // useEffect(() => {
+    //     setAccommId(route.params.id);
+    //     if (accommId) {
+    //         fetch();
+    //     }
+    //   }, [accommId, rerenderFlag]);
+
+    useFocusEffect(
+        React.useCallback(() => {
+            setAccommId(route.params.id);
+            if (accommId) {
+                fetch(accommId);
+            }
+        }, [accommId])
+    );
 
     if (loading) return <ActivityIndicator animating />;
     else
@@ -192,7 +204,7 @@ const ListingDetailScreen = ({navigation, route}) => {
             </View>
             <Divider />
             <View style={{ marginHorizontal: 20, marginVertical: 15 }}>
-            <Button icon="home-edit" mode="outlined" onPress={() => navigation.navigate("Edit Listing", {details, uriArray: uriArray})}>
+            <Button icon="home-edit" mode="outlined" onPress={() => navigation.navigate("Edit Listing", {details, uriArray: uriArray,})}>
                 Edit
             </Button>
             </View>

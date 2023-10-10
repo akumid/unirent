@@ -1,4 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Button} from "react-native";
 import { ActivityIndicator, Avatar, Card, Divider, IconButton, Text } from 'react-native-paper';
@@ -56,11 +56,17 @@ const ListingScreen = (props: any) => {
 
 
       // fetch all Listings
-    useEffect(() => {
-        // getSavedAccommodations();
+    // useEffect(() => {
+    //     // getSavedAccommodations();
+    //     fetch();
+    //     console.log(accommodationList);
+    // }, [props]);
+
+    useFocusEffect(
+      React.useCallback(() => {
         fetch();
-        console.log(accommodationList);
-    }, []);
+      }, [])
+  );
 
     if (isLoading) return <ActivityIndicator animating />;
     if (accommodationList.length == 0) return EmptyAccommodation();
