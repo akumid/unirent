@@ -32,12 +32,17 @@ jobs:
         run: npm ci
       - name: Test
         run: npm run test:ci
-      - name: Collect coverage
+      - name: Collect code coverage
         id: collect
         run: |
           echo "coverage<<EOF" >> $GITHUB_OUTPUT
           cat coverage/coverage-summary.json >> $GITHUB_OUTPUT
           echo "EOF" >> $GITHUB_OUTPUT
+      - name: Archive code coverage
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage-report
+          path: coverage/
       - name: Check %
         id: check
         run: |
