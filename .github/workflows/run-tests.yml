@@ -31,15 +31,6 @@ jobs:
           cache: "npm"
       - name: Install dependencies
         run: npm ci
-      # - name: Lint code
-      #   run: npm run fix:lint
-      - name: Run linters
-        uses: wearerequired/lint-action@v2
-        with:
-          eslint: true
-          # prettier: true
-          auto_fix: true
-          eslint_auto_fix: true
       - name: Run test
         run: npm run test:ci
       - name: Collect code coverage
