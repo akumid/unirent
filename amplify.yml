@@ -33,6 +33,7 @@ test:
         # - npm install -g pm2
         - npm install -g wait-on
         - npm install mocha mochawesome mochawesome-merge mochawesome-report-generator
+        - npm install -g serve
         # - pm2 start "npm run web"
         # - echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
         # - cat /proc/sys/fs/inotify/max_user_watches
