@@ -38,7 +38,7 @@ jobs:
         with:
           eslint: true
           # prettier: true
-          autofix: true
+          auto_fix: true
           eslint_auto_fix: true
       - name: Run test
         run: npm run test:ci
