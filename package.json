@@ -7,7 +7,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "check:lint": "eslint ./src",
+    "fix:lint": "eslint ./src --fix",
     "check:ts": "tsc",
     "fix:prettier": "prettier ./src --write",
     "test": "jest",

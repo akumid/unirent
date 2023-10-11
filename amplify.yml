@@ -34,11 +34,6 @@ test:
         - npm install -g wait-on
         - npm install mocha mochawesome mochawesome-merge mochawesome-report-generator
         - npm install serve
-        # - pm2 start "npm run web"
-        # - echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
-        # - cat /proc/sys/fs/inotify/max_user_watches
-        # - npm run web
-        # - wait-on http://localhost:8081
         - pm2 start "npx serve dist"
         - wait-on http://localhost:3000
     test:
