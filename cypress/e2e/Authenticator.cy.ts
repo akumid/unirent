@@ -1,6 +1,6 @@
 describe("Authenticator:", function () {
   beforeEach(function () {
-    cy.visit("http://localhost:8081");
+    cy.visit("http://localhost:3000");
   });
 
   describe("Sign In:", () => {
