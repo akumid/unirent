@@ -26,19 +26,31 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-      - name: Install
-        run: npm ci
+      - name: Install Amplify CLI
+        run: npm install --quiet --global expo-cli
+      - name: Cypress install
+        uses: cypress-io/github-action@v6
+        with:
+          # Disable running of tests within install job
+          runTests: false
+          build: npx expo export --platform web
+      - name: Save dist folder
+        uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          if-no-files-found: error
+          path: dist
 
   unit-test:
     runs-on: ubuntu-latest
     needs: install
     steps:
       - uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
           cache: "npm"
+      - name: Install
+        run: npm ci
       - name: Test
         run: npm run test:ci
       - name: Collect code coverage
@@ -62,3 +74,21 @@ jobs:
         if: ${{ steps.check.outputs.pct < env.minCoverage }}
         run: |
           exit 1
+
+  e2e-test:
+    runs-on: ubuntu-latest
+    needs: install
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download dist folder
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: dist
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        with:
+          start: npx serve dist
+          browser: chrome
+          wait-on: "http://localhost:3000"
+          wait-on-timeout: 120
