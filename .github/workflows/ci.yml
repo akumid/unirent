@@ -37,6 +37,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Run linter
         run: npm run fix:lint
 
@@ -45,6 +47,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Run jest
         run: npm run test:ci
       - name: Collect code coverage
