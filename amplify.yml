@@ -30,10 +30,13 @@ test:
     preTest:
       commands:
         - npm ci
-        - npm install -g pm2
+        # - npm install -g pm2
         - npm install -g wait-on
         - npm install mocha mochawesome mochawesome-merge mochawesome-report-generator
-        - pm2 start "npm run web"
+        # - pm2 start "npm run web"
+        - echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+        - cat /proc/sys/fs/inotify/max_user_watches
+        - npm run web
         - wait-on http://localhost:8081
     test:
       commands:
@@ -41,7 +44,7 @@ test:
     postTest:
       commands:
         - npx mochawesome-merge cypress/report/mochawesome-report/mochawesome*.json > cypress/report/mochawesome.json
-        - pm2 kill
+        # - pm2 kill
   artifacts:
     baseDirectory: cypress
     configFilePath: "**/mochawesome.json"
