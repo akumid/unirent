@@ -8,9 +8,9 @@ import {
 } from "react-native-paper";
 
 import Counter from "../components/Counter";
+import EPropertyType from "../model/EPropertyType";
 import IAddress from "../model/IAddress";
 import { useHostStore } from "../store/host";
-import EPropertyType from "../model/EPropertyType";
 
 export default function HostingStep1({ navigation, route }) {
   if (route.state) {

@@ -1,6 +1,3 @@
-# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
-
 name: CI
 
 on:
@@ -19,18 +16,18 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-      - name: Install
+      - name: Install dependencies
         run: npm ci
-      - name: Test
+      - name: Run test
         run: npm run test:ci
       - name: Collect code coverage
         id: collect
@@ -49,7 +46,7 @@ jobs:
           echo "Min coverage is $minCoverage%"
           echo "Current coverage is ${{ fromJSON(steps.collect.outputs.coverage).total.lines.pct }}%"
           echo "pct=${{ fromJSON(steps.collect.outputs.coverage).total.lines.pct }}" >> $GITHUB_OUTPUT
-      - name:
+      - name: Exit 1
         if: ${{ steps.check.outputs.pct < env.minCoverage }}
         run: |
           exit 1
