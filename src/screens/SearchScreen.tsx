@@ -1,3 +1,5 @@
+import Feather from "@expo/vector-icons/Feather";
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { View, ScrollView } from "react-native";
 import {
@@ -11,10 +13,9 @@ import {
   TextInput,
   Button,
 } from "react-native-paper";
-import { LocationSearch } from "../services/LocationSearch";
-import Feather from "@expo/vector-icons/Feather";
-import { useNavigation } from "@react-navigation/native";
 import { DatePickerInput } from "react-native-paper-dates";
+
+import { LocationSearch } from "../services/LocationSearch";
 
 const SearchScreen = (props: any) => {
   const navigation = useNavigation();
@@ -30,7 +31,7 @@ const SearchScreen = (props: any) => {
   const [maxPrice, setMaxPrice] = useState("");
   const [moveInDate, setMoveInDate] = useState(undefined);
 
-  const getPrefferedLocations = async (search: String) => {
+  const getPrefferedLocations = async (search: string) => {
     const locations = await LocationSearch(search);
     setSearchResult(locations);
     console.log(locations);
@@ -87,7 +88,7 @@ const SearchScreen = (props: any) => {
                 onPress={() => {
                   pickedLocation(result.structured_formatting.main_text);
                 }}
-              ></List.Item>
+              />
               <Divider style={{ width: "100%" }} />
             </>
           ))}
@@ -109,7 +110,7 @@ const SearchScreen = (props: any) => {
                   width: "100%",
                   justifyContent: "center",
                 }}
-                automaticallyAdjustKeyboardInsets={true}
+                automaticallyAdjustKeyboardInsets
               >
                 <View>
                   <Card.Title

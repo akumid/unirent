@@ -1,9 +1,9 @@
+import Feather from "@expo/vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
+import * as ImagePicker from "expo-image-picker";
 import React, { useState } from "react";
 import { View, Image } from "react-native";
 import { Appbar, Button, Text } from "react-native-paper";
-import Feather from "@expo/vector-icons/Feather";
-import * as ImagePicker from "expo-image-picker";
 
 const PostAccommodationScreen = (props: any) => {
   const navigation = useNavigation();
@@ -12,7 +12,7 @@ const PostAccommodationScreen = (props: any) => {
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
-    let result = await ImagePicker.launchImageLibraryAsync({
+    const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       quality: 1,
       allowsMultipleSelection: true,
