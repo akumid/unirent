@@ -33,6 +33,14 @@ jobs:
         run: npm ci
       - name: Lint code
         run: npm run fix:lint
+      - name: Commit changes
+        if: ${{ always() }}
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m "Auto ESLint fixes"
+          git push
 
   # auto-merge:
   #   runs-on: ubuntu-latest
