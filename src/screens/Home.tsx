@@ -1,14 +1,15 @@
-import { Searchbar, List } from "react-native-paper";
 import { useState, useEffect } from "react";
 import { View, Text } from "react-native";
-import { LocationSearch } from "../services/LocationSearch";
 import { FlatList } from "react-native-gesture-handler";
+import { Searchbar, List } from "react-native-paper";
+
+import { LocationSearch } from "../services/LocationSearch";
 
 export default function Home({ navigation }) {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
 
-  const showPrefferItem = async (search: String) => {
+  const showPrefferItem = async (search: string) => {
     const locations = await LocationSearch(search);
     setSearchResult(locations);
     console.log(locations);
