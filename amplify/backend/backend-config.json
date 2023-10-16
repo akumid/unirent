@@ -9,6 +9,14 @@
           ],
           "category": "function",
           "resourceName": "accommodationFunction"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "recommendationHandler"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -100,6 +108,11 @@
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "recommendationHandler": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "parameters": {
@@ -132,6 +145,22 @@
         {
           "category": "function",
           "resourceName": "geocodingHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_recommendationHandler_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "recommendationHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_recommendationHandler_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "recommendationHandler"
         }
       ]
     }

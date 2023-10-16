@@ -25,6 +25,8 @@ type Accommodation @model @auth(rules: [{allow: public}]) {
   User: User @belongsTo(fields: ["userId"])
   savedaccommodations: [SavedAccommodation] @manyToMany(relationName: "SavedAccommodationAccommodation")
   unitFeature: [String]
+  latitude: Float
+  longitude: Float
 }
 
 type User @model @auth(rules: [{allow: public}]) {
