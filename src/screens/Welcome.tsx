@@ -1,7 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
-import { API, Storage, graphqlOperation } from "aws-amplify";
+import { Storage } from "aws-amplify";
 import * as Location from "expo-location";
-import { getDistance } from "geolib";
 import { useState, useEffect } from "react";
 import { View, ScrollView } from "react-native";
 import {
@@ -13,9 +12,9 @@ import {
 } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { getRecommendation } from "../api/AccommodationAPI";
 import AccommodationCard from "../components/AccommodationCard";
 import IAccommodation from "../model/IAccommodation";
-import { fetchAll } from "../services/AccommodationService";
 
 export default function Welcome({ props }) {
   const insets = useSafeAreaInsets();
@@ -35,17 +34,8 @@ export default function Welcome({ props }) {
     }
     setPermission(true);
 
-    // fetch all Listings
-    const resp = await API.graphql(
-      graphqlOperation(fetchAll, {
-        limit: 10,
-      }),
-    );
-
-    const recommendations = await getTodaysRecommendation(
-      resp.data?.listAccommodations?.items,
-    );
-
+    const location = await Location.getCurrentPositionAsync({});
+    const recommendations = await getRecommendation(location);
     await downloadFromStorage(recommendations);
   }
 
@@ -62,24 +52,6 @@ export default function Welcome({ props }) {
     }
     setAccommodationList(data);
     setIsLoading(false);
-  }
-
-  async function getTodaysRecommendation(data: IAccommodation[]) {
-    const location = await Location.getCurrentPositionAsync({});
-    const newArray = [];
-    for (let i = 0; i < data.length; i++) {
-      const address = JSON.parse(data[i].address);
-
-      const dist = getDistance(location.coords, address.geo);
-      if (dist <= 2000) {
-        newArray.push(data[i]); // keep if within 2km
-      }
-
-      if (newArray.length === 5) {
-        break; // only provide max 5 recommendations
-      }
-    }
-    return newArray;
   }
 
   useEffect(() => {

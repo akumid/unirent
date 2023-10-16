@@ -67,10 +67,7 @@ app.get("/recommendation/*", function (req, res) {
   res.json({ success: "get call succeed!", url: req.url });
 });
 
-/****************************
- * Example post method *
- ****************************/
-
+// code start
 app.post("/recommendation", async function (req, res) {
   console.log("recommendation start...");
 
@@ -92,17 +89,31 @@ app.post("/recommendation", async function (req, res) {
     map.set(data[i], dist);
   }
 
-  // sort by dist desc
+  // sort by dist asc
   const mapSort = new Map([...map.entries()].sort((a, b) => a[1] - b[1]));
+  console.log("sorted: ");
   console.log(mapSort);
+
   // take first 5
-  const temp = Array.from(mapSort).slice(0, 4);
-  console.log(temp);
+  const temp = Array.from(mapSort).slice(0, 5);
+  const mapSlice = new Map(temp);
+  console.log("sliced: ");
+  console.log(mapSlice);
 
-  const sortedData = JSON.stringify(Object.fromEntries(mapSort));
-  console.log(sortedData);
+  // const sortedData = JSON.stringify(Object.fromEntries(mapSort));
+  // console.log(sortedData);
 
-  res.json(mapSort.keys());
+  console.log("converting... ");
+  const finalArray = [];
+  let element = {};
+  mapSlice.forEach((value, key) => {
+    element = key;
+    element.distance = value;
+    finalArray.push(element);
+  });
+  console.log(finalArray);
+
+  res.json(finalArray);
 });
 
 app.post("/recommendation/*", function (req, res) {

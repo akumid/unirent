@@ -27,7 +27,7 @@
         },
         "recommendationHandler": {
           "deploymentBucketName": "amplify-unirent-dev-150111-deployment",
-          "s3Key": "amplify-builds/recommendationHandler-59467956557333584f34-build.zip"
+          "s3Key": "amplify-builds/recommendationHandler-65615163664435505136-build.zip"
         }
       },
       "api": {
