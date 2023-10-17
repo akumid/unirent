@@ -98,9 +98,7 @@ const AccommodationCard = (props: IAccommodation) => {
       </View>
       <Divider />
       <Card.Content style={{ marginVertical: 10 }}>
-        <Text>
-          S$ {props.price} / month • Available from {props.availableDate}
-        </Text>
+        <Text style={{ color: "#000" }}>S$ {props.price} / month • Available from 25 Aug </Text>
       </Card.Content>
       <Divider />
       <Card.Content style={{ marginVertical: 10 }}>

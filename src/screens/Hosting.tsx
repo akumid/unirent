@@ -8,21 +8,21 @@ export default function Hosting({ navigation }) {
     <View>
       <List.Section>
         <List.Item
-          title={<Text> Provide information about your place </Text>}
-          description="Share some basic info, such as the location and how many students can stay."
-          left={() => <List.Icon icon="roman-numeral-1" />}
+          title={<Text style={{ color: "#000" }}>Provide information about your place</Text>}
+          description={<Text style={{ color: "#808080" }}>Share some basic info, such as the location and how many students can stay.</Text>}
+          left={() => <List.Icon color="#000" icon="roman-numeral-1" />}
         />
         <Divider />
         <List.Item
-          title={<Text> Make it stand out </Text>}
-          description="Add photos plus a title and description."
-          left={() => <List.Icon icon="roman-numeral-2" />}
+          title={<Text style={{ color: "#000" }}>Make it stand out</Text>}
+          description={<Text style={{ color: "#808080" }}>Add photos plus a title and description.</Text>}
+          left={() => <List.Icon color="#000" icon="roman-numeral-2" />}
         />
         <Divider />
         <List.Item
-          title={<Text> Finalize and publish </Text>}
-          description="Set a starting price and publish your listing."
-          left={() => <List.Icon icon="roman-numeral-3" />}
+          title={<Text style={{ color: "#000" }}>Finalize and publish</Text>}
+          description={<Text style={{ color: "#808080" }}>Set a starting price and publish your listing.</Text>}
+          left={() => <List.Icon color="#000" icon="roman-numeral-3" />}
         />
       </List.Section>
       <Button
