@@ -103,7 +103,7 @@ export default function HostingStep4({ navigation }) {
       id: uuid,
       title: hostStore.title,
       address: JSON.stringify(hostStore.address),
-      propertyType: EPropertyType[hostStore.propertyType],
+      propertyType: EPropertyType[hostStore.propertyType].toUpperCase(),
       images: s3ObjectKeys,
       description: hostStore.description,
       price: hostStore.price,
