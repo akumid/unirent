@@ -102,7 +102,7 @@ export default function Welcome({ props }) {
           paddingRight: insets.right,
         }}
       >
-        <View style={{ alignItems: "center" }}>
+        <View style={{ alignItems: "center", marginVertical: 10 }}>
           <Searchbar
             placeholder="Search Location"
             onPressIn={() => {
@@ -112,7 +112,7 @@ export default function Welcome({ props }) {
               setSearch(query);
             }}
             value={search}
-            style={{ width: "95%", marginBottom: 20 }}
+            style={{ width: "95%" }}
           />
         </View>
         <Divider />
