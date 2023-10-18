@@ -6,4 +6,5 @@ export default interface IAddress {
   unitNo: string;
   aptName: string;
   geo: IGeo;
+  street: string;
 }

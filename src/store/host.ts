@@ -29,6 +29,7 @@ export const useHostStore = create<HostState>()((set) => ({
       lat: 0,
       lng: 0,
     },
+    street: "",
   },
   images: [],
   title: "",

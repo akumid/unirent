@@ -23,17 +23,22 @@
         },
         "geocodingHandler": {
           "deploymentBucketName": "amplify-unirent-dev-150111-deployment",
-          "s3Key": "amplify-builds/geocodingHandler-7456676653386c305367-build.zip"
+          "s3Key": "amplify-builds/geocodingHandler-7944734d524761763653-build.zip"
         },
         "recommendationHandler": {
           "deploymentBucketName": "amplify-unirent-dev-150111-deployment",
-          "s3Key": "amplify-builds/recommendationHandler-65615163664435505136-build.zip"
+          "s3Key": "amplify-builds/recommendationHandler-43745168586863536678-build.zip"
+        },
+        "locationSearchApi": {
+          "deploymentBucketName": "amplify-unirent-dev-150111-deployment",
+          "s3Key": "amplify-builds/locationSearchApi-7859433851793032392b-build.zip"
         }
       },
       "api": {
         "accommodationApi": {},
         "unirent": {},
-        "googleMapsApi": {}
+        "googleMapsApi": {},
+        "locationSearchApi": {}
       },
       "storage": {
         "accommodationTable": {},

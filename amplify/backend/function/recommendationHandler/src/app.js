@@ -100,9 +100,6 @@ app.post("/recommendation", async function (req, res) {
   console.log("sliced: ");
   console.log(mapSlice);
 
-  // const sortedData = JSON.stringify(Object.fromEntries(mapSort));
-  // console.log(sortedData);
-
   console.log("converting... ");
   const finalArray = [];
   let element = {};
