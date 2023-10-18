@@ -36,6 +36,20 @@
       "providerPlugin": "awscloudformation",
       "service": "API Gateway"
     },
+    "locationSearchApi": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "locationSearchApi"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
     "unirent": {
       "dependsOn": [],
       "output": {
@@ -109,6 +123,25 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "locationSearchApi": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributeEnvMap": {
+            "Arn": "TABLE_ARN",
+            "Name": "TABLE_NAME"
+          },
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "storage",
+          "resourceName": "accommodationTable"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "recommendationHandler": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -145,6 +178,22 @@
         {
           "category": "function",
           "resourceName": "geocodingHandler"
+        }
+      ]
+    },
+    "AMPLIFY_function_locationSearchApi_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "locationSearchApi"
+        }
+      ]
+    },
+    "AMPLIFY_function_locationSearchApi_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "locationSearchApi"
         }
       ]
     },
