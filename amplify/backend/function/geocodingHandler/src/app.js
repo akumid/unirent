@@ -39,10 +39,7 @@ app.get("/geocoding/*", function (req, res) {
   res.json({ success: "get call succeed!", url: req.url });
 });
 
-/****************************
- * Example post method *
- ****************************/
-
+// code start
 app.post("/geocoding", function (req, res) {
   console.log("geocoding start...");
 
@@ -50,7 +47,7 @@ app.post("/geocoding", function (req, res) {
     .geocode({
       params: {
         address:
-          req.body.address + " " + req.body.country + " " + req.body.postalCode,
+          req.body.street + " " + req.body.country + " " + req.body.postalCode,
         key: process.env.GOOGLE_MAPS_API_KEY,
       },
       timeout: 5000, // milliseconds

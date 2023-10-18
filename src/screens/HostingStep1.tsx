@@ -81,6 +81,12 @@ export default function HostingStep1({ navigation, route }) {
           onChangeText={(text) => setAddress({ ...address, country: text })}
         />
         <TextInput
+          label="Street Name"
+          placeholder="Enter your street name"
+          value={address?.street}
+          onChangeText={(text) => setAddress({ ...address, street: text })}
+        />
+        <TextInput
           label="Postal Code"
           placeholder="Enter your postal code"
           value={address?.postalCode}
@@ -88,13 +94,13 @@ export default function HostingStep1({ navigation, route }) {
         />
         <TextInput
           label="Unit Number"
-          placeholder="Enter your unit number, not required for landed properties"
+          placeholder="Not required for landed properties"
           value={address?.unitNo}
           onChangeText={(text) => setAddress({ ...address, unitNo: text })}
         />
         <TextInput
           label="Apt, Suite, etc (optional)"
-          placeholder="Enter your apartment, suite name, etc, usually for condo properties"
+          placeholder="Usually for condo properties"
           value={address?.aptName}
           onChangeText={(text) => setAddress({ ...address, aptName: text })}
         />
