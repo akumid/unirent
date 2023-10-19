@@ -1,5 +1,6 @@
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { API, Auth, Storage, graphqlOperation } from "aws-amplify";
+import * as Location from "expo-location";
 import { useState, useEffect } from "react";
 import { View, ScrollView } from "react-native";
 import {
@@ -11,6 +12,7 @@ import {
 } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { getRecommendation } from "../api/AccommodationAPI";
 import AccommodationCard from "../components/AccommodationCard";
 import { createSavedAccommodation, updateUser } from "../graphql/mutations";
 import {
@@ -18,7 +20,6 @@ import {
   savedAccommodationAccommodationsBySavedAccommodationId,
 } from "../graphql/queries";
 import IAccommodation from "../model/IAccommodation";
-import { getTodaysRecommendation } from "../services/AccommodationService";
 import {
   addSavedAccommodation,
   deleteSavedAccommodationById,
@@ -36,15 +37,20 @@ export default function Welcome({ props }) {
   const [accommodationList, setAccommodationList] =
     useState<IAccommodation[]>();
   const isFocused = useIsFocused();
+  const [permission, setPermission] = useState(false);
 
   async function fetch() {
-    // const resp = await getAll();
-    const resp = await API.graphql(
-      graphqlOperation(getTodaysRecommendation, {
-        limit: 10,
-      }),
-    );
-    await downloadFromStorage(resp.data?.listAccommodations?.items);
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      console.log("Permission to access location was denied");
+      setIsLoading(false);
+      return;
+    }
+    setPermission(true);
+
+    const location = await Location.getCurrentPositionAsync({});
+    const recommendations = await getRecommendation(location);
+    await downloadFromStorage(recommendations);
   }
 
   async function createNewSavedAccommodationId(userId) {
@@ -190,7 +196,7 @@ export default function Welcome({ props }) {
           paddingRight: insets.right,
         }}
       >
-        <View style={{ alignItems: "center" }}>
+        <View style={{ alignItems: "center", marginVertical: 10 }}>
           <Searchbar
             placeholder="Search Location"
             onPressIn={() => {
@@ -200,7 +206,7 @@ export default function Welcome({ props }) {
               setSearch(query);
             }}
             value={search}
-            style={{ width: "95%", marginBottom: 20 }}
+            style={{ width: "95%" }}
           />
         </View>
         <Divider />
@@ -236,8 +242,18 @@ export default function Welcome({ props }) {
 
           <View style={{ marginVertical: 10, flexDirection: "column" }}>
             <Text variant="titleLarge"> Today's Recommendations </Text>
-            {accommodationList.map((accommodation, index) =>
-              returnAccommodationCard(accommodation, index),
+
+            {!permission ? (
+              <Text variant="bodyLarge" style={{ marginTop: 10 }}>
+                Allow permission to access device location to receive
+                recommendations
+              </Text>
+            ) : (
+              <>
+                {accommodationList.map((accommodation, index) =>
+                  returnAccommodationCard(accommodation, index),
+                )}
+              </>
             )}
           </View>
         </ScrollView>

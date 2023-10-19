@@ -12,6 +12,7 @@ import {
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
 
 import { publish } from "../api/AccommodationAPI";
+import { getGeocode } from "../api/GoogleMapsAPI";
 import alert from "../components/Alert";
 import { CarouselImages } from "../components/CarouselImages";
 import Map from "../components/Map";
@@ -19,7 +20,6 @@ import { createAccommodation } from "../graphql/mutations";
 import EPropertyType from "../model/EPropertyType";
 import IAccommodation from "../model/IAccommodation";
 import IGeo from "../model/IGeo";
-import { getGeocode } from "../services/GoogleMaps";
 import { useHostStore } from "../store/host";
 import { isWeb } from "../utils";
 
@@ -52,7 +52,8 @@ export default function HostingStep4({ navigation }) {
 
   async function invokeGoogleMaps(address: object) {
     const resp = await getGeocode(address);
-    setGeocode(resp);
+    console.log(resp);
+    setGeocode(resp?.geometry?.location);
     setIsLoading(false);
   }
 
@@ -103,7 +104,7 @@ export default function HostingStep4({ navigation }) {
       id: uuid,
       title: hostStore.title,
       address: JSON.stringify(hostStore.address),
-      propertyType: EPropertyType[hostStore.propertyType],
+      propertyType: EPropertyType[hostStore.propertyType].toUpperCase(),
       images: s3ObjectKeys,
       description: hostStore.description,
       price: hostStore.price,

@@ -15,7 +15,6 @@ import {
 import ListingCard from "../components/ListingCard";
 import { accommodationsByUserId } from "../graphql/queries";
 import IAccommodation from "../model/IAccommodation";
-import { getUserListing } from "../services/AccommodationService";
 
 const ListingScreen = (props: any) => {
   const navigation = useNavigation();
