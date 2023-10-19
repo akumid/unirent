@@ -10,24 +10,13 @@ import {
 
 import { useHostStore } from "../store/host";
 import IUnitFeature from "../model/IUnitFeature";
-import { convertUnitFeatureToArray } from "../utils/UnitFeatureUtil";
-
-const featureLabels = [
-  "Air-Conditioning",
-  "WIFI",
-  "Cooker Hood",
-  "Fridge",
-  "Washing Machine",
-  "Dryer",
-  "Near Public Transport",
-  "Balcony",
-];
+import { convertUnitFeatureToArray, getFeatureLabel, initialFeatureState } from "../utils/UnitFeatureUtil";
 
 export default function HostingStep3({ navigation }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(undefined);
-  const [unitFeature, setUnitFeature] = useState<IUnitFeature>({});
+  const [unitFeature, setUnitFeature] = useState<IUnitFeature>(initialFeatureState);
 
   const handlePriceChange = (text) => {
     const number = text.replace(/[^0-9]/g, "");
@@ -53,16 +42,16 @@ export default function HostingStep3({ navigation }) {
     return (
       <View style={styles.checkboxRowGroup}>
         <View style={styles.checkboxColumnGroup}>
-          {featureLabels.map((label) => (
+          {Object.keys(unitFeature).map((key) => (
             <Checkbox.Item
-              key={label}
-              label={label}
-              status={unitFeature[label] ? "checked" : "unchecked"}
+              key={key}
+              label={getFeatureLabel(key)}
+              status={unitFeature[key] ? "checked" : "unchecked"}
               onPress={() => {
-                console.log(unitFeature);
+                console.log(key);
                 setUnitFeature((prevUnitFeature) => ({
                   ...prevUnitFeature,
-                  [label]: !prevUnitFeature[label],
+                  [key]: !prevUnitFeature[key],
                 }));
               }}
             />
