@@ -8,15 +8,20 @@ import {
   TextInput,
 } from "react-native-paper";
 
-import { useHostStore } from "../store/host";
 import IUnitFeature from "../model/IUnitFeature";
-import { convertUnitFeatureToArray, getFeatureLabel, initialFeatureState } from "../utils/UnitFeatureUtil";
+import { useHostStore } from "../store/host";
+import {
+  convertUnitFeatureToArray,
+  getFeatureLabel,
+  initialFeatureState,
+} from "../utils/UnitFeatureUtil";
 
 export default function HostingStep3({ navigation }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(undefined);
-  const [unitFeature, setUnitFeature] = useState<IUnitFeature>(initialFeatureState);
+  const [unitFeature, setUnitFeature] =
+    useState<IUnitFeature>(initialFeatureState);
 
   const handlePriceChange = (text) => {
     const number = text.replace(/[^0-9]/g, "");

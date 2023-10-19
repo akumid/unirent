@@ -105,7 +105,7 @@ const AccommodationCard = (props: IAccommodation) => {
   };
 
   useEffect(() => {
-    setSaved(props.isSaved ? true : false);
+    setSaved(!!props.isSaved);
     setSavedAccommodationAccommodationID(props.isSaved ? props.isSaved.id : "");
   }, [props]);
 

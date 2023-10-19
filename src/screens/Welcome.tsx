@@ -12,27 +12,27 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import AccommodationCard from "../components/AccommodationCard";
-import IAccommodation from "../model/IAccommodation";
-import { getTodaysRecommendation } from "../services/AccommodationService";
+import { createSavedAccommodation, updateUser } from "../graphql/mutations";
 import {
   getUser,
   savedAccommodationAccommodationsBySavedAccommodationId,
 } from "../graphql/queries";
+import IAccommodation from "../model/IAccommodation";
+import { getTodaysRecommendation } from "../services/AccommodationService";
 import {
   addSavedAccommodation,
   deleteSavedAccommodationById,
   getSavedAccommodationsById,
 } from "../services/SavedAccommodationService";
-import { createSavedAccommodation, updateUser } from "../graphql/mutations";
 
 export default function Welcome({ props }) {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [saved, setSaved] = useState<any[]>();
+  const [saved, setSaved] = useState([]);
   // const [savedAccommodationIds, setSavedAccommodationIds] = useState([]);
-  const [savedAccommodationId, setSavedAccommodationId] = useState('');
+  const [savedAccommodationId, setSavedAccommodationId] = useState("");
   const [accommodationList, setAccommodationList] =
     useState<IAccommodation[]>();
   const isFocused = useIsFocused();
@@ -51,43 +51,48 @@ export default function Welcome({ props }) {
     // createSavedAccommodation
     const userSavedAccommodaiton = await API.graphql(
       graphqlOperation(createSavedAccommodation, {
-        input: {savedAccommodationUserId: userId}
+        input: { savedAccommodationUserId: userId },
       }),
     );
 
     const updateUserInfo = await API.graphql(
       graphqlOperation(updateUser, {
-        input: {id: userId, userSavedAccommodationId: userSavedAccommodaiton.data.createSavedAccommodation.id}
+        input: {
+          id: userId,
+          userSavedAccommodationId:
+            userSavedAccommodaiton.data.createSavedAccommodation.id,
+        },
       }),
     );
 
     return updateUserInfo.data.updateUser.userSavedAccommodationId;
-
   }
 
   async function getSavedAccommodations() {
     const authUser = await Auth.currentAuthenticatedUser();
     const userId = authUser.attributes.sub;
-    let userSavedAccoimmodationId = '';
+    let userSavedAccoimmodationId = "";
     const userInfo = await API.graphql(
       graphqlOperation(getUser, {
-        id: userId
+        id: userId,
       }),
-  );
-    
+    );
 
-    if (userInfo.data.getUser.userSavedAccommodationId == null || userInfo.data.getUser.userSavedAccommodationId == undefined ) {
-      const savedAccommId = await createNewSavedAccommodationId(authUser.attributes.sub);
+    if (!userInfo.data.getUser.userSavedAccommodationId) {
+      const savedAccommId = await createNewSavedAccommodationId(
+        authUser.attributes.sub,
+      );
       setSavedAccommodationId(savedAccommId);
       userSavedAccoimmodationId = savedAccommId;
     } else {
-      userSavedAccoimmodationId = userInfo.data.getUser.userSavedAccommodationId;
+      userSavedAccoimmodationId =
+        userInfo.data.getUser.userSavedAccommodationId;
       setSavedAccommodationId(userInfo.data.getUser.userSavedAccommodationId);
     }
 
-    
-
-    const savedAccommodationList = await getSavedAccommodationsById(userSavedAccoimmodationId);
+    const savedAccommodationList = await getSavedAccommodationsById(
+      userSavedAccoimmodationId,
+    );
     setSaved(savedAccommodationList);
   }
 

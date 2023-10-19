@@ -1,9 +1,10 @@
 import { API, graphqlOperation } from "aws-amplify";
-import { savedAccommodationAccommodationsBySavedAccommodationId } from "../graphql/queries";
+
 import {
   createSavedAccommodationAccommodation,
   deleteSavedAccommodationAccommodation,
 } from "../graphql/mutations";
+import { savedAccommodationAccommodationsBySavedAccommodationId } from "../graphql/queries";
 
 const query = `query SavedAccommodationAccommodationsBySavedAccommodationId(
   $savedAccommodationId: ID!
@@ -62,7 +63,7 @@ const query = `query SavedAccommodationAccommodationsBySavedAccommodationId(
 export const getSavedAccommodationsById = async (savedAccommodationId) => {
   const savedAccommodationList = await API.graphql(
     graphqlOperation(query, {
-      savedAccommodationId: savedAccommodationId,
+      savedAccommodationId,
     }),
   );
   const result =
@@ -79,8 +80,8 @@ export const addSavedAccommodation = async (
   const created = await API.graphql(
     graphqlOperation(createSavedAccommodationAccommodation, {
       input: {
-        savedAccommodationId: savedAccommodationId,
-        accommodationId: accommodationId,
+        savedAccommodationId,
+        accommodationId,
       },
     }),
   );

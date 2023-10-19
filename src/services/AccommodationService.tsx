@@ -20,22 +20,22 @@ export const getTodaysRecommendation = /* GraphQL */ `
 `;
 
 export const getUserListing = /* GraphQL */ `
-query MyQuery($userId: ID!) {
-  accommodationsByUserId(userId: $userId) {
-    items {
-      availableDate
-      createdAt
-      id
-      images
-      price
-      propertyType
-      rented
-      title
-      userId
-      User {
-        name
+  query MyQuery($userId: ID!) {
+    accommodationsByUserId(userId: $userId) {
+      items {
+        availableDate
+        createdAt
+        id
+        images
+        price
+        propertyType
+        rented
+        title
+        userId
+        User {
+          name
+        }
       }
     }
   }
-}
 `;

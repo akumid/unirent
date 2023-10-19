@@ -1,3 +1,4 @@
+import { useIsFocused } from "@react-navigation/native";
 import { API, graphqlOperation, Storage } from "aws-amplify";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -21,7 +22,6 @@ import { getAccommodation } from "../graphql/queries";
 import IAccommodation from "../model/IAccommodation";
 import IAddress from "../model/IAddress";
 import { isWeb } from "../utils";
-import { useIsFocused } from "@react-navigation/native";
 
 dayjs.extend(relativeTime);
 const { width, height } = Dimensions.get("window");
@@ -69,7 +69,6 @@ export default function AccommodationDetailScreen({ navigation, route }) {
   // fetch accomm details
   useEffect(() => {
     fetch();
-    
   }, [navigation, route]);
 
   if (loading) return <ActivityIndicator animating />;
