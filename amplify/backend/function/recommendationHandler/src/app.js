@@ -6,10 +6,11 @@ or in the "license" file accompanying this file. This file is distributed on an 
 See the License for the specific language governing permissions and limitations under the License.
 */
 
-const express = require("express");
-const bodyParser = require("body-parser");
 const awsServerlessExpressMiddleware = require("aws-serverless-express/middleware");
-const { Client } = require("@googlemaps/google-maps-services-js");
+const axios = require("axios");
+const bodyParser = require("body-parser");
+const express = require("express");
+const geolib = require("geolib");
 
 // declare a new express app
 const app = express();
@@ -23,48 +24,96 @@ app.use(function (req, res, next) {
   next();
 });
 
-const client = new Client({});
+const endpoint = process.env.GRAPHQL_ENDPOINT;
+const apiKey = process.env.GRAPHQL_API_KEY;
+
+const query = /* GraphQL */ `
+  query MyQuery {
+    listAccommodations {
+      items {
+        availableDate
+        createdAt
+        id
+        images
+        price
+        propertyType
+        rented
+        title
+        userId
+        User {
+          name
+        }
+        address
+      }
+    }
+  }
+`;
+const headers = {
+  "x-api-key": apiKey,
+  "Content-Type": "application/json",
+};
 
 /**********************
  * Example get method *
  **********************/
 
-app.get("/geocoding", function (req, res) {
+app.get("/recommendation", function (req, res) {
   // Add your code here
   res.json({ success: "get call succeed!", url: req.url });
 });
 
-app.get("/geocoding/*", function (req, res) {
+app.get("/recommendation/*", function (req, res) {
   // Add your code here
   res.json({ success: "get call succeed!", url: req.url });
 });
 
 // code start
-app.post("/geocoding", function (req, res) {
-  console.log("geocoding start...");
+app.post("/recommendation", async function (req, res) {
+  console.log("recommendation start...");
 
-  client
-    .geocode({
-      params: {
-        address:
-          req.body.street + " " + req.body.country + " " + req.body.postalCode,
-        key: process.env.GOOGLE_MAPS_API_KEY,
-      },
-      timeout: 5000, // milliseconds
-    })
-    .then((r) => {
-      res.json(r.data.results[0]);
-    })
-    .catch((e) => {
-      res.json({
-        error: e.response.data.error_message,
-        url: req.url,
-        body: req.body,
-      });
-    });
+  console.log(req.body);
+
+  let data;
+  try {
+    const response = await axios.post(endpoint, { query }, { headers });
+    data = response.data?.data?.listAccommodations?.items;
+    console.log(data);
+  } catch (error) {
+    console.error(error);
+  }
+
+  const map = new Map();
+  for (let i = 0; i < data.length; i++) {
+    const address = JSON.parse(data[i].address);
+    const dist = geolib.getDistance(req.body.coords, address.geo);
+    map.set(data[i], dist);
+  }
+
+  // sort by dist asc
+  const mapSort = new Map([...map.entries()].sort((a, b) => a[1] - b[1]));
+  console.log("sorted: ");
+  console.log(mapSort);
+
+  // take first 5
+  const temp = Array.from(mapSort).slice(0, 5);
+  const mapSlice = new Map(temp);
+  console.log("sliced: ");
+  console.log(mapSlice);
+
+  console.log("converting... ");
+  const finalArray = [];
+  let element = {};
+  mapSlice.forEach((value, key) => {
+    element = key;
+    element.distance = value;
+    finalArray.push(element);
+  });
+  console.log(finalArray);
+
+  res.json(finalArray);
 });
 
-app.post("/geocoding/*", function (req, res) {
+app.post("/recommendation/*", function (req, res) {
   // Add your code here
   res.json({ success: "post call succeed!", url: req.url, body: req.body });
 });
@@ -73,12 +122,12 @@ app.post("/geocoding/*", function (req, res) {
  * Example put method *
  ****************************/
 
-app.put("/geocoding", function (req, res) {
+app.put("/recommendation", function (req, res) {
   // Add your code here
   res.json({ success: "put call succeed!", url: req.url, body: req.body });
 });
 
-app.put("/geocoding/*", function (req, res) {
+app.put("/recommendation/*", function (req, res) {
   // Add your code here
   res.json({ success: "put call succeed!", url: req.url, body: req.body });
 });
@@ -87,12 +136,12 @@ app.put("/geocoding/*", function (req, res) {
  * Example delete method *
  ****************************/
 
-app.delete("/geocoding", function (req, res) {
+app.delete("/recommendation", function (req, res) {
   // Add your code here
   res.json({ success: "delete call succeed!", url: req.url });
 });
 
-app.delete("/geocoding/*", function (req, res) {
+app.delete("/recommendation/*", function (req, res) {
   // Add your code here
   res.json({ success: "delete call succeed!", url: req.url });
 });
