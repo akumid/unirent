@@ -3,11 +3,14 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import Account from "../screens/Account";
 import AccountInfo from "../screens/AccountInfo";
+import EditAccommodationScreen from "../screens/EditAccommodationScreen";
 import Hosting from "../screens/Hosting";
 import HostingStep1 from "../screens/HostingStep1";
 import HostingStep2 from "../screens/HostingStep2";
 import HostingStep3 from "../screens/HostingStep3";
 import HostingStep4 from "../screens/HostingStep4";
+import ListingDetailScreen from "../screens/ListingDetailScreen";
+import ListingScreen from "../screens/ListingScreen";
 
 const Stack = createStackNavigator();
 
@@ -79,6 +82,39 @@ export default function AccountStack({ navigation, route }) {
         component={HostingStep4}
         options={{
           title: "",
+          headerBackTitleVisible: false,
+          headerBackImage: () => (
+            <MaterialCommunityIcons name="chevron-left" size={30} />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="My Listing"
+        component={ListingScreen}
+        options={{
+          title: "My Listing",
+          headerBackTitleVisible: false,
+          headerBackImage: () => (
+            <MaterialCommunityIcons name="chevron-left" size={30} />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="Listing Detail"
+        component={ListingDetailScreen}
+        options={{
+          title: "Listing Detail",
+          headerBackTitleVisible: false,
+          headerBackImage: () => (
+            <MaterialCommunityIcons name="chevron-left" size={30} />
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="Edit Listing"
+        component={EditAccommodationScreen}
+        options={{
+          title: "Edit Listing",
           headerBackTitleVisible: false,
           headerBackImage: () => (
             <MaterialCommunityIcons name="chevron-left" size={30} />
