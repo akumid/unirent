@@ -27,8 +27,11 @@ export default function HostingStep2({ navigation }) {
 
   return (
     <View style={styles.view}>
-      <ScrollView>
-        <Text variant="headlineMedium">
+      <ScrollView style={styles.scroll}>
+        <Text
+          variant="headlineMedium"
+          style={{ marginBottom: 10, marginTop: 20 }}
+        >
           Make your listing stand out with great photos
         </Text>
 
@@ -58,6 +61,7 @@ const styles = StyleSheet.create({
   },
   scroll: {
     flex: 1,
+    paddingHorizontal: 20,
   },
   counter: {
     flexDirection: "row",

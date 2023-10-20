@@ -56,8 +56,11 @@ export default function HostingStep1({ navigation, route }) {
       behavior={Platform.OS === "ios" || "android" ? "padding" : "height"}
       keyboardVerticalOffset={Platform.OS === "ios" || "android" ? 100 : -300}
     >
-      <ScrollView>
-        <Text variant="headlineMedium">
+      <ScrollView style={styles.scroll}>
+        <Text
+          variant="headlineMedium"
+          style={{ marginBottom: 10, marginTop: 20 }}
+        >
           Which of these best describes your place?
         </Text>
 
@@ -83,7 +86,10 @@ export default function HostingStep1({ navigation, route }) {
           ]}
         />
 
-        <Text variant="headlineMedium" style={{ marginBottom: 10 }}>
+        <Text
+          variant="headlineMedium"
+          style={{ marginBottom: 10, marginTop: 20 }}
+        >
           Where is your place?
         </Text>
         <TextInput
@@ -178,10 +184,10 @@ export default function HostingStep1({ navigation, route }) {
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    marginHorizontal: 20,
   },
   scroll: {
     flex: 1,
+    paddingHorizontal: 20,
   },
   counter: {
     flexDirection: "row",
