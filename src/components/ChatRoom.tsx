@@ -46,7 +46,7 @@ export default function ChatRoom(props: any) {
       }
     >
       <View style={{ flex: 1, flexDirection: "row", marginVertical: 20 }}>
-        <Avatar.Text size={50} label="User1" />
+        <Avatar.Text size={50} label="U" />
         <View style={{ flexDirection: "column", marginHorizontal: 15 }}>
           <Text variant="labelMedium" style={{ color: "gray" }}>
             {props.chatRoom.Users.items[0].user.name}

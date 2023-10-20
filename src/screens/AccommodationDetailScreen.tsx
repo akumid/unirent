@@ -216,7 +216,7 @@ export default function AccommodationDetailScreen({ navigation, route }) {
           <Divider />
           <View style={{ marginHorizontal: 20, marginVertical: 15 }}>
             <View style={{ flex: 1, flexDirection: "row", marginBottom: 15 }}>
-              <Avatar.Text size={50} label="User" />
+              <Avatar.Text size={50} label="U" />
               <View
                 style={{
                   justifyContent: "center",

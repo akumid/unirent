@@ -14,6 +14,7 @@ export default function ExploreStack() {
       initialRouteName="Welcome"
       screenOptions={{
         headerShown: false,
+        cardStyle: { backgroundColor: "#000000" },
       }}
     >
       <Stack.Screen name="Welcome" component={Welcome} />

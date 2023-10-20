@@ -16,8 +16,9 @@ export default function Account({ navigation }) {
           left={() => <List.Icon icon="account-outline" />}
           onPress={() => navigation.navigate("AccountInfo")}
         />
+        <Divider />
       </List.Section>
-      <Divider />
+
       <List.Section>
         <List.Subheader>
           <Text variant="titleLarge">Hosting</Text>
@@ -33,15 +34,21 @@ export default function Account({ navigation }) {
           left={() => <List.Icon icon="home-import-outline" />}
           onPress={() => navigation.navigate("My Listing")}
         />
+        <Divider />
       </List.Section>
 
-      <Divider />
-      <List.Item
-        title={<Text> Sign out </Text>}
-        left={() => <List.Icon icon="logout" />}
-        onPress={signOut}
-      />
-      <Divider />
+      <View
+        style={{ flex: 2, flexDirection: "column-reverse", paddingBottom: 20 }}
+      >
+        <Divider />
+        <List.Item
+          title={<Text> Sign out </Text>}
+          left={() => <List.Icon icon="logout" />}
+          onPress={signOut}
+          style={{ alignSelf: "center" }}
+        />
+        <Divider />
+      </View>
     </View>
   );
 }

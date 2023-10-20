@@ -83,11 +83,11 @@ const ListingScreen = (props: any) => {
   );
 
   if (isLoading) return <ActivityIndicator animating />;
-  if (accommodationList.length == 0) return EmptyAccommodation();
+  if (accommodationList.length === 0) return EmptyAccommodation();
   else
     return (
       <View style={styles.view}>
-        <ScrollView>
+        <ScrollView style={styles.scroll}>
           {accommodationList.map((accommodation, index) => (
             <ListingCard {...accommodation} key={index} />
           ))}
@@ -109,7 +109,10 @@ export default ListingScreen;
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    marginHorizontal: 20,
     marginTop: 10,
+  },
+  scroll: {
+    flex: 1,
+    paddingHorizontal: 20,
   },
 });

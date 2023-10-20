@@ -26,6 +26,7 @@ const ListingCard = (props: any) => {
       <View style={{ flex: 1, flexDirection: "row" }}>
         <Card.Title
           title={props.title}
+          titleStyle={{ color: "gray" }}
           subtitle={props.address?.aptName}
           subtitleVariant="labelMedium"
           subtitleStyle={{ color: "gray" }}
@@ -34,7 +35,7 @@ const ListingCard = (props: any) => {
       </View>
       <Divider />
       <Card.Content style={{ marginVertical: 10 }}>
-        <Text>
+        <Text style={{ color: "gray" }}>
           $ {props.price} / month • Available From {props.availableDate}
         </Text>
       </Card.Content>
