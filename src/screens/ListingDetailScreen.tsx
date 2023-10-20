@@ -185,7 +185,7 @@ const ListingDetailScreen = ({ navigation, route }) => {
             >
               Unit Features
             </Text>
-            {details.unitFeature.map((feature, index) => (
+            {details?.unitFeature?.map((feature, index) => (
               <Text key={index} variant="bodyMedium">
                 {`\u2022 `} {feature}
               </Text>
