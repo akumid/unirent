@@ -141,10 +141,7 @@ export default function Welcome({ props }) {
     );
   }
 
-  // fetch all Listings
   useEffect(() => {
-    // getSavedAccommodations();
-
     if (isFocused) {
       console.log("call again");
       getSavedAccommodations();

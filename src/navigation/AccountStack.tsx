@@ -16,7 +16,11 @@ const Stack = createStackNavigator();
 
 export default function AccountStack({ navigation, route }) {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        cardStyle: { backgroundColor: "#000000" },
+      }}
+    >
       <Stack.Screen
         name="AccountScreen"
         component={Account}

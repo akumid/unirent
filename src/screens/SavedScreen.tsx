@@ -115,15 +115,13 @@ const SavedScreen = (props: any) => {
           paddingBottom: insets.bottom,
           paddingLeft: insets.left,
           paddingRight: insets.right,
+          backgroundColor: "#000000",
         }}
       >
-        <Text
-          variant="headlineLarge"
-          style={{ marginLeft: 20, marginBottom: 10 }}
-        >
-          Saved
-        </Text>
-        <Divider />
+        <View style={{ marginTop: 25, marginBottom: 10, marginHorizontal: 20 }}>
+          <Text variant="displaySmall"> Saved </Text>
+        </View>
+
         <ScrollView
           style={{
             flex: 1,
