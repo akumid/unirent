@@ -41,8 +41,8 @@
         "locationSearchApi": {}
       },
       "storage": {
-        "accommodationTable": {},
-        "accommodationMediaStorage": {}
+        "accommodationMediaStorage": {},
+        "accommodationTable": {}
       }
     }
   }

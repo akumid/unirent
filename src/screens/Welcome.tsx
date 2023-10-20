@@ -1,5 +1,5 @@
-import { useNavigation } from "@react-navigation/native";
-import { Storage } from "aws-amplify";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { API, Auth, Storage, graphqlOperation } from "aws-amplify";
 import * as Location from "expo-location";
 import { useState, useEffect } from "react";
 import { View, ScrollView } from "react-native";
@@ -14,15 +14,29 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { getRecommendation } from "../api/AccommodationAPI";
 import AccommodationCard from "../components/AccommodationCard";
+import { createSavedAccommodation, updateUser } from "../graphql/mutations";
+import {
+  getUser,
+  savedAccommodationAccommodationsBySavedAccommodationId,
+} from "../graphql/queries";
 import IAccommodation from "../model/IAccommodation";
+import {
+  addSavedAccommodation,
+  deleteSavedAccommodationById,
+  getSavedAccommodationsById,
+} from "../services/SavedAccommodationService";
 
 export default function Welcome({ props }) {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [saved, setSaved] = useState([]);
+  // const [savedAccommodationIds, setSavedAccommodationIds] = useState([]);
+  const [savedAccommodationId, setSavedAccommodationId] = useState("");
   const [accommodationList, setAccommodationList] =
     useState<IAccommodation[]>();
+  const isFocused = useIsFocused();
   const [permission, setPermission] = useState(false);
 
   async function fetch() {
@@ -39,8 +53,56 @@ export default function Welcome({ props }) {
     await downloadFromStorage(recommendations);
   }
 
+  async function createNewSavedAccommodationId(userId) {
+    // createSavedAccommodation
+    const userSavedAccommodaiton = await API.graphql(
+      graphqlOperation(createSavedAccommodation, {
+        input: { savedAccommodationUserId: userId },
+      }),
+    );
+
+    const updateUserInfo = await API.graphql(
+      graphqlOperation(updateUser, {
+        input: {
+          id: userId,
+          userSavedAccommodationId:
+            userSavedAccommodaiton.data.createSavedAccommodation.id,
+        },
+      }),
+    );
+
+    return updateUserInfo.data.updateUser.userSavedAccommodationId;
+  }
+
+  async function getSavedAccommodations() {
+    const authUser = await Auth.currentAuthenticatedUser();
+    const userId = authUser.attributes.sub;
+    let userSavedAccoimmodationId = "";
+    const userInfo = await API.graphql(
+      graphqlOperation(getUser, {
+        id: userId,
+      }),
+    );
+
+    if (!userInfo.data.getUser.userSavedAccommodationId) {
+      const savedAccommId = await createNewSavedAccommodationId(
+        authUser.attributes.sub,
+      );
+      setSavedAccommodationId(savedAccommId);
+      userSavedAccoimmodationId = savedAccommId;
+    } else {
+      userSavedAccoimmodationId =
+        userInfo.data.getUser.userSavedAccommodationId;
+      setSavedAccommodationId(userInfo.data.getUser.userSavedAccommodationId);
+    }
+
+    const savedAccommodationList = await getSavedAccommodationsById(
+      userSavedAccoimmodationId,
+    );
+    setSaved(savedAccommodationList);
+  }
+
   async function downloadFromStorage(data: IAccommodation[]) {
-    console.log(data);
     // download first image from each listing and replace images array
     for (let i = 0; i < data.length; i++) {
       await Storage.get(data[i].images[0])
@@ -54,9 +116,41 @@ export default function Welcome({ props }) {
     setIsLoading(false);
   }
 
+  function returnAccommodationCard(
+    accommodation: IAccommodation,
+    index: number,
+  ) {
+    let savedId = "";
+    if (saved.length > 0) {
+      savedId = saved.find((e) => {
+        if (e.accommodationId === accommodation.id) {
+          return e;
+        } else {
+          return "";
+        }
+      });
+    }
+
+    return (
+      <AccommodationCard
+        {...accommodation}
+        key={index}
+        isSaved={savedId}
+        savedAccommodationId={savedAccommodationId}
+      />
+    );
+  }
+
+  // fetch all Listings
   useEffect(() => {
-    fetch();
-  }, []);
+    // getSavedAccommodations();
+
+    if (isFocused) {
+      console.log("call again");
+      getSavedAccommodations();
+      fetch();
+    }
+  }, [props, isFocused]);
 
   // const accommodationList: IAccommodation[] = [
   //   {
@@ -156,9 +250,9 @@ export default function Welcome({ props }) {
               </Text>
             ) : (
               <>
-                {accommodationList.map((accommodation, index) => {
-                  return <AccommodationCard {...accommodation} key={index} />;
-                })}
+                {accommodationList.map((accommodation, index) =>
+                  returnAccommodationCard(accommodation, index),
+                )}
               </>
             )}
           </View>

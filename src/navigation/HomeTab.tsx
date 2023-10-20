@@ -4,6 +4,7 @@ import AccountStack from "./AccountStack";
 import ChatStack from "./ChatStack";
 import ExploreStack from "./ExploreStack";
 import Home from "../screens/Home";
+import SavedScreen from "../screens/SavedScreen";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -23,7 +24,7 @@ export default function HomeTab() {
       />
       <Tab.Screen
         name="Saved"
-        component={Home}
+        component={SavedScreen}
         options={{
           tabBarIcon: "heart-outline",
         }}

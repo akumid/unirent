@@ -62,9 +62,10 @@ export default function HostingStep4({ navigation }) {
   }, []);
 
   const onPublish = async () => {
-    console.log(hostStore);
+    // console.log(hostStore);
 
     const uuid = nanoid();
+    console.log("uuid = " + uuid);
     const s3ObjectKeys = await uploadToStorage(hostStore.images, uuid);
     const authUser = await Auth.currentAuthenticatedUser();
 
@@ -109,11 +110,14 @@ export default function HostingStep4({ navigation }) {
       price: hostStore.price,
       rented: false,
       availableDate: new Date().toISOString().substring(0, 10),
+      unitFeature: hostStore.unitFeature,
       userId: authUser.attributes.sub,
     };
     const newAccommData = await API.graphql(
       graphqlOperation(createAccommodation, { input: newAccomm }),
     );
+    console.log("newAccommData");
+    console.log(newAccommData);
     if (newAccommData.data.createAccommodation) {
       alert("New Listing", "Publish successful!", [
         { text: "OK", onPress: () => navigation.navigate("Hosting") },
@@ -185,9 +189,16 @@ export default function HostingStep4({ navigation }) {
 
           <View style={{ marginTop: 10 }}>
             <Text variant="headlineMedium">Description</Text>
-            <Text variant="titleLarge">{hostStore.description}</Text>
+            <Text variant="bodyLarge">{hostStore.description}</Text>
           </View>
 
+          <Divider />
+          <View style={{ marginTop: 10 }}>
+            <Text variant="headlineMedium">UnitFeature</Text>
+            {hostStore.unitFeature.map((feature) => {
+              return <Text>{feature}</Text>;
+            })}
+          </View>
           <Divider />
 
           <View style={{ marginTop: 10 }}>
@@ -199,16 +210,13 @@ export default function HostingStep4({ navigation }) {
           <Divider />
 
           <View style={{ marginTop: 10 }}>
+            <Text variant="headlineMedium">Price</Text>
             <Text variant="headlineMedium">S$ {hostStore.price}</Text>
           </View>
         </ScrollView>
 
         <View style={styles.next}>
-          <PaperButton
-            mode="contained"
-            onPress={() => onPublish()}
-            style={undefined}
-          >
+          <PaperButton mode="contained" onPress={() => onPublish()} style={{}}>
             Publish
           </PaperButton>
         </View>

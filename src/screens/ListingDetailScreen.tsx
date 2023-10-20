@@ -1,24 +1,24 @@
-import { useIsFocused } from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
 import { API, graphqlOperation, Storage } from "aws-amplify";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { useEffect, useRef, useState } from "react";
-import { Dimensions, ScrollView, View, StyleSheet } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { ScrollView, View, StyleSheet, Dimensions } from "react-native";
 import {
+  ActivityIndicator,
   Appbar,
-  Text,
+  Avatar,
   Chip,
   Divider,
-  Avatar,
-  Button,
   IconButton,
-  ActivityIndicator,
+  Text,
+  Button,
 } from "react-native-paper";
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
 
 import { CarouselImages } from "../components/CarouselImages";
 import Map from "../components/Map";
-import { getAccommodation } from "../graphql/queries";
+import { accommodationsByUserId, getAccommodation } from "../graphql/queries";
 import IAccommodation from "../model/IAccommodation";
 import IAddress from "../model/IAddress";
 import { isWeb } from "../utils";
@@ -26,17 +26,15 @@ import { isWeb } from "../utils";
 dayjs.extend(relativeTime);
 const { width, height } = Dimensions.get("window");
 
-export default function AccommodationDetailScreen({ navigation, route }) {
-  const accommId = route.params.id;
-  const isFocused = useIsFocused();
-
+const ListingDetailScreen = ({ navigation, route }) => {
   const ref = useRef<ICarouselInstance>(null);
 
-  const [saved, setSaved] = useState(false);
+  const [accommId, setAccommId] = useState("");
   const [loading, setLoading] = useState(true);
   const [details, setDetails] = useState<IAccommodation>();
   const [uriArray, setUriArray] = useState([]);
   const [address, setAddress] = useState<IAddress>();
+  const [rerenderFlag, setRerenderFlag] = useState(false);
 
   async function fetch() {
     const resp = await API.graphql(
@@ -61,39 +59,40 @@ export default function AccommodationDetailScreen({ navigation, route }) {
     setAddress(JSON.parse(data.address));
     setLoading(false);
 
-    console.log("data");
+    console.log("Listing details");
     console.log(data);
+    console.log(array);
     console.log(JSON.parse(data.address));
   }
 
-  // fetch accomm details
-  useEffect(() => {
-    fetch();
-  }, [navigation, route]);
+  // useEffect(() => {
+  //     setAccommId(route.params.id);
+  //     if (accommId) {
+  //         fetch();
+  //     }
+  //   }, [accommId, rerenderFlag]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setAccommId(route.params.id);
+      if (accommId) {
+        fetch(accommId);
+      }
+    }, [accommId]),
+  );
 
   if (loading) return <ActivityIndicator animating />;
   else
     return (
       <View style={{ flex: 1, flexDirection: "column" }}>
-        <Appbar.Header>
-          <Appbar.BackAction
-            onPress={() => {
-              navigation.goBack();
-            }}
-          />
-          <View style={{ flexDirection: "row-reverse", flex: 1 }}>
-            <Appbar.Action
-              icon={saved ? "heart" : "heart-outline"}
-              size={25}
-              onPress={() => {
-                console.warn("Save accommodation");
-                setSaved(!saved);
-              }}
-            />
-          </View>
-        </Appbar.Header>
         <ScrollView>
-          <View style={{ marginHorizontal: 10, marginVertical: 10 }}>
+          <View
+            style={{
+              marginHorizontal: 10,
+              marginVertical: 10,
+              flexDirection: "row",
+            }}
+          >
             <Text variant="headlineMedium" style={{ fontWeight: "bold" }}>
               {details.title}
             </Text>
@@ -165,8 +164,8 @@ export default function AccommodationDetailScreen({ navigation, route }) {
               <Text variant="bodyMedium">{details.availableDate} </Text>
             </View>
 
-            <Text variant="bodyMedium"> 441B Clementi Avenue </Text>
-            <Text variant="bodyMedium"> Clementi Road 1 </Text>
+            <Text variant="bodyMedium"> {details.address?.addressLine1} </Text>
+            <Text variant="bodyMedium"> {details.address?.addressLine2} </Text>
           </View>
           <Divider />
           <View style={{ marginHorizontal: 10, marginVertical: 15 }}>
@@ -186,11 +185,16 @@ export default function AccommodationDetailScreen({ navigation, route }) {
             >
               Unit Features
             </Text>
-            <Text variant="bodyMedium">{`\u2022 Air-Conditioning `}</Text>
-            <Text variant="bodyMedium">{`\u2022 Renovated `}</Text>
-            <Text variant="bodyMedium">{`\u2022 Fridge `}</Text>
-            <Text variant="bodyMedium">{`\u2022 Cooker Hob/Hood `}</Text>
-            <Text variant="bodyMedium">{`\u2022 Washing Machine `}</Text>
+            {details.unitFeature.map((feature, index) => (
+              <Text key={index} variant="bodyMedium">
+                {`\u2022 `} {feature}
+              </Text>
+            ))}
+            {/* <Text variant="bodyMedium">{`\u2022 Air-Conditioning `}</Text>
+                <Text variant="bodyMedium">{`\u2022 Renovated `}</Text>
+                <Text variant="bodyMedium">{`\u2022 Fridge `}</Text>
+                <Text variant="bodyMedium">{`\u2022 Cooker Hob/Hood `}</Text>
+                <Text variant="bodyMedium">{`\u2022 Washing Machine `}</Text> */}
           </View>
           <Divider />
           <View style={{ marginHorizontal: 10, marginVertical: 15 }}>
@@ -215,35 +219,25 @@ export default function AccommodationDetailScreen({ navigation, route }) {
           </View>
           <Divider />
           <View style={{ marginHorizontal: 20, marginVertical: 15 }}>
-            <View style={{ flex: 1, flexDirection: "row", marginBottom: 15 }}>
-              <Avatar.Text size={50} label="User" />
-              <View
-                style={{
-                  justifyContent: "center",
-                  marginHorizontal: 10,
-                  flexDirection: "column",
-                }}
-              >
-                <Text style={{ fontSize: 12, fontWeight: "bold" }}>
-                  {details.User.name}
-                </Text>
-                <Text style={{ fontSize: 12 }}>
-                  Joined {dayjs(details.User.createdAt).fromNow(true)} ago
-                </Text>
-              </View>
-            </View>
-
             <Button
+              icon="home-edit"
               mode="outlined"
-              onPress={() => console.warn("navigate to message screen")}
+              onPress={() =>
+                navigation.navigate("Edit Listing", {
+                  details,
+                  uriArray,
+                })
+              }
             >
-              Contact
+              Edit
             </Button>
           </View>
         </ScrollView>
       </View>
     );
-}
+};
+
+export default ListingDetailScreen;
 
 const styles = StyleSheet.create({
   webContainer: {

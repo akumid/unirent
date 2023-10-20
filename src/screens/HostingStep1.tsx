@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { StyleSheet, View, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  View,
+  ScrollView,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 import {
   Button as PaperButton,
   SegmentedButtons,
@@ -45,7 +51,11 @@ export default function HostingStep1({ navigation, route }) {
   };
 
   return (
-    <View style={styles.view}>
+    <KeyboardAvoidingView
+      style={styles.view}
+      behavior={Platform.OS === "ios" || "android" ? "padding" : "height"}
+      keyboardVerticalOffset={Platform.OS === "ios" || "android" ? 100 : -300}
+    >
       <ScrollView>
         <Text variant="headlineMedium">
           Which of these best describes your place?
@@ -73,7 +83,9 @@ export default function HostingStep1({ navigation, route }) {
           ]}
         />
 
-        <Text variant="headlineMedium">Where is your place?</Text>
+        <Text variant="headlineMedium" style={{ marginBottom: 10 }}>
+          Where is your place?
+        </Text>
         <TextInput
           label="Country"
           placeholder="Enter your country"
@@ -97,6 +109,22 @@ export default function HostingStep1({ navigation, route }) {
           placeholder="Not required for landed properties"
           value={address?.unitNo}
           onChangeText={(text) => setAddress({ ...address, unitNo: text })}
+        />
+        <TextInput
+          label="Address Line 1"
+          placeholder=""
+          value={address?.addressLine1}
+          onChangeText={(text) =>
+            setAddress({ ...address, addressLine1: text })
+          }
+        />
+        <TextInput
+          label="Address Line 2"
+          placeholder=""
+          value={address?.addressLine2}
+          onChangeText={(text) =>
+            setAddress({ ...address, addressLine2: text })
+          }
         />
         <TextInput
           label="Apt, Suite, etc (optional)"
@@ -143,13 +171,14 @@ export default function HostingStep1({ navigation, route }) {
           Next
         </PaperButton>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   view: {
     flex: 1,
+    marginHorizontal: 20,
   },
   scroll: {
     flex: 1,
@@ -164,5 +193,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-end",
     padding: 20,
+    marginTop: 20,
   },
 });

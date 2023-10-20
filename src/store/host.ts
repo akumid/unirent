@@ -9,6 +9,7 @@ interface HostState {
   title: string;
   description: string;
   price: number;
+  unitFeature: string[];
 
   updatePropertyType: (input: string) => void;
   updateAddress: (input: IAddress) => void;
@@ -16,6 +17,7 @@ interface HostState {
   updateTitle: (input: string) => void;
   updateDescription: (input: string) => void;
   updatePrice: (input: number) => void;
+  updateUnitFeature: (input: string[]) => void;
 }
 
 export const useHostStore = create<HostState>()((set) => ({
@@ -35,6 +37,7 @@ export const useHostStore = create<HostState>()((set) => ({
   title: "",
   description: "",
   price: 0,
+  unitFeature: [],
 
   updatePropertyType: (input) => set(() => ({ propertyType: input })),
   updateAddress: (input) => set(() => ({ address: input })),
@@ -42,4 +45,5 @@ export const useHostStore = create<HostState>()((set) => ({
   updateTitle: (input) => set(() => ({ title: input })),
   updateDescription: (input) => set(() => ({ description: input })),
   updatePrice: (input) => set(() => ({ price: input })),
+  updateUnitFeature: (input) => set(() => ({ unitFeature: input })),
 }));
