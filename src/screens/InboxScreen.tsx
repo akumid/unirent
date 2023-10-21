@@ -52,7 +52,7 @@ export default function InboxScreen(props: any) {
         }}
       >
         <View style={{ marginTop: 25, marginBottom: 10 }}>
-          <Text variant="displaySmall" style={styles.blackFont}> Inbox </Text>
+          <Text variant="displaySmall"> Inbox </Text>
         </View>
 
         {chatRooms.length === 0 ? (
@@ -77,6 +77,6 @@ export default function InboxScreen(props: any) {
 
 const styles = StyleSheet.create({
   blackFont: {
-    color: 'black'
-  }
+    color: "black",
+  },
 });

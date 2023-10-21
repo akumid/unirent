@@ -25,11 +25,7 @@ import {
   deleteSavedAccommodationById,
   getSavedAccommodationsById,
 } from "../services/SavedAccommodationService";
-<<<<<<< HEAD
-import { createSavedAccommodation, updateUser } from "../graphql/mutations";
 import { isWeb } from "../utils";
-=======
->>>>>>> origin/develop
 
 export default function Welcome({ props }) {
   const insets = useSafeAreaInsets();
@@ -151,19 +147,19 @@ export default function Welcome({ props }) {
   const searchBar = () => {
     return isWeb ? (
       <Pressable
-      style={{ width: "90%", marginBottom: 20 }}          
+        style={{ width: "90%", marginBottom: 20 }}
         onPress={() => {
           navigation.navigate("Search");
         }}
       >
-      <Searchbar
-        placeholder="Search Location"
-        onChangeText={(query) => {
-          setSearch(query);
-        }}
-        value={search}
-        style={{ width: "100%", marginBottom: 20 }}
-      />
+        <Searchbar
+          placeholder="Search Location"
+          onChangeText={(query) => {
+            setSearch(query);
+          }}
+          value={search}
+          style={{ width: "100%", marginBottom: 20 }}
+        />
       </Pressable>
     ) : (
       <Searchbar
@@ -177,8 +173,8 @@ export default function Welcome({ props }) {
         value={search}
         style={{ width: "90%", marginBottom: 20 }}
       />
-    )
-  }
+    );
+  };
 
   // fetch all Listings
   useEffect(() => {
@@ -233,24 +229,7 @@ export default function Welcome({ props }) {
           paddingRight: insets.right,
         }}
       >
-<<<<<<< HEAD
-        <View style={{ alignItems: "center" }}>
-          {searchBar()}
-=======
-        <View style={{ alignItems: "center", marginVertical: 10 }}>
-          <Searchbar
-            placeholder="Search Location"
-            onPressIn={() => {
-              navigation.navigate("Search");
-            }}
-            onChangeText={(query) => {
-              setSearch(query);
-            }}
-            value={search}
-            style={{ width: "95%" }}
-          />
->>>>>>> origin/develop
-        </View>
+        <View style={{ alignItems: "center" }}>{searchBar()}</View>
         <Divider />
         <ScrollView
           style={{
@@ -283,11 +262,6 @@ export default function Welcome({ props }) {
           </View>
 
           <View style={{ marginVertical: 10, flexDirection: "column" }}>
-<<<<<<< HEAD
-            <Text variant="titleLarge" style={styles.blackFont}> Today's Recommendations </Text>
-            {accommodationList.map((accommodation, index) =>
-              returnAccommodationCard(accommodation, index),
-=======
             <Text variant="titleLarge"> Today's Recommendations </Text>
 
             {!permission ? (
@@ -301,7 +275,6 @@ export default function Welcome({ props }) {
                   returnAccommodationCard(accommodation, index),
                 )}
               </>
->>>>>>> origin/develop
             )}
           </View>
         </ScrollView>
@@ -311,6 +284,6 @@ export default function Welcome({ props }) {
 
 const styles = StyleSheet.create({
   blackFont: {
-    color: 'black'
-  }
+    color: "black",
+  },
 });

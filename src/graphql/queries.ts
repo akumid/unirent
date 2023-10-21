@@ -2,82 +2,9 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-<<<<<<< HEAD
-import * as APITypes from "./API";
-type GeneratedQuery<InputType, OutputType> = string & {
-  __generatedQueryInput: InputType;
-  __generatedQueryOutput: OutputType;
-};
-
-export const getSavedAccommodation = /* GraphQL */ `query GetSavedAccommodation($id: ID!) {
-  getSavedAccommodation(id: $id) {
-    id
-    Accommodations {
-      items {
-        id
-        savedAccommodationId
-        accommodationId
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    User {
-      id
-      name
-      status
-      ChatRooms {
-        nextToken
-        __typename
-      }
-      Messages {
-        nextToken
-        __typename
-      }
-      Accommodations {
-        nextToken
-        __typename
-      }
-      SavedAccommodation {
-        id
-        createdAt
-        updatedAt
-        savedAccommodationUserId
-        __typename
-      }
-      createdAt
-      updatedAt
-      userSavedAccommodationId
-      __typename
-    }
-    createdAt
-    updatedAt
-    savedAccommodationUserId
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.GetSavedAccommodationQueryVariables,
-  APITypes.GetSavedAccommodationQuery
->;
-export const listSavedAccommodations = /* GraphQL */ `query ListSavedAccommodations(
-  $filter: ModelSavedAccommodationFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listSavedAccommodations(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-=======
 export const getSavedAccommodation = /* GraphQL */ `
   query GetSavedAccommodation($id: ID!) {
     getSavedAccommodation(id: $id) {
->>>>>>> origin/develop
       id
       Accommodations {
         items {
@@ -95,8 +22,6 @@ export const getSavedAccommodation = /* GraphQL */ `
         id
         name
         status
-<<<<<<< HEAD
-=======
         ChatRooms {
           nextToken
           __typename
@@ -116,7 +41,6 @@ export const getSavedAccommodation = /* GraphQL */ `
           savedAccommodationUserId
           __typename
         }
->>>>>>> origin/develop
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -160,34 +84,9 @@ export const listSavedAccommodations = /* GraphQL */ `
         savedAccommodationUserId
         __typename
       }
-<<<<<<< HEAD
-      createdAt
-      updatedAt
-      userSavedAccommodationId
-      __typename
-    }
-    savedaccommodations {
-      items {
-        id
-        savedAccommodationId
-        accommodationId
-        createdAt
-        updatedAt
-        __typename
-      }
       nextToken
       __typename
     }
-    unitFeature
-    latitude
-    longitude
-    updatedAt
-    __typename
-=======
-      nextToken
-      __typename
-    }
->>>>>>> origin/develop
   }
 `;
 export const getAccommodation = /* GraphQL */ `
@@ -208,8 +107,6 @@ export const getAccommodation = /* GraphQL */ `
         id
         name
         status
-<<<<<<< HEAD
-=======
         ChatRooms {
           nextToken
           __typename
@@ -229,7 +126,6 @@ export const getAccommodation = /* GraphQL */ `
           savedAccommodationUserId
           __typename
         }
->>>>>>> origin/develop
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -261,80 +157,7 @@ export const listAccommodations = /* GraphQL */ `
     $limit: Int
     $nextToken: String
   ) {
-<<<<<<< HEAD
-    items {
-      id
-      availableDate
-      description
-      images
-      price
-      propertyType
-      rented
-      createdAt
-      title
-      address
-      userId
-      User {
-        id
-        name
-        status
-        createdAt
-        updatedAt
-        userSavedAccommodationId
-        __typename
-      }
-      savedaccommodations {
-        nextToken
-        __typename
-      }
-      unitFeature
-      latitude
-      longitude
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.AccommodationsByUserIdQueryVariables,
-  APITypes.AccommodationsByUserIdQuery
->;
-export const getUser = /* GraphQL */ `query GetUser($id: ID!) {
-  getUser(id: $id) {
-    id
-    name
-    status
-    ChatRooms {
-      items {
-        id
-        userId
-        chatRoomId
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    Messages {
-      items {
-        id
-        createdAt
-        text
-        chatRoomId
-        userId
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-    Accommodations {
-=======
     listAccommodations(filter: $filter, limit: $limit, nextToken: $nextToken) {
->>>>>>> origin/develop
       items {
         id
         availableDate
@@ -388,17 +211,12 @@ export const accommodationsByUserId = /* GraphQL */ `
     ) {
       items {
         id
-<<<<<<< HEAD
-        name
-        status
-=======
         availableDate
         description
         images
         price
         propertyType
         rented
->>>>>>> origin/develop
         createdAt
         title
         address
@@ -425,13 +243,6 @@ export const accommodationsByUserId = /* GraphQL */ `
       nextToken
       __typename
     }
-<<<<<<< HEAD
-    createdAt
-    updatedAt
-    userSavedAccommodationId
-    __typename
-=======
->>>>>>> origin/develop
   }
 `;
 export const getUser = /* GraphQL */ `
@@ -586,54 +397,6 @@ export const listMessages = /* GraphQL */ `
       nextToken
       __typename
     }
-<<<<<<< HEAD
-    LastMessage {
-      id
-      createdAt
-      text
-      chatRoomId
-      userId
-      updatedAt
-      __typename
-    }
-    Accommodation {
-      id
-      availableDate
-      description
-      images
-      price
-      propertyType
-      rented
-      createdAt
-      title
-      address
-      userId
-      User {
-        id
-        name
-        status
-        createdAt
-        updatedAt
-        userSavedAccommodationId
-        __typename
-      }
-      savedaccommodations {
-        nextToken
-        __typename
-      }
-      unitFeature
-      latitude
-      longitude
-      updatedAt
-      __typename
-    }
-    createdAt
-    updatedAt
-    chatRoomLastMessageId
-    chatRoomAccommodationId
-    __typename
-=======
->>>>>>> origin/develop
   }
 `;
 export const listMessagesByChatRoom = /* GraphQL */ `
@@ -782,10 +545,6 @@ export const listChatRooms = /* GraphQL */ `
     listChatRooms(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-<<<<<<< HEAD
-        name
-        status
-=======
         Users {
           nextToken
           __typename
@@ -821,7 +580,6 @@ export const listChatRooms = /* GraphQL */ `
           updatedAt
           __typename
         }
->>>>>>> origin/develop
         createdAt
         updatedAt
         chatRoomLastMessageId
@@ -1061,8 +819,6 @@ export const getUserChatRoom = /* GraphQL */ `
         id
         name
         status
-<<<<<<< HEAD
-=======
         ChatRooms {
           nextToken
           __typename
@@ -1082,7 +838,6 @@ export const getUserChatRoom = /* GraphQL */ `
           savedAccommodationUserId
           __typename
         }
->>>>>>> origin/develop
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -1131,13 +886,7 @@ export const getUserChatRoom = /* GraphQL */ `
         chatRoomAccommodationId
         __typename
       }
-<<<<<<< HEAD
-      unitFeature
-      latitude
-      longitude
-=======
       createdAt
->>>>>>> origin/develop
       updatedAt
       __typename
     }
@@ -1153,184 +902,6 @@ export const listUserChatRooms = /* GraphQL */ `
       items {
         id
         userId
-<<<<<<< HEAD
-        unitFeature
-        latitude
-        longitude
-        updatedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListSavedAccommodationAccommodationsQueryVariables,
-  APITypes.ListSavedAccommodationAccommodationsQuery
->;
-export const savedAccommodationAccommodationsBySavedAccommodationId = /* GraphQL */ `query SavedAccommodationAccommodationsBySavedAccommodationId(
-  $savedAccommodationId: ID!
-  $sortDirection: ModelSortDirection
-  $filter: ModelSavedAccommodationAccommodationFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  savedAccommodationAccommodationsBySavedAccommodationId(
-    savedAccommodationId: $savedAccommodationId
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      savedAccommodationId
-      accommodationId
-      savedAccommodation {
-        id
-        createdAt
-        updatedAt
-        savedAccommodationUserId
-        __typename
-      }
-      accommodation {
-        id
-        availableDate
-        description
-        images
-        price
-        propertyType
-        rented
-        createdAt
-        title
-        address
-        userId
-        unitFeature
-        latitude
-        longitude
-        updatedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.SavedAccommodationAccommodationsBySavedAccommodationIdQueryVariables,
-  APITypes.SavedAccommodationAccommodationsBySavedAccommodationIdQuery
->;
-export const savedAccommodationAccommodationsByAccommodationId = /* GraphQL */ `query SavedAccommodationAccommodationsByAccommodationId(
-  $accommodationId: ID!
-  $sortDirection: ModelSortDirection
-  $filter: ModelSavedAccommodationAccommodationFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  savedAccommodationAccommodationsByAccommodationId(
-    accommodationId: $accommodationId
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      savedAccommodationId
-      accommodationId
-      savedAccommodation {
-        id
-        createdAt
-        updatedAt
-        savedAccommodationUserId
-        __typename
-      }
-      accommodation {
-        id
-        availableDate
-        description
-        images
-        price
-        propertyType
-        rented
-        createdAt
-        title
-        address
-        userId
-        unitFeature
-        latitude
-        longitude
-        updatedAt
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.SavedAccommodationAccommodationsByAccommodationIdQueryVariables,
-  APITypes.SavedAccommodationAccommodationsByAccommodationIdQuery
->;
-export const getUserChatRoom = /* GraphQL */ `query GetUserChatRoom($id: ID!) {
-  getUserChatRoom(id: $id) {
-    id
-    userId
-    chatRoomId
-    user {
-      id
-      name
-      status
-      ChatRooms {
-        nextToken
-        __typename
-      }
-      Messages {
-        nextToken
-        __typename
-      }
-      Accommodations {
-        nextToken
-        __typename
-      }
-      SavedAccommodation {
-        id
-        createdAt
-        updatedAt
-        savedAccommodationUserId
-        __typename
-      }
-      createdAt
-      updatedAt
-      userSavedAccommodationId
-      __typename
-    }
-    chatRoom {
-      id
-      Users {
-        nextToken
-        __typename
-      }
-      Messages {
-        nextToken
-        __typename
-      }
-      LastMessage {
-        id
-        createdAt
-        text
-=======
->>>>>>> origin/develop
         chatRoomId
         user {
           id
@@ -1350,15 +921,6 @@ export const getUserChatRoom = /* GraphQL */ `query GetUserChatRoom($id: ID!) {
           __typename
         }
         createdAt
-<<<<<<< HEAD
-        title
-        address
-        userId
-        unitFeature
-        latitude
-        longitude
-=======
->>>>>>> origin/develop
         updatedAt
         __typename
       }
@@ -1366,65 +928,6 @@ export const getUserChatRoom = /* GraphQL */ `query GetUserChatRoom($id: ID!) {
       __typename
     }
   }
-<<<<<<< HEAD
-}
-` as GeneratedQuery<
-  APITypes.GetUserChatRoomQueryVariables,
-  APITypes.GetUserChatRoomQuery
->;
-export const listUserChatRooms = /* GraphQL */ `query ListUserChatRooms(
-  $filter: ModelUserChatRoomFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listUserChatRooms(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      userId
-      chatRoomId
-      user {
-        id
-        name
-        status
-        createdAt
-        updatedAt
-        userSavedAccommodationId
-        __typename
-      }
-      chatRoom {
-        id
-        createdAt
-        updatedAt
-        chatRoomLastMessageId
-        chatRoomAccommodationId
-        __typename
-      }
-      createdAt
-      updatedAt
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListUserChatRoomsQueryVariables,
-  APITypes.ListUserChatRoomsQuery
->;
-export const userChatRoomsByUserId = /* GraphQL */ `query UserChatRoomsByUserId(
-  $userId: ID!
-  $sortDirection: ModelSortDirection
-  $filter: ModelUserChatRoomFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  userChatRoomsByUserId(
-    userId: $userId
-    sortDirection: $sortDirection
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-=======
 `;
 export const userChatRoomsByUserId = /* GraphQL */ `
   query UserChatRoomsByUserId(
@@ -1433,7 +936,6 @@ export const userChatRoomsByUserId = /* GraphQL */ `
     $filter: ModelUserChatRoomFilterInput
     $limit: Int
     $nextToken: String
->>>>>>> origin/develop
   ) {
     userChatRoomsByUserId(
       userId: $userId
@@ -1444,10 +946,6 @@ export const userChatRoomsByUserId = /* GraphQL */ `
     ) {
       items {
         id
-<<<<<<< HEAD
-        name
-        status
-=======
         userId
         chatRoomId
         user {
@@ -1467,7 +965,6 @@ export const userChatRoomsByUserId = /* GraphQL */ `
           chatRoomAccommodationId
           __typename
         }
->>>>>>> origin/develop
         createdAt
         updatedAt
         __typename
@@ -1494,10 +991,6 @@ export const userChatRoomsByChatRoomId = /* GraphQL */ `
     ) {
       items {
         id
-<<<<<<< HEAD
-        name
-        status
-=======
         userId
         chatRoomId
         user {
@@ -1517,7 +1010,6 @@ export const userChatRoomsByChatRoomId = /* GraphQL */ `
           chatRoomAccommodationId
           __typename
         }
->>>>>>> origin/develop
         createdAt
         updatedAt
         __typename

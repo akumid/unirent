@@ -3,15 +3,15 @@ import { API } from "aws-amplify";
 const apiName = "locationSearchApi";
 const path = "/location/search";
 
-export async function LocationSearch(query: String) {
+export async function LocationSearch(query: string) {
   // const param = {query: query};
 
   const myInit = {
     headers: {}, // OPTIONAL
     response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
     queryStringParameters: {
-      query: query // OPTIONAL
-    }
+      query, // OPTIONAL
+    },
   };
 
   try {

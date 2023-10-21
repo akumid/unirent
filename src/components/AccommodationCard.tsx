@@ -131,7 +131,7 @@ const AccommodationCard = (props: IAccommodation) => {
           titleStyle={{ color: "gray" }}
           subtitle={props.address?.aptName}
           subtitleVariant="labelMedium"
-          subtitleStyle={styles.blackFont}
+          subtitleStyle={{ color: "gray" }}
           style={{ flex: 1 }}
         />
         <IconButton
@@ -183,9 +183,8 @@ const AccommodationCard = (props: IAccommodation) => {
 
 const styles = StyleSheet.create({
   blackFont: {
-    color: 'black'
-  }
+    color: "black",
+  },
 });
-
 
 export default AccommodationCard;

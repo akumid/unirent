@@ -9,10 +9,10 @@ export default function Account({ navigation }) {
     <View style={styles.view}>
       <List.Section>
         <List.Subheader>
-          <Text variant="titleLarge" style={styles.blackFont}>Settings</Text>
+          <Text variant="titleLarge">Settings</Text>
         </List.Subheader>
         <List.Item
-          title={<Text style={styles.blackFont}> Account information </Text>}
+          title={<Text> Account information </Text>}
           left={() => <List.Icon icon="account-outline" />}
           onPress={() => navigation.navigate("AccountInfo")}
         />
@@ -21,16 +21,16 @@ export default function Account({ navigation }) {
 
       <List.Section>
         <List.Subheader>
-          <Text variant="titleLarge" style={styles.blackFont}>Hosting</Text>
+          <Text variant="titleLarge">Hosting</Text>
         </List.Subheader>
         <List.Item
-          title={<Text style={styles.blackFont}> Add Listing </Text>}
+          title={<Text> Add Listing </Text>}
           left={() => <List.Icon icon="home-plus-outline" />}
           onPress={() => navigation.navigate("Hosting")}
         />
         <Divider />
         <List.Item
-          title={<Text style={styles.blackFont}> My Listing </Text>}
+          title={<Text> My Listing </Text>}
           left={() => <List.Icon icon="home-import-outline" />}
           onPress={() => navigation.navigate("My Listing")}
         />
@@ -60,6 +60,6 @@ export const styles = StyleSheet.create({
     marginTop: 50,
   },
   blackFont: {
-    color: 'black'
-  }
+    color: "black",
+  },
 });

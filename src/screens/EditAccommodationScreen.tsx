@@ -66,135 +66,8 @@ const EditAccommodationScreen = (props: any, uriArray: string[]) => {
     setAddress(JSON.parse(details.address));
     setUnitFeature(convertArrayToUnitFeature(details.unitFeature));
 
-    const handlePriceChange = (text) => {
-        const number = text.replace(/[^0-9]/g, "");
-        setPrice(number);
-    };
-
-    const presetAllValue = () => {
-
-        const details = props.route.params.details;
-        console.log(details);
-        setTitle(details.title);
-        setDescription(details.description);
-        setPropertyType(details.propertyType);
-        setPrice(details.price.toString());
-        setAddress(JSON.parse(details.address));
-        setUnitFeature(convertArrayToUnitFeature(details.unitFeature));
-
-        setImageUris(props.route.params.uriArray);
-    }
-
-    const CheckboxGroup = ({ unitFeature, setUnitFeature }) => {
-        return (
-          <View style={styles.checkboxRowGroup}>
-            <View style={styles.checkboxColumnGroup}>
-              {Object.keys(unitFeature).map((key) => (
-                <Checkbox.Item
-                  key={key}
-                  label={getFeatureLabel(key)}
-                  status={unitFeature[key] ? "checked" : "unchecked"}
-                  onPress={() => {
-                    console.log(key);
-                    setUnitFeature((prevUnitFeature) => ({
-                      ...prevUnitFeature,
-                      [key]: !prevUnitFeature[key],
-                    }));
-                  }}
-                />
-              ))}
-            </View>
-          </View>
-        );
-    };
-  
-    const onNavigate = async () => {
-        console.log("Publish");
-        const authUser = await Auth.currentAuthenticatedUser();
-        // const s3ObjectKeys = await uploadToStorage(hostStore.images, uuid);
-        const geocode = await invokeGoogleMaps(address);
-        address.geo = geocode;
-        console.log("geo");
-        console.log(address.geo);
-        const s3ObjectKeys = await uploadToStorage(imageUris, props.route.params.details.id);
-        const newAccomm = {
-            id: props.route.params.details.id,
-            title: title,
-            address: JSON.stringify(address),
-            propertyType: EPropertyType[propertyType],
-            images: s3ObjectKeys,
-            description: description,
-            price: price,
-            rented: false,
-            availableDate: new Date().toISOString().substring(0, 10),
-            unitFeature: convertUnitFeatureToArray(unitFeature),
-            userId: authUser.attributes.sub,
-        };
-        console.log("newAccomm");
-        console.log(newAccomm);
-        const newAccommData = await API.graphql(
-          graphqlOperation(updateAccommodation, { input: newAccomm }),
-        );
-        if (newAccommData.data.updateAccommodation) {
-          alert("Update Listing", "Update successful!", [
-            { text: "OK", onPress: () => navigation.navigate("Listing Detail", { id: props.id }) },
-          ]);
-
-        } else {
-          alert("Error", "Update unsuccessful!", [
-            {
-              text: "Please try again later",
-              onPress: () => navigation.navigate("Listing Detail", { id: props.id }),
-            },
-          ]);
-        }
-
-    };
-
-    async function uploadToStorage(imageUris: any[], uuid: string) {
-      const stored = [];
-      for (let index = 0; index < imageUris.length; index++) {
-        const imageUri = imageUris[index];
-        try {
-          const response = await fetch(imageUri);
-          const blob = await response.blob();
-          const resp = await Storage.put(uuid + "/image_" + index, blob, {
-            contentType: "image/jpeg",
-          });
-          stored.push(resp.key);
-        } catch (err) {
-          console.log("Error uploading file: ", err);
-        }
-      }
-      return stored;
-    }
-    
-
-    // const submitEdit = () => {
-    //     const newAccomm = {
-    //         id: props.route.params.details.uuid,
-    //         title: title,
-    //         address: JSON.stringify(address),
-    //         propertyType: EPropertyType[hostStore.propertyType],
-    //         images: s3ObjectKeys,
-    //         description: hostStore.description,
-    //         price: hostStore.price,
-    //         rented: false,
-    //         availableDate: new Date().toISOString().substring(0, 10),
-    //         unitFeature: hostStore.unitFeature,
-    //         userId: authUser.attributes.sub,
-    //       };
-    // }
-
-    
-    
-    useEffect(() => {
-        console.log("edit accommodation");
-        console.log(props);
-        setImageUris(props.route.params.uriArray);
-        presetAllValue();
-        // console.log(price);
-      }, []);
+    setImageUris(props.route.params.uriArray);
+  };
 
   const CheckboxGroup = ({ unitFeature, setUnitFeature }) => {
     return (
@@ -304,7 +177,7 @@ const EditAccommodationScreen = (props: any, uriArray: string[]) => {
 
   useEffect(() => {
     console.log("edit accommodation");
-    // console.log(props);
+    console.log(props);
     setImageUris(props.route.params.uriArray);
     presetAllValue();
     // console.log(price);

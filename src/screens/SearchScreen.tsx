@@ -14,9 +14,9 @@ import {
   Button,
 } from "react-native-paper";
 import { DatePickerInput } from "react-native-paper-dates";
+
 import { getGeocodeByPlaceId } from "../api/GeocodingAPI";
 import { PropertyEnum } from "../graphql/API";
-
 import { LocationSearch } from "../services/LocationSearch";
 
 const SearchScreen = (props: any) => {
@@ -95,7 +95,7 @@ const SearchScreen = (props: any) => {
     setLatitude(geo.lat);
     setLongitude(geo.lng);
     console.log(geo);
-  }
+  };
 
   const prefferLocation = () => {
     const results = searchResult;
@@ -161,7 +161,7 @@ const SearchScreen = (props: any) => {
         }
         return result;
       },
-      {}
+      {},
     );
     // Prepare the search criteria as an object
     const searchCriteria = {
@@ -169,7 +169,7 @@ const SearchScreen = (props: any) => {
       minLat: latitude - 15,
       maxLat: latitude + 15,
       minLong: longitude - 15,
-      maxLong: longitude + 15
+      maxLong: longitude + 15,
     };
 
     // Add available date criteria if available
@@ -182,8 +182,8 @@ const SearchScreen = (props: any) => {
       searchCriteria.minPrice = parseFloat(minPrice);
       searchCriteria.maxPrice = parseFloat(maxPrice);
     }
-      navigation.navigate("Search Result", { searchCriteria }) // pass in search criteria as props
-  }
+    navigation.navigate("Search Result", { searchCriteria }); // pass in search criteria as props
+  };
 
   const searchLocation = () => {
     if (search !== "") {
@@ -206,21 +206,25 @@ const SearchScreen = (props: any) => {
                   <Card.Content style={{ justifyContent: "flex-start" }}>
                     <Checkbox.Item
                       label="Condo"
-                      status={accommodationTypes.CONDO ? "checked" : "unchecked"}
+                      status={
+                        accommodationTypes.CONDO ? "checked" : "unchecked"
+                      }
                       labelVariant="labelMedium"
-                      onPress={() => handleSetAccommodationTypes('CONDO')}
+                      onPress={() => handleSetAccommodationTypes("CONDO")}
                     />
                     <Checkbox.Item
                       label="Landed"
-                      status={accommodationTypes.LANDED ? "checked" : "unchecked"}
+                      status={
+                        accommodationTypes.LANDED ? "checked" : "unchecked"
+                      }
                       labelVariant="labelMedium"
-                      onPress={() => handleSetAccommodationTypes('LANDED')}
+                      onPress={() => handleSetAccommodationTypes("LANDED")}
                     />
                     <Checkbox.Item
                       label="HDB"
                       status={accommodationTypes.HDB ? "checked" : "unchecked"}
                       labelVariant="labelMedium"
-                      onPress={() => handleSetAccommodationTypes('HDB')}
+                      onPress={() => handleSetAccommodationTypes("HDB")}
                     />
                   </Card.Content>
                   <Divider />
@@ -276,10 +280,7 @@ const SearchScreen = (props: any) => {
           <View
             style={{ flexDirection: "row-reverse", marginHorizontal: "5%" }}
           >
-            <Button
-              mode="contained"
-              onPress={() => navigateAndSearchAccomm()}
-            >
+            <Button mode="contained" onPress={() => navigateAndSearchAccomm()}>
               Search
             </Button>
           </View>
