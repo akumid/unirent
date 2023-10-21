@@ -110,6 +110,8 @@ export default function HostingStep4({ navigation }) {
       rented: false,
       availableDate: new Date().toISOString().substring(0, 10),
       unitFeature: hostStore.unitFeature,
+      latitude: geocode.lat,
+      longitude: geocode.lng,
       userId: authUser.attributes.sub,
     };
     const newAccommData = await API.graphql(
