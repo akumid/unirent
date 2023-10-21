@@ -25,6 +25,8 @@ type Accommodation @model @auth(rules: [{allow: public}]) {
   User: User @belongsTo(fields: ["userId"])
   savedaccommodations: [SavedAccommodation] @manyToMany(relationName: "SavedAccommodationAccommodation")
   unitFeature: [String]
+  latitude: Float
+  longitude: Float
 }
 
 type User @model @auth(rules: [{allow: public}]) {
@@ -35,7 +37,6 @@ type User @model @auth(rules: [{allow: public}]) {
   Messages: [Message] @hasMany(indexName: "byUser", fields: ["id"])
   Accommodations: [Accommodation] @hasMany(indexName: "byUser", fields: ["id"])
   SavedAccommodation: SavedAccommodation @hasOne
-  savedAccommIds: [String]
 }
 
 type Message @model @auth(rules: [{allow: public}]) {

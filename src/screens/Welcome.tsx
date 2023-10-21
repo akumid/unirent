@@ -1,7 +1,7 @@
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { API, Auth, Storage, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Pressable, StyleSheet } from "react-native";
 import {
   Searchbar,
   Divider,
@@ -24,6 +24,7 @@ import {
   getSavedAccommodationsById,
 } from "../services/SavedAccommodationService";
 import { createSavedAccommodation, updateUser } from "../graphql/mutations";
+import { isWeb } from "../utils";
 
 export default function Welcome({ props }) {
   const insets = useSafeAreaInsets();
@@ -110,14 +111,16 @@ export default function Welcome({ props }) {
     index: number,
   ) {
     let savedId = "";
-    if (saved.length > 0) {
-      savedId = saved.find((e) => {
-        if (e.accommodationId === accommodation.id) {
-          return e;
-        } else {
-          return "";
-        }
-      });
+    if (saved !== undefined) {
+      if (saved.length > 0) {
+        savedId = saved.find((e) => {
+          if (e.accommodationId === accommodation.id) {
+            return e;
+          } else {
+            return "";
+          }
+        });
+      }
     }
 
     return (
@@ -128,6 +131,38 @@ export default function Welcome({ props }) {
         savedAccommodationId={savedAccommodationId}
       />
     );
+  }
+
+  const searchBar = () => {
+    return isWeb ? (
+      <Pressable
+      style={{ width: "90%", marginBottom: 20 }}          
+        onPress={() => {
+          navigation.navigate("Search");
+        }}
+      >
+      <Searchbar
+        placeholder="Search Location"
+        onChangeText={(query) => {
+          setSearch(query);
+        }}
+        value={search}
+        style={{ width: "100%", marginBottom: 20 }}
+      />
+      </Pressable>
+    ) : (
+      <Searchbar
+        placeholder="Search Location"
+        onPressIn={() => {
+          navigation.navigate("Search");
+        }}
+        onChangeText={(query) => {
+          setSearch(query);
+        }}
+        value={search}
+        style={{ width: "90%", marginBottom: 20 }}
+      />
+    )
   }
 
   // fetch all Listings
@@ -186,17 +221,7 @@ export default function Welcome({ props }) {
         }}
       >
         <View style={{ alignItems: "center" }}>
-          <Searchbar
-            placeholder="Search Location"
-            onPressIn={() => {
-              navigation.navigate("Search");
-            }}
-            onChangeText={(query) => {
-              setSearch(query);
-            }}
-            value={search}
-            style={{ width: "95%", marginBottom: 20 }}
-          />
+          {searchBar()}
         </View>
         <Divider />
         <ScrollView
@@ -230,7 +255,7 @@ export default function Welcome({ props }) {
           </View>
 
           <View style={{ marginVertical: 10, flexDirection: "column" }}>
-            <Text variant="titleLarge"> Today's Recommendations </Text>
+            <Text variant="titleLarge" style={styles.blackFont}> Today's Recommendations </Text>
             {accommodationList.map((accommodation, index) =>
               returnAccommodationCard(accommodation, index),
             )}
@@ -239,3 +264,9 @@ export default function Welcome({ props }) {
       </View>
     );
 }
+
+const styles = StyleSheet.create({
+  blackFont: {
+    color: 'black'
+  }
+});

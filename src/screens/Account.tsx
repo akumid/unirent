@@ -9,10 +9,10 @@ export default function Account({ navigation }) {
     <View style={styles.view}>
       <List.Section>
         <List.Subheader>
-          <Text variant="titleLarge">Settings</Text>
+          <Text variant="titleLarge" style={styles.blackFont}>Settings</Text>
         </List.Subheader>
         <List.Item
-          title={<Text> Account information </Text>}
+          title={<Text style={styles.blackFont}> Account information </Text>}
           left={() => <List.Icon icon="account-outline" />}
           onPress={() => navigation.navigate("AccountInfo")}
         />
@@ -20,16 +20,16 @@ export default function Account({ navigation }) {
       <Divider />
       <List.Section>
         <List.Subheader>
-          <Text variant="titleLarge">Hosting</Text>
+          <Text variant="titleLarge" style={styles.blackFont}>Hosting</Text>
         </List.Subheader>
         <List.Item
-          title={<Text> Add Listing </Text>}
+          title={<Text style={styles.blackFont}> Add Listing </Text>}
           left={() => <List.Icon icon="home-plus-outline" />}
           onPress={() => navigation.navigate("Hosting")}
         />
         <Divider />
         <List.Item
-          title={<Text> My Listing </Text>}
+          title={<Text style={styles.blackFont}> My Listing </Text>}
           left={() => <List.Icon icon="home-import-outline" />}
           onPress={() => navigation.navigate("My Listing")}
         />
@@ -37,7 +37,7 @@ export default function Account({ navigation }) {
 
       <Divider />
       <List.Item
-        title={<Text> Sign out </Text>}
+        title={<Text style={styles.blackFont}> Sign out </Text>}
         left={() => <List.Icon icon="logout" />}
         onPress={signOut}
       />
@@ -52,4 +52,7 @@ export const styles = StyleSheet.create({
     marginHorizontal: 20,
     marginTop: 50,
   },
+  blackFont: {
+    color: 'black'
+  }
 });

@@ -48,7 +48,6 @@ export const onCreateSavedAccommodation = /* GraphQL */ `subscription OnCreateSa
         savedAccommodationUserId
         __typename
       }
-      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -104,7 +103,6 @@ export const onUpdateSavedAccommodation = /* GraphQL */ `subscription OnUpdateSa
         savedAccommodationUserId
         __typename
       }
-      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -160,7 +158,6 @@ export const onDeleteSavedAccommodation = /* GraphQL */ `subscription OnDeleteSa
         savedAccommodationUserId
         __typename
       }
-      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -214,7 +211,6 @@ export const onCreateAccommodation = /* GraphQL */ `subscription OnCreateAccommo
         savedAccommodationUserId
         __typename
       }
-      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -233,6 +229,8 @@ export const onCreateAccommodation = /* GraphQL */ `subscription OnCreateAccommo
       __typename
     }
     unitFeature
+    latitude
+    longitude
     updatedAt
     __typename
   }
@@ -279,7 +277,6 @@ export const onUpdateAccommodation = /* GraphQL */ `subscription OnUpdateAccommo
         savedAccommodationUserId
         __typename
       }
-      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -298,6 +295,8 @@ export const onUpdateAccommodation = /* GraphQL */ `subscription OnUpdateAccommo
       __typename
     }
     unitFeature
+    latitude
+    longitude
     updatedAt
     __typename
   }
@@ -344,7 +343,6 @@ export const onDeleteAccommodation = /* GraphQL */ `subscription OnDeleteAccommo
         savedAccommodationUserId
         __typename
       }
-      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -363,6 +361,8 @@ export const onDeleteAccommodation = /* GraphQL */ `subscription OnDeleteAccommo
       __typename
     }
     unitFeature
+    latitude
+    longitude
     updatedAt
     __typename
   }
@@ -415,6 +415,8 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
         address
         userId
         unitFeature
+        latitude
+        longitude
         updatedAt
         __typename
       }
@@ -431,7 +433,6 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
         id
         name
         status
-        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -442,7 +443,6 @@ export const onCreateUser = /* GraphQL */ `subscription OnCreateUser($filter: Mo
       savedAccommodationUserId
       __typename
     }
-    savedAccommIds
     createdAt
     updatedAt
     userSavedAccommodationId
@@ -497,6 +497,8 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
         address
         userId
         unitFeature
+        latitude
+        longitude
         updatedAt
         __typename
       }
@@ -513,7 +515,6 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
         id
         name
         status
-        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -524,7 +525,6 @@ export const onUpdateUser = /* GraphQL */ `subscription OnUpdateUser($filter: Mo
       savedAccommodationUserId
       __typename
     }
-    savedAccommIds
     createdAt
     updatedAt
     userSavedAccommodationId
@@ -579,6 +579,8 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
         address
         userId
         unitFeature
+        latitude
+        longitude
         updatedAt
         __typename
       }
@@ -595,7 +597,6 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
         id
         name
         status
-        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -606,7 +607,6 @@ export const onDeleteUser = /* GraphQL */ `subscription OnDeleteUser($filter: Mo
       savedAccommodationUserId
       __typename
     }
-    savedAccommIds
     createdAt
     updatedAt
     userSavedAccommodationId
@@ -715,7 +715,6 @@ export const onCreateChatRoom = /* GraphQL */ `subscription OnCreateChatRoom($fi
         id
         name
         status
-        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -726,6 +725,8 @@ export const onCreateChatRoom = /* GraphQL */ `subscription OnCreateChatRoom($fi
         __typename
       }
       unitFeature
+      latitude
+      longitude
       updatedAt
       __typename
     }
@@ -793,7 +794,6 @@ export const onUpdateChatRoom = /* GraphQL */ `subscription OnUpdateChatRoom($fi
         id
         name
         status
-        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -804,6 +804,8 @@ export const onUpdateChatRoom = /* GraphQL */ `subscription OnUpdateChatRoom($fi
         __typename
       }
       unitFeature
+      latitude
+      longitude
       updatedAt
       __typename
     }
@@ -871,7 +873,6 @@ export const onDeleteChatRoom = /* GraphQL */ `subscription OnDeleteChatRoom($fi
         id
         name
         status
-        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -882,6 +883,8 @@ export const onDeleteChatRoom = /* GraphQL */ `subscription OnDeleteChatRoom($fi
         __typename
       }
       unitFeature
+      latitude
+      longitude
       updatedAt
       __typename
     }
@@ -913,7 +916,6 @@ export const onCreateSavedAccommodationAccommodation = /* GraphQL */ `subscripti
         id
         name
         status
-        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -940,7 +942,6 @@ export const onCreateSavedAccommodationAccommodation = /* GraphQL */ `subscripti
         id
         name
         status
-        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -951,6 +952,8 @@ export const onCreateSavedAccommodationAccommodation = /* GraphQL */ `subscripti
         __typename
       }
       unitFeature
+      latitude
+      longitude
       updatedAt
       __typename
     }
@@ -980,7 +983,6 @@ export const onUpdateSavedAccommodationAccommodation = /* GraphQL */ `subscripti
         id
         name
         status
-        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -1007,7 +1009,6 @@ export const onUpdateSavedAccommodationAccommodation = /* GraphQL */ `subscripti
         id
         name
         status
-        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -1018,6 +1019,8 @@ export const onUpdateSavedAccommodationAccommodation = /* GraphQL */ `subscripti
         __typename
       }
       unitFeature
+      latitude
+      longitude
       updatedAt
       __typename
     }
@@ -1047,7 +1050,6 @@ export const onDeleteSavedAccommodationAccommodation = /* GraphQL */ `subscripti
         id
         name
         status
-        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -1074,7 +1076,6 @@ export const onDeleteSavedAccommodationAccommodation = /* GraphQL */ `subscripti
         id
         name
         status
-        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -1085,6 +1086,8 @@ export const onDeleteSavedAccommodationAccommodation = /* GraphQL */ `subscripti
         __typename
       }
       unitFeature
+      latitude
+      longitude
       updatedAt
       __typename
     }
@@ -1127,7 +1130,6 @@ export const onCreateUserChatRoom = /* GraphQL */ `subscription OnCreateUserChat
         savedAccommodationUserId
         __typename
       }
-      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -1165,6 +1167,8 @@ export const onCreateUserChatRoom = /* GraphQL */ `subscription OnCreateUserChat
         address
         userId
         unitFeature
+        latitude
+        longitude
         updatedAt
         __typename
       }
@@ -1213,7 +1217,6 @@ export const onUpdateUserChatRoom = /* GraphQL */ `subscription OnUpdateUserChat
         savedAccommodationUserId
         __typename
       }
-      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -1251,6 +1254,8 @@ export const onUpdateUserChatRoom = /* GraphQL */ `subscription OnUpdateUserChat
         address
         userId
         unitFeature
+        latitude
+        longitude
         updatedAt
         __typename
       }
@@ -1299,7 +1304,6 @@ export const onDeleteUserChatRoom = /* GraphQL */ `subscription OnDeleteUserChat
         savedAccommodationUserId
         __typename
       }
-      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -1337,6 +1341,8 @@ export const onDeleteUserChatRoom = /* GraphQL */ `subscription OnDeleteUserChat
         address
         userId
         unitFeature
+        latitude
+        longitude
         updatedAt
         __typename
       }

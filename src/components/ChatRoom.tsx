@@ -3,7 +3,7 @@ import { API, graphqlOperation } from "aws-amplify";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useEffect, useState } from "react";
-import { Pressable, View } from "react-native";
+import { Pressable, View, StyleSheet } from "react-native";
 import { Avatar, Divider, Text } from "react-native-paper";
 
 import { onUpdateChatRoom } from "../graphql/subscriptions";
@@ -48,16 +48,16 @@ export default function ChatRoom(props: any) {
       <View style={{ flex: 1, flexDirection: "row", marginVertical: 20 }}>
         <Avatar.Text size={50} label="User1" />
         <View style={{ flexDirection: "column", marginHorizontal: 15 }}>
-          <Text variant="labelMedium" style={{ color: "gray" }}>
+          <Text variant="labelMedium" style={styles.blackFont}>
             {props.chatRoom.Users.items[0].user.name}
           </Text>
-          <Text variant="titleMedium"> Clementi Avenue 441B </Text>
-          <Text variant="labelMedium" style={{ color: "gray" }}>
+          <Text variant="titleMedium" style={styles.blackFont}> Clementi Avenue 441B </Text>
+          <Text variant="labelMedium" style={styles.blackFont}>
             {chatRoom.LastMessage?.text}
           </Text>
         </View>
         <View style={{ flex: 1, flexDirection: "row-reverse" }}>
-          <Text variant="labelMedium" style={{ color: "gray" }}>
+          <Text variant="labelMedium" style={styles.blackFont}>
             {dayjs(chatRoom.LastMessage?.createdAt).fromNow(true)} ago
           </Text>
         </View>
@@ -66,3 +66,10 @@ export default function ChatRoom(props: any) {
     </Pressable>
   );
 }
+
+
+const styles = StyleSheet.create({
+  blackFont: {
+    color: 'black'
+  }
+});

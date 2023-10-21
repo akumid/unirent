@@ -3,7 +3,7 @@ import { API, Auth, graphqlOperation } from "aws-amplify";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useEffect, useState } from "react";
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import {
   Card,
   Button,
@@ -128,9 +128,10 @@ const AccommodationCard = (props: IAccommodation) => {
       <View style={{ flex: 1, flexDirection: "row" }}>
         <Card.Title
           title={props.title}
+          titleStyle={styles.blackFont}
           subtitle={props.address?.aptName}
           subtitleVariant="labelMedium"
-          subtitleStyle={{ color: "gray" }}
+          subtitleStyle={styles.blackFont}
           style={{ flex: 1 }}
         />
         <IconButton
@@ -149,14 +150,14 @@ const AccommodationCard = (props: IAccommodation) => {
       </View>
       <Divider />
       <Card.Content style={{ marginVertical: 10 }}>
-        <Text>
+        <Text style={styles.blackFont}>
           S$ {props.price} / month • Available from {props.availableDate}
         </Text>
       </Card.Content>
       <Divider />
       <Card.Content style={{ marginVertical: 10 }}>
         <View style={{ flexDirection: "row", marginBottom: 10 }}>
-          <Avatar.Text size={50} label="User" />
+          <Avatar.Text size={50} label="User" labelStyle={styles.blackFont}/>
           <View
             style={{
               justifyContent: "center",
@@ -164,10 +165,10 @@ const AccommodationCard = (props: IAccommodation) => {
               flexDirection: "column",
             }}
           >
-            <Text style={{ fontSize: 12, fontWeight: "bold" }}>
+            <Text style={{ fontSize: 12, fontWeight: "bold", color: "black" }}>
               Listed By {props.User.name}
             </Text>
-            <Text style={{ fontSize: 12 }}>
+            <Text style={{ fontSize: 12, color: "black" }}>
               {dayjs(props.createdAt).fromNow(true)} ago
             </Text>
           </View>
@@ -179,5 +180,12 @@ const AccommodationCard = (props: IAccommodation) => {
     </Card>
   );
 };
+
+const styles = StyleSheet.create({
+  blackFont: {
+    color: 'black'
+  }
+});
+
 
 export default AccommodationCard;

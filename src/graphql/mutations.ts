@@ -49,7 +49,6 @@ export const createSavedAccommodation = /* GraphQL */ `mutation CreateSavedAccom
         savedAccommodationUserId
         __typename
       }
-      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -106,7 +105,6 @@ export const updateSavedAccommodation = /* GraphQL */ `mutation UpdateSavedAccom
         savedAccommodationUserId
         __typename
       }
-      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -163,7 +161,6 @@ export const deleteSavedAccommodation = /* GraphQL */ `mutation DeleteSavedAccom
         savedAccommodationUserId
         __typename
       }
-      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -218,7 +215,6 @@ export const createAccommodation = /* GraphQL */ `mutation CreateAccommodation(
         savedAccommodationUserId
         __typename
       }
-      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -237,6 +233,8 @@ export const createAccommodation = /* GraphQL */ `mutation CreateAccommodation(
       __typename
     }
     unitFeature
+    latitude
+    longitude
     updatedAt
     __typename
   }
@@ -284,7 +282,6 @@ export const updateAccommodation = /* GraphQL */ `mutation UpdateAccommodation(
         savedAccommodationUserId
         __typename
       }
-      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -303,6 +300,8 @@ export const updateAccommodation = /* GraphQL */ `mutation UpdateAccommodation(
       __typename
     }
     unitFeature
+    latitude
+    longitude
     updatedAt
     __typename
   }
@@ -350,7 +349,6 @@ export const deleteAccommodation = /* GraphQL */ `mutation DeleteAccommodation(
         savedAccommodationUserId
         __typename
       }
-      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -369,6 +367,8 @@ export const deleteAccommodation = /* GraphQL */ `mutation DeleteAccommodation(
       __typename
     }
     unitFeature
+    latitude
+    longitude
     updatedAt
     __typename
   }
@@ -424,6 +424,8 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
         address
         userId
         unitFeature
+        latitude
+        longitude
         updatedAt
         __typename
       }
@@ -440,7 +442,6 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
         id
         name
         status
-        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -451,7 +452,6 @@ export const createUser = /* GraphQL */ `mutation CreateUser(
       savedAccommodationUserId
       __typename
     }
-    savedAccommIds
     createdAt
     updatedAt
     userSavedAccommodationId
@@ -509,6 +509,8 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
         address
         userId
         unitFeature
+        latitude
+        longitude
         updatedAt
         __typename
       }
@@ -525,7 +527,6 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
         id
         name
         status
-        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -536,7 +537,6 @@ export const updateUser = /* GraphQL */ `mutation UpdateUser(
       savedAccommodationUserId
       __typename
     }
-    savedAccommIds
     createdAt
     updatedAt
     userSavedAccommodationId
@@ -594,6 +594,8 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
         address
         userId
         unitFeature
+        latitude
+        longitude
         updatedAt
         __typename
       }
@@ -610,7 +612,6 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
         id
         name
         status
-        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -621,7 +622,6 @@ export const deleteUser = /* GraphQL */ `mutation DeleteUser(
       savedAccommodationUserId
       __typename
     }
-    savedAccommIds
     createdAt
     updatedAt
     userSavedAccommodationId
@@ -742,7 +742,6 @@ export const createChatRoom = /* GraphQL */ `mutation CreateChatRoom(
         id
         name
         status
-        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -753,6 +752,8 @@ export const createChatRoom = /* GraphQL */ `mutation CreateChatRoom(
         __typename
       }
       unitFeature
+      latitude
+      longitude
       updatedAt
       __typename
     }
@@ -823,7 +824,6 @@ export const updateChatRoom = /* GraphQL */ `mutation UpdateChatRoom(
         id
         name
         status
-        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -834,6 +834,8 @@ export const updateChatRoom = /* GraphQL */ `mutation UpdateChatRoom(
         __typename
       }
       unitFeature
+      latitude
+      longitude
       updatedAt
       __typename
     }
@@ -904,7 +906,6 @@ export const deleteChatRoom = /* GraphQL */ `mutation DeleteChatRoom(
         id
         name
         status
-        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -915,6 +916,8 @@ export const deleteChatRoom = /* GraphQL */ `mutation DeleteChatRoom(
         __typename
       }
       unitFeature
+      latitude
+      longitude
       updatedAt
       __typename
     }
@@ -947,7 +950,6 @@ export const createSavedAccommodationAccommodation = /* GraphQL */ `mutation Cre
         id
         name
         status
-        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -974,7 +976,6 @@ export const createSavedAccommodationAccommodation = /* GraphQL */ `mutation Cre
         id
         name
         status
-        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -985,6 +986,8 @@ export const createSavedAccommodationAccommodation = /* GraphQL */ `mutation Cre
         __typename
       }
       unitFeature
+      latitude
+      longitude
       updatedAt
       __typename
     }
@@ -1015,7 +1018,6 @@ export const updateSavedAccommodationAccommodation = /* GraphQL */ `mutation Upd
         id
         name
         status
-        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -1042,7 +1044,6 @@ export const updateSavedAccommodationAccommodation = /* GraphQL */ `mutation Upd
         id
         name
         status
-        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -1053,6 +1054,8 @@ export const updateSavedAccommodationAccommodation = /* GraphQL */ `mutation Upd
         __typename
       }
       unitFeature
+      latitude
+      longitude
       updatedAt
       __typename
     }
@@ -1083,7 +1086,6 @@ export const deleteSavedAccommodationAccommodation = /* GraphQL */ `mutation Del
         id
         name
         status
-        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -1110,7 +1112,6 @@ export const deleteSavedAccommodationAccommodation = /* GraphQL */ `mutation Del
         id
         name
         status
-        savedAccommIds
         createdAt
         updatedAt
         userSavedAccommodationId
@@ -1121,6 +1122,8 @@ export const deleteSavedAccommodationAccommodation = /* GraphQL */ `mutation Del
         __typename
       }
       unitFeature
+      latitude
+      longitude
       updatedAt
       __typename
     }
@@ -1164,7 +1167,6 @@ export const createUserChatRoom = /* GraphQL */ `mutation CreateUserChatRoom(
         savedAccommodationUserId
         __typename
       }
-      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -1202,6 +1204,8 @@ export const createUserChatRoom = /* GraphQL */ `mutation CreateUserChatRoom(
         address
         userId
         unitFeature
+        latitude
+        longitude
         updatedAt
         __typename
       }
@@ -1251,7 +1255,6 @@ export const updateUserChatRoom = /* GraphQL */ `mutation UpdateUserChatRoom(
         savedAccommodationUserId
         __typename
       }
-      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -1289,6 +1292,8 @@ export const updateUserChatRoom = /* GraphQL */ `mutation UpdateUserChatRoom(
         address
         userId
         unitFeature
+        latitude
+        longitude
         updatedAt
         __typename
       }
@@ -1338,7 +1343,6 @@ export const deleteUserChatRoom = /* GraphQL */ `mutation DeleteUserChatRoom(
         savedAccommodationUserId
         __typename
       }
-      savedAccommIds
       createdAt
       updatedAt
       userSavedAccommodationId
@@ -1376,6 +1380,8 @@ export const deleteUserChatRoom = /* GraphQL */ `mutation DeleteUserChatRoom(
         address
         userId
         unitFeature
+        latitude
+        longitude
         updatedAt
         __typename
       }

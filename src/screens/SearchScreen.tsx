@@ -11,10 +11,12 @@ import {
   TextInput,
   Button,
 } from "react-native-paper";
-import { LocationSearch } from "../services/LocationSearch";
 import Feather from "@expo/vector-icons/Feather";
 import { useNavigation } from "@react-navigation/native";
 import { DatePickerInput } from "react-native-paper-dates";
+import { LocationSearch } from "../api/LocationSearchAPI";
+import { getGeocodeByPlaceId } from "../api/GeocodingAPI";
+import { PropertyEnum } from "../graphql/API";
 
 const SearchScreen = (props: any) => {
   const navigation = useNavigation();
@@ -23,12 +25,55 @@ const SearchScreen = (props: any) => {
   const [search, setSearch] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [recentSearch, setRecentSearch] = useState([]);
-  const [checkedCondo, setCheckedCondo] = useState(true);
-  const [checkedLanded, setCheckedLanded] = useState(true);
-  const [checkedHDB, setCheckedHDB] = useState(true);
+  // const [checkedCondo, setCheckedCondo] = useState(true);
+  // const [checkedLanded, setCheckedLanded] = useState(true);
+  // const [checkedHDB, setCheckedHDB] = useState(true);
+  const [accommodationTypes, setAccommodationTypes] = useState({
+    CONDO: true,
+    LANDED: true,
+    HDB: true,
+  });
   const [minPrice, setMinPrice] = useState("");
   const [maxPrice, setMaxPrice] = useState("");
   const [moveInDate, setMoveInDate] = useState(undefined);
+  const [latitude, setLatitude] = useState(0);
+  const [longitude, setLongitude] = useState(0);
+
+  const handleSetAccommodationTypes = (type) => {
+    setAccommodationTypes({
+      ...accommodationTypes,
+      [type]: !accommodationTypes[type],
+    });
+  };
+
+  const handleMinPrice = (text) => {
+    const number = text.replace(/[^0-9]/g, "");
+    setMinPrice(number);
+  };
+
+  const handleMaxPrice = (text) => {
+    const number = text.replace(/[^0-9]/g, "");
+    setMaxPrice(number);
+  };
+
+  const handleMoveInDate = (date) => {
+    console.log("date");
+    console.log(date);
+    console.log(formatDate(date));
+    setMoveInDate(date);
+  };
+
+  const formatDate = (date) => {
+    const day = date.getDate();
+    const month = date.getMonth() + 1; // Month is 0-indexed
+    const year = date.getFullYear();
+
+    // Ensure leading zeros for single-digit day and month
+    const formattedDay = day < 10 ? `0${day}` : day;
+    const formattedMonth = month < 10 ? `0${month}` : month;
+
+    return `${year}-${formattedMonth}-${formattedDay}`;
+  };
 
   const getPrefferedLocations = async (search: String) => {
     const locations = await LocationSearch(search);
@@ -43,6 +88,13 @@ const SearchScreen = (props: any) => {
     setSearch(location);
     setSearchResult([]);
   };
+
+  const setGeo = async (placeId) => {
+    const geo = await getGeocodeByPlaceId(placeId);
+    setLatitude(geo.lat);
+    setLongitude(geo.lng);
+    console.log(geo);
+  }
 
   const prefferLocation = () => {
     const results = searchResult;
@@ -86,6 +138,7 @@ const SearchScreen = (props: any) => {
                 }}
                 onPress={() => {
                   pickedLocation(result.structured_formatting.main_text);
+                  setGeo(result.place_id);
                 }}
               ></List.Item>
               <Divider style={{ width: "100%" }} />
@@ -97,6 +150,39 @@ const SearchScreen = (props: any) => {
       return <></>;
     }
   };
+
+  const navigateAndSearchAccomm = () => {
+    // Prepare an object with selected property types
+    const selectedPropertyTypes = Object.keys(accommodationTypes).reduce(
+      (result, type) => {
+        if (accommodationTypes[type]) {
+          result[type.toUpperCase()] = PropertyEnum[type.toUpperCase()];
+        }
+        return result;
+      },
+      {}
+    );
+    // Prepare the search criteria as an object
+    const searchCriteria = {
+      ...selectedPropertyTypes,
+      minLat: latitude - 15,
+      maxLat: latitude + 15,
+      minLong: longitude - 15,
+      maxLong: longitude + 15
+    };
+
+    // Add available date criteria if available
+    if (moveInDate) {
+      searchCriteria.availableDate = formatDate(moveInDate);
+    }
+
+    // Add price range criteria if available
+    if (minPrice && maxPrice) {
+      searchCriteria.minPrice = parseFloat(minPrice);
+      searchCriteria.maxPrice = parseFloat(maxPrice);
+    }
+      navigation.navigate("Search Result", { searchCriteria }) // pass in search criteria as props
+  }
 
   const searchLocation = () => {
     if (search !== "") {
@@ -119,21 +205,21 @@ const SearchScreen = (props: any) => {
                   <Card.Content style={{ justifyContent: "flex-start" }}>
                     <Checkbox.Item
                       label="Condo"
-                      status={checkedCondo ? "checked" : "unchecked"}
+                      status={accommodationTypes.CONDO ? "checked" : "unchecked"}
                       labelVariant="labelMedium"
-                      onPress={() => setCheckedCondo(!checkedCondo)}
+                      onPress={() => handleSetAccommodationTypes('CONDO')}
                     />
                     <Checkbox.Item
                       label="Landed"
-                      status={checkedLanded ? "checked" : "unchecked"}
+                      status={accommodationTypes.LANDED ? "checked" : "unchecked"}
                       labelVariant="labelMedium"
-                      onPress={() => setCheckedLanded(!checkedLanded)}
+                      onPress={() => handleSetAccommodationTypes('LANDED')}
                     />
                     <Checkbox.Item
                       label="HDB"
-                      status={checkedHDB ? "checked" : "unchecked"}
+                      status={accommodationTypes.HDB ? "checked" : "unchecked"}
                       labelVariant="labelMedium"
-                      onPress={() => setCheckedHDB(!checkedHDB)}
+                      onPress={() => handleSetAccommodationTypes('HDB')}
                     />
                   </Card.Content>
                   <Divider />
@@ -151,13 +237,15 @@ const SearchScreen = (props: any) => {
                     <TextInput
                       label="Min"
                       value={minPrice}
-                      onChangeText={(text) => setMinPrice(text)}
+                      keyboardType="number-pad"
+                      onChangeText={(text) => handleMinPrice(text)}
                       style={{ width: 150 }}
                     />
                     <TextInput
                       label="Max"
                       value={maxPrice}
-                      onChangeText={(text) => setMaxPrice(text)}
+                      keyboardType="number-pad"
+                      onChangeText={(text) => handleMaxPrice(text)}
                       style={{ width: 150 }}
                     />
                   </View>
@@ -176,7 +264,7 @@ const SearchScreen = (props: any) => {
                       locale="en-GB"
                       label="Move In Date"
                       value={moveInDate}
-                      onChange={(d) => setMoveInDate(d)}
+                      onChange={(d) => handleMoveInDate(d)}
                       inputMode="start"
                     />
                   </View>
@@ -189,7 +277,7 @@ const SearchScreen = (props: any) => {
           >
             <Button
               mode="contained"
-              onPress={() => navigation.navigate("Search Result")}
+              onPress={() => navigateAndSearchAccomm()}
             >
               Search
             </Button>

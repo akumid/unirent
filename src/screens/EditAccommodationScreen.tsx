@@ -115,6 +115,7 @@ const EditAccommodationScreen = ( props: any, uriArray: string[] ) => {
           alert("Update Listing", "Update successful!", [
             { text: "OK", onPress: () => navigation.navigate("Listing Detail", { id: props.id }) },
           ]);
+
         } else {
           alert("Error", "Update unsuccessful!", [
             {
@@ -165,7 +166,7 @@ const EditAccommodationScreen = ( props: any, uriArray: string[] ) => {
     
     useEffect(() => {
         console.log("edit accommodation");
-        // console.log(props);
+        console.log(props);
         setImageUris(props.route.params.uriArray);
         presetAllValue();
         // console.log(price);
