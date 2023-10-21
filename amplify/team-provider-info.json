@@ -9,7 +9,8 @@
       "UnauthRoleName": "amplify-unirent-dev-150111-unauthRole",
       "StackName": "amplify-unirent-dev-150111",
       "StackId": "arn:aws:cloudformation:ap-southeast-1:373571243304:stack/amplify-unirent-dev-150111/065234d0-38de-11ee-b454-061b687797ac",
-      "AmplifyAppId": "dpow568uvx4bj"
+      "AmplifyAppId": "dpow568uvx4bj",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-unirent-dev-150111-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "auth": {
@@ -33,15 +34,15 @@
           "s3Key": "amplify-builds/locationSearchApi-35566d6f313977314c41-build.zip"
         }
       },
-      "storage": {
-        "accommodationMediaStorage": {},
-        "accommodationTable": {}
-      },
       "api": {
         "accommodationApi": {},
         "googleMapsApi": {},
         "unirent": {},
         "locationSearchApi": {}
+      },
+      "storage": {
+        "accommodationMediaStorage": {},
+        "accommodationTable": {}
       }
     }
   }

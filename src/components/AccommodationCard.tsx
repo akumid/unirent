@@ -105,7 +105,7 @@ const AccommodationCard = (props: IAccommodation) => {
   };
 
   useEffect(() => {
-    setSaved(props.isSaved ? true : false);
+    setSaved(!!props.isSaved);
     setSavedAccommodationAccommodationID(props.isSaved ? props.isSaved.id : "");
   }, [props]);
 
@@ -128,7 +128,7 @@ const AccommodationCard = (props: IAccommodation) => {
       <View style={{ flex: 1, flexDirection: "row" }}>
         <Card.Title
           title={props.title}
-          titleStyle={styles.blackFont}
+          titleStyle={{ color: "gray" }}
           subtitle={props.address?.aptName}
           subtitleVariant="labelMedium"
           subtitleStyle={styles.blackFont}
@@ -150,14 +150,14 @@ const AccommodationCard = (props: IAccommodation) => {
       </View>
       <Divider />
       <Card.Content style={{ marginVertical: 10 }}>
-        <Text style={styles.blackFont}>
+        <Text style={{ color: "gray" }}>
           S$ {props.price} / month • Available from {props.availableDate}
         </Text>
       </Card.Content>
       <Divider />
       <Card.Content style={{ marginVertical: 10 }}>
         <View style={{ flexDirection: "row", marginBottom: 10 }}>
-          <Avatar.Text size={50} label="User" labelStyle={styles.blackFont}/>
+          <Avatar.Text size={50} label="U" />
           <View
             style={{
               justifyContent: "center",
@@ -165,10 +165,10 @@ const AccommodationCard = (props: IAccommodation) => {
               flexDirection: "column",
             }}
           >
-            <Text style={{ fontSize: 12, fontWeight: "bold", color: "black" }}>
+            <Text style={{ fontSize: 12, fontWeight: "bold", color: "gray" }}>
               Listed By {props.User.name}
             </Text>
-            <Text style={{ fontSize: 12, color: "black" }}>
+            <Text style={{ fontSize: 12, color: "gray" }}>
               {dayjs(props.createdAt).fromNow(true)} ago
             </Text>
           </View>

@@ -12,6 +12,7 @@ import {
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
 
 import { publish } from "../api/AccommodationAPI";
+import { getGeocode } from "../api/GoogleMapsAPI";
 import alert from "../components/Alert";
 import { CarouselImages } from "../components/CarouselImages";
 import Map from "../components/Map";
@@ -19,7 +20,6 @@ import { createAccommodation } from "../graphql/mutations";
 import EPropertyType from "../model/EPropertyType";
 import IAccommodation from "../model/IAccommodation";
 import IGeo from "../model/IGeo";
-import { getGeocode } from "../services/GoogleMaps";
 import { useHostStore } from "../store/host";
 import { isWeb } from "../utils";
 
@@ -49,10 +49,13 @@ export default function HostingStep4({ navigation }) {
 
   const [isLoading, setIsLoading] = useState(true);
   const [geocode, setGeocode] = useState<IGeo>();
+  const [formattedAddress, setFormattedAddress] = useState("");
 
   async function invokeGoogleMaps(address: object) {
     const resp = await getGeocode(address);
-    setGeocode(resp);
+    console.log(resp);
+    setGeocode(resp?.geometry?.location);
+    setFormattedAddress(resp?.formatted_address);
     setIsLoading(false);
   }
 
@@ -103,7 +106,7 @@ export default function HostingStep4({ navigation }) {
       id: uuid,
       title: hostStore.title,
       address: JSON.stringify(hostStore.address),
-      propertyType: EPropertyType[hostStore.propertyType],
+      propertyType: EPropertyType[hostStore.propertyType].toUpperCase(),
       images: s3ObjectKeys,
       description: hostStore.description,
       price: hostStore.price,
@@ -184,35 +187,54 @@ export default function HostingStep4({ navigation }) {
             </View>
           )}
 
-          <Text variant="headlineMedium">{hostStore.title}</Text>
+          <View style={styles.padding}>
+            <Text variant="headlineMedium" style={{ marginBottom: 10 }}>
+              {hostStore.title}
+            </Text>
+            <Divider />
+          </View>
 
-          <Divider />
-
-          <View style={{ marginTop: 10 }}>
-            <Text variant="headlineMedium">Description</Text>
+          <View style={styles.padding}>
+            <Text
+              variant="headlineMedium"
+              style={{ marginBottom: 10, marginTop: 20 }}
+            >
+              Description
+            </Text>
             <Text variant="bodyLarge">{hostStore.description}</Text>
           </View>
 
-          <Divider />
-          <View style={{ marginTop: 10 }}>
-            <Text variant="headlineMedium">UnitFeature</Text>
+          <View style={styles.padding}>
+            <Text
+              variant="headlineMedium"
+              style={{ marginBottom: 10, marginTop: 20 }}
+            >
+              UnitFeature
+            </Text>
             {hostStore.unitFeature.map((feature) => {
               return <Text>{feature}</Text>;
             })}
           </View>
-          <Divider />
 
-          <View style={{ marginTop: 10 }}>
-            <Text variant="headlineMedium">Location</Text>
-
+          <View style={styles.padding}>
+            <Text
+              variant="headlineMedium"
+              style={{ marginBottom: 10, marginTop: 20 }}
+            >
+              Location
+            </Text>
             <Map latitude={geocode.lat} longitude={geocode.lng} />
+            <Text variant="bodyLarge">{formattedAddress}</Text>
           </View>
 
-          <Divider />
-
-          <View style={{ marginTop: 10 }}>
-            <Text variant="headlineMedium">Price</Text>
-            <Text variant="headlineMedium">S$ {hostStore.price}</Text>
+          <View style={styles.padding}>
+            <Text
+              variant="headlineMedium"
+              style={{ marginBottom: 10, marginTop: 20 }}
+            >
+              Price
+            </Text>
+            <Text variant="bodyLarge">S$ {hostStore.price}</Text>
           </View>
         </ScrollView>
 
@@ -228,9 +250,11 @@ export default function HostingStep4({ navigation }) {
 const styles = StyleSheet.create({
   view: {
     flex: 1,
+    marginTop: 20,
   },
   scroll: {
     flex: 1,
+    paddingHorizontal: 20,
   },
   next: {
     flexDirection: "row",
@@ -250,4 +274,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
   },
+  padding: { paddingHorizontal: 20 },
 });

@@ -23,15 +23,28 @@ npm install -g @aws-amplify/cli
 - Screen flow completed
 - Backend (WIP)
 
-### Hosting (WIP)
+### Hosting
 
 - Screen flow completed
-- Backend (WIP)
+- Backend completed
 
 ### Contact / Inbox
 
 - Screen flow completed
 - Backend completed
+
+### Recommendation
+
+- Screen flow completed
+- Backend completed
+
+## CICD
+
+- Code review (automated via Github Actions)
+- Unit test with Jest (automated via Github Actions)
+- E2E test with Cypress (automated via Amplify Hosting)
+- Deployment of web app with Amplify
+- Load test with Artillery (automated via Github Actions in a [seperate repo](https://github.com/akumid/unirent-load-testing))
 
 ## Tools/libraries documentation
 
@@ -46,3 +59,7 @@ npm install -g @aws-amplify/cli
 - [react hook form](https://www.react-hook-form.com/get-started#ReactNative)
 
 - [zustand](https://docs.pmnd.rs/zustand/getting-started/introduction)
+
+- [google maps services node client](https://googlemaps.github.io/google-maps-services-js/)
+
+- [geolib](https://github.com/manuelbieh/geolib)

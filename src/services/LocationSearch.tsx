@@ -2,7 +2,7 @@ import axios from "axios";
 
 const key = process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY!;
 
-export const LocationSearch = async (query: String) => {
+export const LocationSearch = async (query: string) => {
   // will implement the api key in the future
   const url =
     "https://maps.googleapis.com/maps/api/place/queryautocomplete/json?input=" +

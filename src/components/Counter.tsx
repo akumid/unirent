@@ -6,6 +6,7 @@ export default function Counter({ result, onMinus, onPlus }) {
     <View style={styles.container}>
       <IconButton
         icon="minus-circle-outline"
+        testID="minus-button"
         size={30}
         onPress={() => {
           if (result > 0) {
@@ -18,6 +19,7 @@ export default function Counter({ result, onMinus, onPlus }) {
 
       <IconButton
         icon="plus-circle-outline"
+        testID="plus-button"
         size={30}
         onPress={() => {
           if (result < 10) {

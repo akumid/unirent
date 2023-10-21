@@ -1,5 +1,6 @@
 import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { API, Auth, Storage, graphqlOperation } from "aws-amplify";
+import * as Location from "expo-location";
 import { useState, useEffect } from "react";
 import { View, ScrollView, Pressable, StyleSheet } from "react-native";
 import {
@@ -11,84 +12,98 @@ import {
 } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import { getRecommendation } from "../api/AccommodationAPI";
 import AccommodationCard from "../components/AccommodationCard";
-import IAccommodation from "../model/IAccommodation";
-import { getTodaysRecommendation } from "../services/AccommodationService";
+import { createSavedAccommodation, updateUser } from "../graphql/mutations";
 import {
   getUser,
   savedAccommodationAccommodationsBySavedAccommodationId,
 } from "../graphql/queries";
+import IAccommodation from "../model/IAccommodation";
 import {
   addSavedAccommodation,
   deleteSavedAccommodationById,
   getSavedAccommodationsById,
 } from "../services/SavedAccommodationService";
+<<<<<<< HEAD
 import { createSavedAccommodation, updateUser } from "../graphql/mutations";
 import { isWeb } from "../utils";
+=======
+>>>>>>> origin/develop
 
 export default function Welcome({ props }) {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
   const [search, setSearch] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const [saved, setSaved] = useState<any[]>();
+  const [saved, setSaved] = useState([]);
   // const [savedAccommodationIds, setSavedAccommodationIds] = useState([]);
-  const [savedAccommodationId, setSavedAccommodationId] = useState('');
+  const [savedAccommodationId, setSavedAccommodationId] = useState("");
   const [accommodationList, setAccommodationList] =
     useState<IAccommodation[]>();
   const isFocused = useIsFocused();
+  const [permission, setPermission] = useState(false);
 
   async function fetch() {
-    // const resp = await getAll();
-    const resp = await API.graphql(
-      graphqlOperation(getTodaysRecommendation, {
-        limit: 10,
-      }),
-    );
-    await downloadFromStorage(resp.data?.listAccommodations?.items);
+    const { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      console.log("Permission to access location was denied");
+      setIsLoading(false);
+      return;
+    }
+    setPermission(true);
+
+    const location = await Location.getCurrentPositionAsync({});
+    const recommendations = await getRecommendation(location);
+    await downloadFromStorage(recommendations);
   }
 
   async function createNewSavedAccommodationId(userId) {
     // createSavedAccommodation
     const userSavedAccommodaiton = await API.graphql(
       graphqlOperation(createSavedAccommodation, {
-        input: {savedAccommodationUserId: userId}
+        input: { savedAccommodationUserId: userId },
       }),
     );
 
     const updateUserInfo = await API.graphql(
       graphqlOperation(updateUser, {
-        input: {id: userId, userSavedAccommodationId: userSavedAccommodaiton.data.createSavedAccommodation.id}
+        input: {
+          id: userId,
+          userSavedAccommodationId:
+            userSavedAccommodaiton.data.createSavedAccommodation.id,
+        },
       }),
     );
 
     return updateUserInfo.data.updateUser.userSavedAccommodationId;
-
   }
 
   async function getSavedAccommodations() {
     const authUser = await Auth.currentAuthenticatedUser();
     const userId = authUser.attributes.sub;
-    let userSavedAccoimmodationId = '';
+    let userSavedAccoimmodationId = "";
     const userInfo = await API.graphql(
       graphqlOperation(getUser, {
-        id: userId
+        id: userId,
       }),
-  );
-    
+    );
 
-    if (userInfo.data.getUser.userSavedAccommodationId == null || userInfo.data.getUser.userSavedAccommodationId == undefined ) {
-      const savedAccommId = await createNewSavedAccommodationId(authUser.attributes.sub);
+    if (!userInfo.data.getUser.userSavedAccommodationId) {
+      const savedAccommId = await createNewSavedAccommodationId(
+        authUser.attributes.sub,
+      );
       setSavedAccommodationId(savedAccommId);
       userSavedAccoimmodationId = savedAccommId;
     } else {
-      userSavedAccoimmodationId = userInfo.data.getUser.userSavedAccommodationId;
+      userSavedAccoimmodationId =
+        userInfo.data.getUser.userSavedAccommodationId;
       setSavedAccommodationId(userInfo.data.getUser.userSavedAccommodationId);
     }
 
-    
-
-    const savedAccommodationList = await getSavedAccommodationsById(userSavedAccoimmodationId);
+    const savedAccommodationList = await getSavedAccommodationsById(
+      userSavedAccoimmodationId,
+    );
     setSaved(savedAccommodationList);
   }
 
@@ -167,8 +182,6 @@ export default function Welcome({ props }) {
 
   // fetch all Listings
   useEffect(() => {
-    // getSavedAccommodations();
-
     if (isFocused) {
       console.log("call again");
       getSavedAccommodations();
@@ -220,8 +233,23 @@ export default function Welcome({ props }) {
           paddingRight: insets.right,
         }}
       >
+<<<<<<< HEAD
         <View style={{ alignItems: "center" }}>
           {searchBar()}
+=======
+        <View style={{ alignItems: "center", marginVertical: 10 }}>
+          <Searchbar
+            placeholder="Search Location"
+            onPressIn={() => {
+              navigation.navigate("Search");
+            }}
+            onChangeText={(query) => {
+              setSearch(query);
+            }}
+            value={search}
+            style={{ width: "95%" }}
+          />
+>>>>>>> origin/develop
         </View>
         <Divider />
         <ScrollView
@@ -255,9 +283,25 @@ export default function Welcome({ props }) {
           </View>
 
           <View style={{ marginVertical: 10, flexDirection: "column" }}>
+<<<<<<< HEAD
             <Text variant="titleLarge" style={styles.blackFont}> Today's Recommendations </Text>
             {accommodationList.map((accommodation, index) =>
               returnAccommodationCard(accommodation, index),
+=======
+            <Text variant="titleLarge"> Today's Recommendations </Text>
+
+            {!permission ? (
+              <Text variant="bodyLarge" style={{ marginTop: 10 }}>
+                Allow permission to access device location to receive
+                recommendations
+              </Text>
+            ) : (
+              <>
+                {accommodationList.map((accommodation, index) =>
+                  returnAccommodationCard(accommodation, index),
+                )}
+              </>
+>>>>>>> origin/develop
             )}
           </View>
         </ScrollView>

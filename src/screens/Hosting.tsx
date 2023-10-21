@@ -5,7 +5,7 @@ import Button from "../components/Button";
 
 export default function Hosting({ navigation }) {
   return (
-    <View>
+    <View style={{ flex: 1, marginHorizontal: 20, marginTop: 20 }}>
       <List.Section>
         <List.Item
           title={<Text> Provide information about your place </Text>}
