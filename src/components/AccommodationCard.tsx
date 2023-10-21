@@ -183,9 +183,8 @@ const AccommodationCard = (props: IAccommodation) => {
 
 const styles = StyleSheet.create({
   blackFont: {
-    color: 'black'
-  }
+    color: "black",
+  },
 });
-
 
 export default AccommodationCard;

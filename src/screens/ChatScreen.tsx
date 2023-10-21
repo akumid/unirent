@@ -51,7 +51,7 @@ export default function ChatScreen({ navigation, route }) {
     setLoading(false);
 
     console.log("console.log({navigation, route});");
-    console.log({navigation, route});
+    console.log({ navigation, route });
 
     return () => {
       subscription.unsubscribe();

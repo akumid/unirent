@@ -9,7 +9,9 @@ export default function Account({ navigation }) {
     <View style={styles.view}>
       <List.Section>
         <List.Subheader>
-          <Text variant="titleLarge" style={styles.blackFont}>Settings</Text>
+          <Text variant="titleLarge" style={styles.blackFont}>
+            Settings
+          </Text>
         </List.Subheader>
         <List.Item
           title={<Text style={styles.blackFont}> Account information </Text>}
@@ -21,7 +23,9 @@ export default function Account({ navigation }) {
 
       <List.Section>
         <List.Subheader>
-          <Text variant="titleLarge" style={styles.blackFont}>Hosting</Text>
+          <Text variant="titleLarge" style={styles.blackFont}>
+            Hosting
+          </Text>
         </List.Subheader>
         <List.Item
           title={<Text style={styles.blackFont}> Add Listing </Text>}
@@ -60,6 +64,6 @@ export const styles = StyleSheet.create({
     marginTop: 50,
   },
   blackFont: {
-    color: 'black'
-  }
+    color: "black",
+  },
 });

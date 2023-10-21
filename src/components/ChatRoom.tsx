@@ -51,7 +51,10 @@ export default function ChatRoom(props: any) {
           <Text variant="labelMedium" style={styles.blackFont}>
             {props.chatRoom.Users.items[0].user.name}
           </Text>
-          <Text variant="titleMedium" style={styles.blackFont}> Clementi Avenue 441B </Text>
+          <Text variant="titleMedium" style={styles.blackFont}>
+            {" "}
+            Clementi Avenue 441B{" "}
+          </Text>
           <Text variant="labelMedium" style={styles.blackFont}>
             {chatRoom.LastMessage?.text}
           </Text>
@@ -67,9 +70,8 @@ export default function ChatRoom(props: any) {
   );
 }
 
-
 const styles = StyleSheet.create({
   blackFont: {
-    color: 'black'
-  }
+    color: "black",
+  },
 });

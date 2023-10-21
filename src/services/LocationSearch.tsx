@@ -208,20 +208,26 @@ export const LocationSearch = async (query: string) => {
   return response.data.predictions;
 };
 
-export const getLatitudeLongitude = async (placeId: String) => {
-  let geo = {
+export const getLatitudeLongitude = async (placeId: string) => {
+  const geo = {
     lat: null,
-    long: null
-  }
-  const url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" + placeId
-              + "&key=" + key;
+    long: null,
+  };
+  const url =
+    "https://maps.googleapis.com/maps/api/place/details/json?placeid=" +
+    placeId +
+    "&key=" +
+    key;
 
-  const response = await axios.get(url).then((locations) => {
+  const response = await axios
+    .get(url)
+    .then((locations) => {
       return locations;
-  }).catch(() => {
+    })
+    .catch(() => {
       console.log("Error getting google autocomplete response");
       return null;
-  })
+    });
 
   if (response) {
     geo.lat = response.result.geometry.location.lat;
@@ -229,5 +235,4 @@ export const getLatitudeLongitude = async (placeId: String) => {
   }
 
   return response ? geo : null;
-
-}
+};
