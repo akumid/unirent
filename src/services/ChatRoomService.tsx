@@ -62,6 +62,10 @@ export const getInbox = /* GraphQL */ `
               text
               createdAt
             }
+            Accommodation {
+              title
+              price
+            }
           }
         }
       }

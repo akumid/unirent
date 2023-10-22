@@ -42,6 +42,8 @@ export default function ChatRoom(props: any) {
         navigation.navigate("Chat", {
           id: props.chatRoom.id,
           name: props.chatRoom.Users.items[0].user.name,
+          title: chatRoom.Accommodation.title,
+          price: chatRoom.Accommodation.price,
         })
       }
     >
@@ -51,7 +53,7 @@ export default function ChatRoom(props: any) {
           <Text variant="labelMedium" style={{ color: "gray" }}>
             {props.chatRoom.Users.items[0].user.name}
           </Text>
-          <Text variant="titleMedium"> Clementi Avenue 441B </Text>
+          <Text variant="titleMedium"> {chatRoom.Accommodation.title} </Text>
           <Text variant="labelMedium" style={{ color: "gray" }}>
             {chatRoom.LastMessage?.text}
           </Text>
