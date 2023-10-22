@@ -170,7 +170,7 @@ const SearchScreen = (props: any) => {
       maxLat: latitude + 15,
       minLong: longitude - 15,
       maxLong: longitude + 15,
-      query: query,
+      query,
     };
 
     // Add available date criteria if available
