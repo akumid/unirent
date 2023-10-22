@@ -11,6 +11,7 @@ import {
   TextInput,
 } from "react-native-paper";
 
+import { getGeocode } from "../api/GoogleMapsAPI";
 import alert from "../components/Alert";
 import ImageInputList from "../components/ImageInputList";
 import { updateAccommodation } from "../graphql/mutations";
@@ -18,7 +19,6 @@ import EPropertyType from "../model/EPropertyType";
 import IAddress from "../model/IAddress";
 import IGeo from "../model/IGeo";
 import IUnitFeature from "../model/IUnitFeature";
-import { getGeocode } from "../services/GoogleMaps";
 import { useHostStore } from "../store/host";
 import {
   convertArrayToUnitFeature,
@@ -177,7 +177,7 @@ const EditAccommodationScreen = (props: any, uriArray: string[]) => {
 
   useEffect(() => {
     console.log("edit accommodation");
-    // console.log(props);
+    console.log(props);
     setImageUris(props.route.params.uriArray);
     presetAllValue();
     // console.log(price);

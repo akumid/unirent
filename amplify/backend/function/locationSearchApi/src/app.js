@@ -61,18 +61,17 @@ const convertUrlType = (param, type) => {
 /************************************
 * HTTP Get method to list objects *
 ************************************/
-
+// req.query -> placename -> get autocomplete
 app.get(path, async function(req, res) {
   console.log("map autocomplete");
-
   client.placeAutocomplete({
     params: {
       input: req.query.query,
-      key: process.env.GOOGLE_MAPS_API_KEY,
+      key: process.env.G_PLACES_API_KEY,
     },
     timeout: 5000, // milliseconds
   }).then((r) => {
-    res.json(r.data.results)
+    res.json(r.data.predictions)
   }).catch((e) => {
     res.json({
       error: e.response.data.error_message,
@@ -88,22 +87,7 @@ app.get(path, async function(req, res) {
 *************************************/
 
 app.put(path, async function(req, res) {
-
-  if (userIdPresent) {
-    req.body['userId'] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
-  }
-
-  let putItemParams = {
-    TableName: tableName,
-    Item: req.body
-  }
-  try {
-    let data = await ddbDocClient.send(new PutCommand(putItemParams));
     res.json({ success: 'put call succeed!', url: req.url, data: data })
-  } catch (err) {
-    res.statusCode = 500;
-    res.json({ error: err, url: req.url, body: req.body });
-  }
 });
 
 /************************************
@@ -111,22 +95,7 @@ app.put(path, async function(req, res) {
 *************************************/
 
 app.post(path, async function(req, res) {
-
-  if (userIdPresent) {
-    req.body['userId'] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
-  }
-
-  let putItemParams = {
-    TableName: tableName,
-    Item: req.body
-  }
-  try {
-    let data = await ddbDocClient.send(new PutCommand(putItemParams));
     res.json({ success: 'post call succeed!', url: req.url, data: data })
-  } catch (err) {
-    res.statusCode = 500;
-    res.json({ error: err, url: req.url, body: req.body });
-  }
 });
 
 /**************************************
@@ -134,39 +103,7 @@ app.post(path, async function(req, res) {
 ***************************************/
 
 app.delete(path + '/object' + hashKeyPath + sortKeyPath, async function(req, res) {
-  const params = {};
-  if (userIdPresent && req.apiGateway) {
-    params[partitionKeyName] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
-  } else {
-    params[partitionKeyName] = req.params[partitionKeyName];
-     try {
-      params[partitionKeyName] = convertUrlType(req.params[partitionKeyName], partitionKeyType);
-    } catch(err) {
-      res.statusCode = 500;
-      res.json({error: 'Wrong column type ' + err});
-    }
-  }
-  if (hasSortKey) {
-    try {
-      params[sortKeyName] = convertUrlType(req.params[sortKeyName], sortKeyType);
-    } catch(err) {
-      res.statusCode = 500;
-      res.json({error: 'Wrong column type ' + err});
-    }
-  }
-
-  let removeItemParams = {
-    TableName: tableName,
-    Key: params
-  }
-
-  try {
-    let data = await ddbDocClient.send(new DeleteCommand(removeItemParams));
-    res.json({url: req.url, data: data});
-  } catch (err) {
-    res.statusCode = 500;
-    res.json({error: err, url: req.url});
-  }
+    res.json({error: 'Wrong column type ' + err});
 });
 
 app.listen(3000, function() {

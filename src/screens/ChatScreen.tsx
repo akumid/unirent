@@ -1,6 +1,6 @@
 import { Auth, API, graphqlOperation } from "aws-amplify";
 import { useEffect, useRef, useState } from "react";
-import { View, Image, ScrollView } from "react-native";
+import { View, Image, ScrollView, StyleSheet } from "react-native";
 import {
   ActivityIndicator,
   Appbar,
@@ -49,6 +49,9 @@ export default function ChatScreen({ navigation, route }) {
     });
 
     setLoading(false);
+
+    console.log("console.log({navigation, route});");
+    console.log({ navigation, route });
 
     return () => {
       subscription.unsubscribe();
@@ -117,7 +120,7 @@ export default function ChatScreen({ navigation, route }) {
                   variant="labelMedium"
                   style={{ marginLeft: 10, color: "gray" }}
                 >
-                  S$ props.price / month
+                  S$ props.price) / month
                 </Text>
                 <Button
                   mode="contained"

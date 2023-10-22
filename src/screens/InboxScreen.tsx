@@ -1,6 +1,6 @@
 import { Auth, API, graphqlOperation } from "aws-amplify";
 import { useState, useEffect } from "react";
-import { ScrollView, View } from "react-native";
+import { ScrollView, View, StyleSheet } from "react-native";
 import { ActivityIndicator, Text } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -74,3 +74,9 @@ export default function InboxScreen(props: any) {
       </View>
     );
 }
+
+const styles = StyleSheet.create({
+  blackFont: {
+    color: "black",
+  },
+});

@@ -2,7 +2,7 @@ import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { API, Auth, Storage, graphqlOperation } from "aws-amplify";
 import * as Location from "expo-location";
 import { useState, useEffect } from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Pressable, StyleSheet } from "react-native";
 import {
   Searchbar,
   Divider,
@@ -25,6 +25,7 @@ import {
   deleteSavedAccommodationById,
   getSavedAccommodationsById,
 } from "../services/SavedAccommodationService";
+import { isWeb } from "../utils";
 
 export default function Welcome({ props }) {
   const insets = useSafeAreaInsets();
@@ -121,14 +122,16 @@ export default function Welcome({ props }) {
     index: number,
   ) {
     let savedId = "";
-    if (saved.length > 0) {
-      savedId = saved.find((e) => {
-        if (e.accommodationId === accommodation.id) {
-          return e;
-        } else {
-          return "";
-        }
-      });
+    if (saved !== undefined) {
+      if (saved.length > 0) {
+        savedId = saved.find((e) => {
+          if (e.accommodationId === accommodation.id) {
+            return e;
+          } else {
+            return "";
+          }
+        });
+      }
     }
 
     return (
@@ -141,6 +144,39 @@ export default function Welcome({ props }) {
     );
   }
 
+  const searchBar = () => {
+    return isWeb ? (
+      <Pressable
+        style={{ width: "90%" }}
+        onPress={() => {
+          navigation.navigate("Search");
+        }}
+      >
+        <Searchbar
+          placeholder="Search Location"
+          onChangeText={(query) => {
+            setSearch(query);
+          }}
+          value={search}
+          style={{ width: "100%" }}
+        />
+      </Pressable>
+    ) : (
+      <Searchbar
+        placeholder="Search Location"
+        onPressIn={() => {
+          navigation.navigate("Search");
+        }}
+        onChangeText={(query) => {
+          setSearch(query);
+        }}
+        value={search}
+        style={{ width: "90%" }}
+      />
+    );
+  };
+
+  // fetch all Listings
   useEffect(() => {
     if (isFocused) {
       console.log("call again");
@@ -193,18 +229,8 @@ export default function Welcome({ props }) {
           paddingRight: insets.right,
         }}
       >
-        <View style={{ alignItems: "center", marginVertical: 10 }}>
-          <Searchbar
-            placeholder="Search Location"
-            onPressIn={() => {
-              navigation.navigate("Search");
-            }}
-            onChangeText={(query) => {
-              setSearch(query);
-            }}
-            value={search}
-            style={{ width: "95%" }}
-          />
+        <View style={{ alignItems: "center", marginVertical: 15 }}>
+          {searchBar()}
         </View>
         <Divider />
         <ScrollView
@@ -257,3 +283,9 @@ export default function Welcome({ props }) {
       </View>
     );
 }
+
+const styles = StyleSheet.create({
+  blackFont: {
+    color: "black",
+  },
+});
