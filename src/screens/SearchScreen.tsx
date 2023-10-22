@@ -15,9 +15,9 @@ import {
 } from "react-native-paper";
 import { DatePickerInput } from "react-native-paper-dates";
 
-import { getGeocodeByPlaceId } from "../api/GeocodingAPI";
+import { getGeocodeByPlaceId } from "../api/GoogleMapsAPI";
+import { LocationSearch } from "../api/LocationSearchAPI";
 import { PropertyEnum } from "../graphql/API";
-import { LocationSearch } from "../services/LocationSearch";
 
 const SearchScreen = (props: any) => {
   const navigation = useNavigation();

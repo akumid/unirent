@@ -3,7 +3,7 @@ import { View, Text } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import { Searchbar, List } from "react-native-paper";
 
-import { LocationSearch } from "../services/LocationSearch";
+import { LocationSearch } from "../api/LocationSearchAPI";
 
 export default function Home({ navigation }) {
   const [search, setSearch] = useState("");

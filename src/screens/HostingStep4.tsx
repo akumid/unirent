@@ -11,7 +11,6 @@ import {
 } from "react-native-paper";
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
 
-import { publish } from "../api/AccommodationAPI";
 import { getGeocode } from "../api/GoogleMapsAPI";
 import alert from "../components/Alert";
 import { CarouselImages } from "../components/CarouselImages";

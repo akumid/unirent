@@ -152,10 +152,7 @@ const SearchResultScreen = (props: any) => {
       }),
     );
 
-    if (
-      userInfo.data.getUser.userSavedAccommodationId == null ||
-      userInfo.data.getUser.userSavedAccommodationId == undefined
-    ) {
+    if (!userInfo.data.getUser.userSavedAccommodationId) {
       const savedAccommId = await createNewSavedAccommodationId(
         authUser.attributes.sub,
       );
