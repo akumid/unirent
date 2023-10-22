@@ -147,7 +147,7 @@ export default function Welcome({ props }) {
   const searchBar = () => {
     return isWeb ? (
       <Pressable
-        style={{ width: "90%", marginBottom: 20 }}
+        style={{ width: "90%" }}
         onPress={() => {
           navigation.navigate("Search");
         }}
@@ -158,7 +158,7 @@ export default function Welcome({ props }) {
             setSearch(query);
           }}
           value={search}
-          style={{ width: "100%", marginBottom: 20 }}
+          style={{ width: "100%" }}
         />
       </Pressable>
     ) : (
@@ -171,7 +171,7 @@ export default function Welcome({ props }) {
           setSearch(query);
         }}
         value={search}
-        style={{ width: "90%", marginBottom: 20 }}
+        style={{ width: "90%" }}
       />
     );
   };
@@ -229,7 +229,9 @@ export default function Welcome({ props }) {
           paddingRight: insets.right,
         }}
       >
-        <View style={{ alignItems: "center" }}>{searchBar()}</View>
+        <View style={{ alignItems: "center", marginVertical: 15 }}>
+          {searchBar()}
+        </View>
         <Divider />
         <ScrollView
           style={{

@@ -173,10 +173,10 @@ const SearchResultScreen = (props: any) => {
   const searchBar = () => {
     return isWeb ? (
       <Pressable
+        style={{ width: "90%" }}
         onPress={() => {
           navigation.navigate("Search");
         }}
-        style={{ width: "90%", marginBottom: 20 }}
       >
         <Searchbar
           placeholder="Search Location"
@@ -184,7 +184,7 @@ const SearchResultScreen = (props: any) => {
             setSearch(query);
           }}
           value={search}
-          style={{ width: "100%", marginBottom: 20 }}
+          style={{ width: "100%" }}
         />
       </Pressable>
     ) : (
@@ -197,7 +197,7 @@ const SearchResultScreen = (props: any) => {
           setSearch(query);
         }}
         value={search}
-        style={{ width: "90%", marginBottom: 20 }}
+        style={{ width: "90%" }}
       />
     );
   };
@@ -221,10 +221,10 @@ const SearchResultScreen = (props: any) => {
           flex: 1,
           flexDirection: "column",
           justifyContent: "flex-start",
-          marginHorizontal: 20,
-          shadowRadius: 3,
-          shadowOpacity: 0.4,
-          shadowOffset: { width: 1, height: 1 },
+          // marginHorizontal: 20,
+          // shadowRadius: 3,
+          // shadowOpacity: 0.4,
+          // shadowOffset: { width: 1, height: 1 },
           // Paddings to handle safe area
           paddingTop: insets.top,
           paddingBottom: insets.bottom,
@@ -232,12 +232,17 @@ const SearchResultScreen = (props: any) => {
           paddingRight: insets.right,
         }}
       >
-        <View style={{ alignItems: "center" }}>
+        <View style={{ alignItems: "center", marginVertical: 15 }}>
           {searchBar()}
-          <Divider />
         </View>
-
-        <ScrollView>
+        <Divider />
+        <ScrollView
+          style={{
+            flex: 1,
+            flexDirection: "column",
+            paddingHorizontal: 15,
+          }}
+        >
           {accommodationList.map((accommodation, index) =>
             returnAccommodationCard(accommodation, index),
           )}
