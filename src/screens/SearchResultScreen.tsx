@@ -6,7 +6,12 @@ import {
 import { API, Auth, graphqlOperation, Storage } from "aws-amplify";
 import { useEffect, useState } from "react";
 import { View, ScrollView, Pressable } from "react-native";
-import { ActivityIndicator, Divider, Searchbar } from "react-native-paper";
+import {
+  ActivityIndicator,
+  Divider,
+  Searchbar,
+  Text,
+} from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import AccommodationCard from "../components/AccommodationCard";
@@ -221,10 +226,6 @@ const SearchResultScreen = (props: any) => {
           flex: 1,
           flexDirection: "column",
           justifyContent: "flex-start",
-          // marginHorizontal: 20,
-          // shadowRadius: 3,
-          // shadowOpacity: 0.4,
-          // shadowOffset: { width: 1, height: 1 },
           // Paddings to handle safe area
           paddingTop: insets.top,
           paddingBottom: insets.bottom,
@@ -243,12 +244,16 @@ const SearchResultScreen = (props: any) => {
             paddingHorizontal: 15,
           }}
         >
-          {accommodationList.map((accommodation, index) =>
-            returnAccommodationCard(accommodation, index),
-          )}
-          {/* <AccommodationCard />
-        <AccommodationCard />
-        <AccommodationCard /> */}
+          <View style={{ marginVertical: 10, flexDirection: "column" }}>
+            <Text variant="titleLarge">
+              Showing results for {"\n"}
+              {props.route.params?.searchCriteria?.query}
+            </Text>
+
+            {accommodationList.map((accommodation, index) =>
+              returnAccommodationCard(accommodation, index),
+            )}
+          </View>
         </ScrollView>
       </View>
     );
