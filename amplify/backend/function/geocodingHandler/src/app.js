@@ -29,9 +29,50 @@ const client = new Client({});
  * Example get method *
  **********************/
 
+// // req.query -> placename -> get autocomplete
+// app.get("/autocomplete", function (req, res) {
+//   // Add your code here
+//   // res.json({ success: "get call succeed!", url: req.url });
+
+//   const params = {
+//     params: {
+//       input: req.query.query,
+//       key: process.env.GOOGLE_MAPS_API_KEY,
+//     },
+//     timeout: 5000
+//   }
+//   client.placeAutocomplete(params).then(r => {
+//     res.json(r.data.predictions);
+//   }).catch(e => {
+//     res.json({
+//       error: e.response.data.error_message,
+//       url: req.url,
+//       body: req.body,
+//     });
+//   })
+// });
+
+// req.placeId -> placeId -> get geocode
 app.get("/geocoding", function (req, res) {
   // Add your code here
-  res.json({ success: "get call succeed!", url: req.url });
+  // res.json({ success: "get call succeed!", url: req.url });
+  console.log("get geocode by place id");
+  const params = {
+    params: {
+      place_id: req.query.placeId,
+      key: process.env.G_PLACES_API_KEY,
+    },
+    timeout: 5000
+  }
+  client.placeDetails(params).then(r => {
+    res.json(r.data.result);
+  }).catch(e => {
+    res.json({
+      error: e.response.data.error_message,
+      url: req.url,
+      body: req.body,
+    });
+  })
 });
 
 app.get("/geocoding/*", function (req, res) {
