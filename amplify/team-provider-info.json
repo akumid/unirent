@@ -36,8 +36,8 @@
       },
       "api": {
         "accommodationApi": {},
-        "unirent": {},
         "googleMapsApi": {},
+        "unirent": {},
         "locationSearchApi": {}
       },
       "storage": {

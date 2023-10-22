@@ -3,7 +3,7 @@ import { API, graphqlOperation } from "aws-amplify";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useEffect, useState } from "react";
-import { Pressable, View } from "react-native";
+import { Pressable, View, StyleSheet } from "react-native";
 import { Avatar, Divider, Text } from "react-native-paper";
 
 import { onUpdateChatRoom } from "../graphql/subscriptions";
@@ -66,3 +66,9 @@ export default function ChatRoom(props: any) {
     </Pressable>
   );
 }
+
+const styles = StyleSheet.create({
+  blackFont: {
+    color: "black",
+  },
+});

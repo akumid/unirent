@@ -3,7 +3,7 @@ import { API, Auth, graphqlOperation } from "aws-amplify";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useEffect, useState } from "react";
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import {
   Card,
   Button,
@@ -180,5 +180,11 @@ const AccommodationCard = (props: IAccommodation) => {
     </Card>
   );
 };
+
+const styles = StyleSheet.create({
+  blackFont: {
+    color: "black",
+  },
+});
 
 export default AccommodationCard;
