@@ -11,7 +11,7 @@
     "check:ts": "tsc",
     "fix:prettier": "prettier ./src --write",
     "test": "jest",
-    "test:ci": "jest --coverage --coverageReporters='json-summary' --coverageReporters='html'"
+    "test:ci": "jest --coverage --coverageReporters='json-summary' --coverageReporters='html' --forceExit"
   },
   "jest": {
     "preset": "jest-expo",
