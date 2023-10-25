@@ -4,7 +4,6 @@ const request = require("supertest");
 const app = require("./app");
 
 jest.mock("axios");
-let server; // Define a variable to hold the server instance
 
 describe("POST /recommendation", () => {
   it("should respond with recommended accommodations", async () => {
