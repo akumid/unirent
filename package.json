@@ -30,7 +30,7 @@
       "!**/jest.setup.js",
       "!**/.expo/**",
       "!**/tests/**",
-      "!**/amplify/**"
+      "/amplify/backend/function/**"
     ],
     "resolver": "./tests/common/resolver.js",
     "setupFiles": [
@@ -39,7 +39,7 @@
     "testPathIgnorePatterns": [
       "/node_modules/",
       "/.expo",
-      "/amplify/"
+      "/amplify/#current-cloud-backend/"
     ]
   },
   "dependencies": {
