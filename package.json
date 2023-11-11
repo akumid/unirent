@@ -52,7 +52,7 @@
     "@types/react": "~18.2.14",
     "amazon-cognito-identity-js": "^6.3.2",
     "aws-amplify": "^5.3.7",
-    "axios": "^1.4.0",
+    "axios": "^1.6.0",
     "expo": "~49.0.5",
     "expo-image-picker": "~14.3.2",
     "expo-location": "~16.1.0",
