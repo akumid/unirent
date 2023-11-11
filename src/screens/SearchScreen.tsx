@@ -252,7 +252,7 @@ const SearchScreen = (props: any) => {
                   <Divider />
                 </View>
                 <View>
-                  <Card.Title title="Move In Date" titleVariant="titleMedium" />
+                  <Card.Title title="Listing Date" titleVariant="titleMedium" />
                   <View
                     style={{
                       justifyContent: "center",
@@ -262,7 +262,7 @@ const SearchScreen = (props: any) => {
                   >
                     <DatePickerInput
                       locale="en-GB"
-                      label="Move In Date"
+                      label="Listing Date"
                       value={moveInDate}
                       onChange={(d) => handleMoveInDate(d)}
                       inputMode="start"
