@@ -18,6 +18,8 @@ import { onCreateMessage } from "../graphql/subscriptions";
 export default function ChatScreen({ navigation, route }) {
   const chatroomID = route.params.id;
   const name = route.params.name;
+  const title = route.params.title;
+  const price = route.params.price;
 
   const [loading, setLoading] = useState(true);
   const [messages, setMessages] = useState([]);
@@ -49,9 +51,6 @@ export default function ChatScreen({ navigation, route }) {
     });
 
     setLoading(false);
-
-    console.log("console.log({navigation, route});");
-    console.log({navigation, route});
 
     return () => {
       subscription.unsubscribe();
@@ -114,13 +113,13 @@ export default function ChatScreen({ navigation, route }) {
             /> */}
               <View>
                 <Text variant="labelLarge" style={{ marginLeft: 10 }}>
-                  props.title
+                  {title}
                 </Text>
                 <Text
                   variant="labelMedium"
                   style={{ marginLeft: 10, color: "gray" }}
                 >
-                  S$ props.price) / month
+                  S$ {price} / month
                 </Text>
                 <Button
                   mode="contained"

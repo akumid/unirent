@@ -8,15 +8,20 @@ import {
   TextInput,
 } from "react-native-paper";
 
-import { useHostStore } from "../store/host";
 import IUnitFeature from "../model/IUnitFeature";
-import { convertUnitFeatureToArray, getFeatureLabel, initialFeatureState } from "../utils/UnitFeatureUtil";
+import { useHostStore } from "../store/host";
+import {
+  convertUnitFeatureToArray,
+  getFeatureLabel,
+  initialFeatureState,
+} from "../utils/UnitFeatureUtil";
 
 export default function HostingStep3({ navigation }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(undefined);
-  const [unitFeature, setUnitFeature] = useState<IUnitFeature>(initialFeatureState);
+  const [unitFeature, setUnitFeature] =
+    useState<IUnitFeature>(initialFeatureState);
 
   const handlePriceChange = (text) => {
     const number = text.replace(/[^0-9]/g, "");
@@ -63,8 +68,13 @@ export default function HostingStep3({ navigation }) {
 
   return (
     <View style={styles.view}>
-      <ScrollView>
-        <Text variant="headlineMedium">Add a title for your place</Text>
+      <ScrollView style={styles.scroll}>
+        <Text
+          variant="headlineMedium"
+          style={{ marginBottom: 10, marginTop: 20 }}
+        >
+          Add a title for your place
+        </Text>
         <TextInput
           label="Title"
           placeholder="Enter Title"
@@ -72,7 +82,12 @@ export default function HostingStep3({ navigation }) {
           value={title}
         />
 
-        <Text variant="headlineMedium">Add a description</Text>
+        <Text
+          variant="headlineMedium"
+          style={{ marginBottom: 10, marginTop: 20 }}
+        >
+          Add a description
+        </Text>
         <TextInput
           label="Description"
           placeholder="Enter Description"
@@ -83,7 +98,12 @@ export default function HostingStep3({ navigation }) {
           value={description}
         />
 
-        <Text variant="headlineMedium">Set price</Text>
+        <Text
+          variant="headlineMedium"
+          style={{ marginBottom: 10, marginTop: 20 }}
+        >
+          Set price
+        </Text>
         <TextInput
           label="Price"
           placeholder="Enter Price"
@@ -93,10 +113,14 @@ export default function HostingStep3({ navigation }) {
           value={price}
         />
 
-        <Text variant="headlineMedium">Unit Feature</Text>
+        <Text
+          variant="headlineMedium"
+          style={{ marginBottom: 10, marginTop: 20 }}
+        >
+          Unit Feature
+        </Text>
         <Text variant="labelLarge">
-          {" "}
-          Select the unit features provided by your accommodation{" "}
+          Select the unit features provided by your accommodation
         </Text>
         <Card>
           <CheckboxGroup
@@ -122,10 +146,10 @@ export default function HostingStep3({ navigation }) {
 const styles = StyleSheet.create({
   view: {
     flex: 1,
-    marginHorizontal: 20,
   },
   scroll: {
     flex: 1,
+    paddingHorizontal: 20,
   },
   checkboxRowGroup: {
     flex: 1,

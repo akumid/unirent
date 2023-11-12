@@ -11,6 +11,7 @@ export default function ChatStack() {
       initialRouteName="InboxScreen"
       screenOptions={{
         headerShown: false,
+        cardStyle: { backgroundColor: "#000000" },
       }}
     >
       <Stack.Screen name="InboxScreen" component={InboxScreen} />

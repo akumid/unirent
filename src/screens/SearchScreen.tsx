@@ -1,3 +1,5 @@
+import Feather from "@expo/vector-icons/Feather";
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { View, ScrollView } from "react-native";
 import {
@@ -11,11 +13,10 @@ import {
   TextInput,
   Button,
 } from "react-native-paper";
-import Feather from "@expo/vector-icons/Feather";
-import { useNavigation } from "@react-navigation/native";
 import { DatePickerInput } from "react-native-paper-dates";
+
+import { getGeocodeByPlaceId } from "../api/GoogleMapsAPI";
 import { LocationSearch } from "../api/LocationSearchAPI";
-import { getGeocodeByPlaceId } from "../api/GeocodingAPI";
 import { PropertyEnum } from "../graphql/API";
 
 const SearchScreen = (props: any) => {
@@ -75,7 +76,7 @@ const SearchScreen = (props: any) => {
     return `${year}-${formattedMonth}-${formattedDay}`;
   };
 
-  const getPrefferedLocations = async (search: String) => {
+  const getPrefferedLocations = async (search: string) => {
     const locations = await LocationSearch(search);
     setSearchResult(locations);
     console.log(locations);
@@ -94,7 +95,7 @@ const SearchScreen = (props: any) => {
     setLatitude(geo.lat);
     setLongitude(geo.lng);
     console.log(geo);
-  }
+  };
 
   const prefferLocation = () => {
     const results = searchResult;
@@ -140,7 +141,7 @@ const SearchScreen = (props: any) => {
                   pickedLocation(result.structured_formatting.main_text);
                   setGeo(result.place_id);
                 }}
-              ></List.Item>
+              />
               <Divider style={{ width: "100%" }} />
             </>
           ))}
@@ -160,15 +161,16 @@ const SearchScreen = (props: any) => {
         }
         return result;
       },
-      {}
+      {},
     );
     // Prepare the search criteria as an object
     const searchCriteria = {
       ...selectedPropertyTypes,
-      minLat: latitude - 15,
-      maxLat: latitude + 15,
-      minLong: longitude - 15,
-      maxLong: longitude + 15
+      minLat: latitude - 0.03,
+      maxLat: latitude + 0.03,
+      minLong: longitude - 0.03,
+      maxLong: longitude + 0.03,
+      query,
     };
 
     // Add available date criteria if available
@@ -181,8 +183,8 @@ const SearchScreen = (props: any) => {
       searchCriteria.minPrice = parseFloat(minPrice);
       searchCriteria.maxPrice = parseFloat(maxPrice);
     }
-      navigation.navigate("Search Result", { searchCriteria }) // pass in search criteria as props
-  }
+    navigation.navigate("Search Result", { searchCriteria }); // pass in search criteria as props
+  };
 
   const searchLocation = () => {
     if (search !== "") {
@@ -195,7 +197,7 @@ const SearchScreen = (props: any) => {
                   width: "100%",
                   justifyContent: "center",
                 }}
-                automaticallyAdjustKeyboardInsets={true}
+                automaticallyAdjustKeyboardInsets
               >
                 <View>
                   <Card.Title
@@ -205,21 +207,25 @@ const SearchScreen = (props: any) => {
                   <Card.Content style={{ justifyContent: "flex-start" }}>
                     <Checkbox.Item
                       label="Condo"
-                      status={accommodationTypes.CONDO ? "checked" : "unchecked"}
+                      status={
+                        accommodationTypes.CONDO ? "checked" : "unchecked"
+                      }
                       labelVariant="labelMedium"
-                      onPress={() => handleSetAccommodationTypes('CONDO')}
+                      onPress={() => handleSetAccommodationTypes("CONDO")}
                     />
                     <Checkbox.Item
                       label="Landed"
-                      status={accommodationTypes.LANDED ? "checked" : "unchecked"}
+                      status={
+                        accommodationTypes.LANDED ? "checked" : "unchecked"
+                      }
                       labelVariant="labelMedium"
-                      onPress={() => handleSetAccommodationTypes('LANDED')}
+                      onPress={() => handleSetAccommodationTypes("LANDED")}
                     />
                     <Checkbox.Item
                       label="HDB"
                       status={accommodationTypes.HDB ? "checked" : "unchecked"}
                       labelVariant="labelMedium"
-                      onPress={() => handleSetAccommodationTypes('HDB')}
+                      onPress={() => handleSetAccommodationTypes("HDB")}
                     />
                   </Card.Content>
                   <Divider />
@@ -275,10 +281,7 @@ const SearchScreen = (props: any) => {
           <View
             style={{ flexDirection: "row-reverse", marginHorizontal: "5%" }}
           >
-            <Button
-              mode="contained"
-              onPress={() => navigateAndSearchAccomm()}
-            >
+            <Button mode="contained" onPress={() => navigateAndSearchAccomm()}>
               Search
             </Button>
           </View>
@@ -321,9 +324,6 @@ const SearchScreen = (props: any) => {
         </View>
         {searchLocation()}
         {prefferLocation()}
-        {/* <Text>Component</Text>
-                    <Text>Component</Text>
-                    <Text>Component</Text> */}
       </Card>
     </>
   );

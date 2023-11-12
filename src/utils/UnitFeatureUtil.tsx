@@ -14,13 +14,13 @@ export const initialFeatureState: IUnitFeature = {
 // Define a mapping of feature names to keys
 const featureNameToKeyMap: { [key: string]: keyof IUnitFeature } = {
   "Air-Conditioning": "airConditioning",
-  "WIFI": "wifi",
+  WIFI: "wifi",
   "Cooker Hood": "cookerHood",
-  "Fridge": "fridge",
+  Fridge: "fridge",
   "Washing Machine": "washingMachine",
-  "Dryer": "dryer",
+  Dryer: "dryer",
   "Near Public Transport": "nearPublicTransport",
-  "Balcony": "balcony",
+  Balcony: "balcony",
 };
 
 // Define a mapping of keys to feature names
@@ -43,10 +43,10 @@ export const getFeatureLabel = (key: string) => {
 export const convertUnitFeatureToArray = (unitFeature: IUnitFeature) => {
   return Object.keys(unitFeature)
     .filter((key) => {
-      return unitFeature[key as keyof IUnitFeature]
+      return unitFeature[key as keyof IUnitFeature];
     })
     .map((key) => {
-      return keyToFeatureNameMap[key as keyof IUnitFeature]
+      return keyToFeatureNameMap[key as keyof IUnitFeature];
     });
 };
 

@@ -1,9 +1,7 @@
+import { useIsFocused } from "@react-navigation/native";
 import { API, Auth, graphqlOperation, Storage } from "aws-amplify";
 import React, { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { getUser } from "../graphql/queries";
-import { getSavedAccommodationsById } from "../services/SavedAccommodationService";
 import {
   Searchbar,
   Divider,
@@ -11,9 +9,12 @@ import {
   Text,
   ActivityIndicator,
 } from "react-native-paper";
-import IAccommodation from "../model/IAccommodation";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+
 import AccommodationCard from "../components/AccommodationCard";
-import { useIsFocused } from "@react-navigation/native";
+import { getUser } from "../graphql/queries";
+import IAccommodation from "../model/IAccommodation";
+import { getSavedAccommodationsById } from "../services/SavedAccommodationService";
 
 const SavedScreen = (props: any) => {
   const insets = useSafeAreaInsets();
@@ -114,15 +115,13 @@ const SavedScreen = (props: any) => {
           paddingBottom: insets.bottom,
           paddingLeft: insets.left,
           paddingRight: insets.right,
+          backgroundColor: "#000000",
         }}
       >
-        <Text
-          variant="headlineLarge"
-          style={{ marginLeft: 20, marginBottom: 10 }}
-        >
-          Saved
-        </Text>
-        <Divider />
+        <View style={{ marginTop: 25, marginBottom: 10, marginHorizontal: 20 }}>
+          <Text variant="displaySmall"> Saved </Text>
+        </View>
+
         <ScrollView
           style={{
             flex: 1,

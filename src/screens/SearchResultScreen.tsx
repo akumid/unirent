@@ -1,18 +1,27 @@
+import {
+  useFocusEffect,
+  useIsFocused,
+  useNavigation,
+} from "@react-navigation/native";
+import { API, Auth, graphqlOperation, Storage } from "aws-amplify";
 import { useEffect, useState } from "react";
 import { View, ScrollView, Pressable } from "react-native";
-import { ActivityIndicator, Divider, Searchbar } from "react-native-paper";
+import {
+  ActivityIndicator,
+  Divider,
+  Searchbar,
+  Text,
+} from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import AccommodationCard from "../components/AccommodationCard";
+import { PropertyEnum } from "../graphql/API";
+import { createSavedAccommodation, updateUser } from "../graphql/mutations";
+import { getUser } from "../graphql/queries";
 import EPropertyType from "../model/EPropertyType";
 import IAccommodation from "../model/IAccommodation";
-import { useFocusEffect, useIsFocused, useNavigation } from "@react-navigation/native";
-import { API, Auth, graphqlOperation, Storage } from "aws-amplify";
 import { fetchSearchAccommodation } from "../services/AccommodationService";
-import { getUser } from "../graphql/queries";
-import { PropertyEnum } from "../graphql/API";
 import { getSavedAccommodationsById } from "../services/SavedAccommodationService";
-import { createSavedAccommodation, updateUser } from "../graphql/mutations";
 import { isWeb } from "../utils";
 
 const SearchResultScreen = (props: any) => {
@@ -21,14 +30,13 @@ const SearchResultScreen = (props: any) => {
   const [isLoading, setIsLoading] = useState(true);
   const [saved, setSaved] = useState<any[]>();
   // const [savedAccommodationIds, setSavedAccommodationIds] = useState([]);
-  const [savedAccommodationId, setSavedAccommodationId] = useState('');
+  const [savedAccommodationId, setSavedAccommodationId] = useState("");
   const [accommodationList, setAccommodationList] =
     useState<IAccommodation[]>();
-  
+
   const isFocused = useIsFocused();
 
   const navigation = useNavigation();
-
 
   // const images = [
   //   "https://media.karousell.com/media/photos/products/2019/07/02/master_room_for_rent_at_clementi_1562052953_90c3c04e0_progressive",
@@ -65,7 +73,6 @@ const SearchResultScreen = (props: any) => {
   // ];
 
   async function fetch(searchCriteria) {
-    
     // const resp = await getAll();
     console.log(searchCriteria);
     console.log("hit graphql now");
@@ -123,62 +130,67 @@ const SearchResultScreen = (props: any) => {
     // createSavedAccommodation
     const userSavedAccommodaiton = await API.graphql(
       graphqlOperation(createSavedAccommodation, {
-        input: {savedAccommodationUserId: userId}
+        input: { savedAccommodationUserId: userId },
       }),
     );
 
     const updateUserInfo = await API.graphql(
       graphqlOperation(updateUser, {
-        input: {id: userId, userSavedAccommodationId: userSavedAccommodaiton.data.createSavedAccommodation.id}
+        input: {
+          id: userId,
+          userSavedAccommodationId:
+            userSavedAccommodaiton.data.createSavedAccommodation.id,
+        },
       }),
     );
 
     return updateUserInfo.data.updateUser.userSavedAccommodationId;
-
   }
 
   async function getSavedAccommodations() {
     const authUser = await Auth.currentAuthenticatedUser();
     const userId = authUser.attributes.sub;
-    let userSavedAccoimmodationId = '';
+    let userSavedAccoimmodationId = "";
     const userInfo = await API.graphql(
       graphqlOperation(getUser, {
-        id: userId
+        id: userId,
       }),
-  );
-    
+    );
 
-    if (userInfo.data.getUser.userSavedAccommodationId == null || userInfo.data.getUser.userSavedAccommodationId == undefined ) {
-      const savedAccommId = await createNewSavedAccommodationId(authUser.attributes.sub);
+    if (!userInfo.data.getUser.userSavedAccommodationId) {
+      const savedAccommId = await createNewSavedAccommodationId(
+        authUser.attributes.sub,
+      );
       setSavedAccommodationId(savedAccommId);
       userSavedAccoimmodationId = savedAccommId;
     } else {
-      userSavedAccoimmodationId = userInfo.data.getUser.userSavedAccommodationId;
+      userSavedAccoimmodationId =
+        userInfo.data.getUser.userSavedAccommodationId;
       setSavedAccommodationId(userInfo.data.getUser.userSavedAccommodationId);
     }
 
-    
-
-    const savedAccommodationList = await getSavedAccommodationsById(userSavedAccoimmodationId);
+    const savedAccommodationList = await getSavedAccommodationsById(
+      userSavedAccoimmodationId,
+    );
     setSaved(savedAccommodationList);
   }
 
   const searchBar = () => {
     return isWeb ? (
-      <Pressable        
+      <Pressable
+        style={{ width: "90%" }}
         onPress={() => {
           navigation.navigate("Search");
         }}
-        style={{ width: "90%", marginBottom: 20 }}
       >
-      <Searchbar
-        placeholder="Search Location"
-        onChangeText={(query) => {
-          setSearch(query);
-        }}
-        value={search}
-        style={{ width: "100%", marginBottom: 20 }}
-      />
+        <Searchbar
+          placeholder="Search Location"
+          onChangeText={(query) => {
+            setSearch(query);
+          }}
+          value={search}
+          style={{ width: "100%" }}
+        />
       </Pressable>
     ) : (
       <Searchbar
@@ -190,13 +202,13 @@ const SearchResultScreen = (props: any) => {
           setSearch(query);
         }}
         value={search}
-        style={{ width: "90%", marginBottom: 20 }}
+        style={{ width: "90%" }}
       />
-    )
-  }
+    );
+  };
 
   useEffect(() => {
-    if (isFocused) { 
+    if (isFocused) {
       console.log("SEARCH RESULT PROPS");
       console.log(props);
       const { searchCriteria } = props.route.params;
@@ -204,43 +216,47 @@ const SearchResultScreen = (props: any) => {
       getSavedAccommodations();
       fetch(searchCriteria);
     }
-
-  }, [props, isFocused])
+  }, [props, isFocused]);
 
   if (isLoading) return <ActivityIndicator animating />;
   else
-  return (
-    <View
-      style={{
-        flex: 1,
-        flexDirection: "column",
-        justifyContent: "flex-start",
-        marginHorizontal: 20,
-        shadowRadius: 3,
-        shadowOpacity: 0.4,
-        shadowOffset: { width: 1, height: 1 },
-        // Paddings to handle safe area
-        paddingTop: insets.top,
-        paddingBottom: insets.bottom,
-        paddingLeft: insets.left,
-        paddingRight: insets.right,
-      }}
-    >
-      <View style={{ alignItems: "center" }}>
-        {searchBar()}
+    return (
+      <View
+        style={{
+          flex: 1,
+          flexDirection: "column",
+          justifyContent: "flex-start",
+          // Paddings to handle safe area
+          paddingTop: insets.top,
+          paddingBottom: insets.bottom,
+          paddingLeft: insets.left,
+          paddingRight: insets.right,
+        }}
+      >
+        <View style={{ alignItems: "center", marginVertical: 15 }}>
+          {searchBar()}
+        </View>
         <Divider />
-      </View>
+        <ScrollView
+          style={{
+            flex: 1,
+            flexDirection: "column",
+            paddingHorizontal: 15,
+          }}
+        >
+          <View style={{ marginVertical: 10, flexDirection: "column" }}>
+            <Text variant="titleLarge">
+              Showing results for {"\n"}
+              {props.route.params?.searchCriteria?.query}
+            </Text>
 
-      <ScrollView>
-        {accommodationList.map((accommodation, index) =>
+            {accommodationList.map((accommodation, index) =>
               returnAccommodationCard(accommodation, index),
-        )}
-        {/* <AccommodationCard />
-        <AccommodationCard />
-        <AccommodationCard /> */}
-      </ScrollView>
-    </View>
-  );
+            )}
+          </View>
+        </ScrollView>
+      </View>
+    );
 };
 
 export default SearchResultScreen;

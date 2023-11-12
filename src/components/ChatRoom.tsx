@@ -42,22 +42,24 @@ export default function ChatRoom(props: any) {
         navigation.navigate("Chat", {
           id: props.chatRoom.id,
           name: props.chatRoom.Users.items[0].user.name,
+          title: chatRoom.Accommodation.title,
+          price: chatRoom.Accommodation.price,
         })
       }
     >
       <View style={{ flex: 1, flexDirection: "row", marginVertical: 20 }}>
-        <Avatar.Text size={50} label="User1" />
+        <Avatar.Text size={50} label="U" />
         <View style={{ flexDirection: "column", marginHorizontal: 15 }}>
-          <Text variant="labelMedium" style={styles.blackFont}>
+          <Text variant="labelMedium" style={{ color: "gray" }}>
             {props.chatRoom.Users.items[0].user.name}
           </Text>
-          <Text variant="titleMedium" style={styles.blackFont}> Clementi Avenue 441B </Text>
-          <Text variant="labelMedium" style={styles.blackFont}>
+          <Text variant="titleMedium"> {chatRoom.Accommodation.title} </Text>
+          <Text variant="labelMedium" style={{ color: "gray" }}>
             {chatRoom.LastMessage?.text}
           </Text>
         </View>
         <View style={{ flex: 1, flexDirection: "row-reverse" }}>
-          <Text variant="labelMedium" style={styles.blackFont}>
+          <Text variant="labelMedium" style={{ color: "gray" }}>
             {dayjs(chatRoom.LastMessage?.createdAt).fromNow(true)} ago
           </Text>
         </View>
@@ -67,9 +69,8 @@ export default function ChatRoom(props: any) {
   );
 }
 
-
 const styles = StyleSheet.create({
   blackFont: {
-    color: 'black'
-  }
+    color: "black",
+  },
 });

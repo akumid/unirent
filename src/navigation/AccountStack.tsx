@@ -3,20 +3,24 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import Account from "../screens/Account";
 import AccountInfo from "../screens/AccountInfo";
+import EditAccommodationScreen from "../screens/EditAccommodationScreen";
 import Hosting from "../screens/Hosting";
 import HostingStep1 from "../screens/HostingStep1";
 import HostingStep2 from "../screens/HostingStep2";
 import HostingStep3 from "../screens/HostingStep3";
 import HostingStep4 from "../screens/HostingStep4";
-import ListingScreen from "../screens/ListingScreen";
 import ListingDetailScreen from "../screens/ListingDetailScreen";
-import EditAccommodationScreen from "../screens/EditAccommodationScreen";
+import ListingScreen from "../screens/ListingScreen";
 
 const Stack = createStackNavigator();
 
 export default function AccountStack({ navigation, route }) {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        cardStyle: { backgroundColor: "#000000" },
+      }}
+    >
       <Stack.Screen
         name="AccountScreen"
         component={Account}
