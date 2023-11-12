@@ -240,7 +240,6 @@ export default function Welcome({ props }) {
             paddingHorizontal: 15,
           }}
         >
-
           <View style={{ marginVertical: 10, flexDirection: "column" }}>
             <Text variant="titleLarge"> Today's Recommendations </Text>
 
