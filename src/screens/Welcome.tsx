@@ -240,29 +240,6 @@ export default function Welcome({ props }) {
             paddingHorizontal: 15,
           }}
         >
-          <View>
-            <Card style={{ marginVertical: 20 }}>
-              <Card.Content style={{ marginVertical: 10 }}>
-                <Text variant="titleMedium">
-                  You currently renting Unit Clementi 441B
-                </Text>
-                <Text variant="bodyMedium">$1000/ month</Text>
-              </Card.Content>
-              <Card.Content>
-                <Card>
-                  <Card.Content style={{ flexDirection: "row" }}>
-                    <Text variant="bodyMedium" style={{ flex: 1 }}>
-                      1 July 2023
-                    </Text>
-                    <Text variant="bodyMedium" style={{ flex: 1 }}>
-                      Upcoming Payment
-                    </Text>
-                  </Card.Content>
-                </Card>
-              </Card.Content>
-            </Card>
-          </View>
-
           <View style={{ marginVertical: 10, flexDirection: "column" }}>
             <Text variant="titleLarge"> Today's Recommendations </Text>
 
